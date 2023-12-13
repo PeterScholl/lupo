@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editable Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 20px;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: center;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<table id="editableTable">
+  <thead>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <th>Column 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td onclick="changeValue(this)">M</td>
+      <td onclick="changeValue(this)">S</td>
+      <td onclick="changeValue(this)">LK</td>
+    </tr>
+    <tr>
+      <td onclick="changeValue(this)">M</td>
+      <td onclick="changeValue(this)">S</td>
+      <td onclick="changeValue(this)">LK</td>
+    </tr>
+    <!-- Add more rows as needed -->
+  </tbody>
+</table>
+
+<script>
+  function changeValue(cell) {
+    const values = ["M", "S", "LK"];
+    const currentValue = cell.textContent;
+    const currentIndex = values.indexOf(currentValue);
+    const nextIndex = (currentIndex + 1) % values.length;
+    cell.textContent = values[nextIndex];
+  }
+</script>
+
+</body>
+</html>
+
