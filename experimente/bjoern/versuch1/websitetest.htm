@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>LupoWebProto</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 70%;
+    }
+    th, td {
+      border: 2px solid black;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    td:hover {
+      cursor: pointer;
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+ <img src="Bilder/aeglogo.png" alt="AEG Logo" width="188" height="94"> 
+
+<h3>Lupo Web Programm </h3>
+
+<form action="select.html">
+  <label>Sprache in der Sek 1:
+    <select name="top4" size="1">
+      <option>Spanisch</option>
+      <option>Latein</option>
+      <option>Französisch</option>
+      <option>Englisch Bilingual</option>
+    </select>
+  </label>
+</form>
+
+ <br>
+ 
+ 
+<table id="meineTabelle">
+	 <colgroup>
+    <col span="3" style="background-color: #D6EEEE">
+	<col span="4" style="background-color: #D6FFFF">
+  </colgroup>
+
+ <tr>
+    <th>Fach</th>
+    <th>EF 1.1</th>
+    <th>EF 1.2</th>
+    <th>Q1 1.1</th>
+    <th>Q1 1.2</th>
+    <th>Q2 1.1</th>
+    <th>Q2 1.2</th>
+  </tr>
+  <tr>
+    <td bgcolor="red">Fach 1</td>
+    <td id="o1s1" onclick="increaseValue('o1s1')">M</td>
+    <td id="o1s2" onclick="increaseValue('o1s2')">M</td>
+    <td id="o1s3" onclick="increaseValue('o1s3')">M</td>
+    <td id="o1s4" onclick="increaseValue('o1s4')">M</td>
+    <td id="o1s5" onclick="increaseValue('o1s5')">M</td>
+    <td id="o1s6" onclick="increaseValue('o1s6')">M</td>
+  </tr>
+  <tr>
+    <td bgcolor="purple">Fach 2</td>
+    <td id="o2s1" onclick="increaseValue('o2s1')">M</td>
+    <td id="o2s2" onclick="increaseValue('o2s2')">M</td>
+    <td id="o2s3" onclick="increaseValue('o2s3')">M</td>
+    <td id="o2s4" onclick="increaseValue('o2s4')">M</td>
+    <td id="o2s5" onclick="increaseValue('o2s5')">M</td>
+    <td id="o2s6" onclick="increaseValue('o2s6')">M</td>
+  </tr>
+  <tr>
+    <td bgcolor="yellow">Fach 3</td>
+    <td id="o3s1" onclick="increaseValue('o3s1')">M</td>
+    <td id="o3s2" onclick="increaseValue('o3s2')">M</td>
+    <td id="o3s3" onclick="increaseValue('o3s3')">M</td>
+    <td id="o3s4" onclick="increaseValue('o3s4')">M</td>
+    <td id="o3s5" onclick="increaseValue('o3s5')">M</td>
+    <td id="o3s6" onclick="increaseValue('o3s6')">M</td>
+  </tr>
+  <tr>
+    <td bgcolor="green">Fach 4</td>
+    <td id="o4s1" onclick="increaseValue('o4s1')">M</td>
+    <td id="o4s2" onclick="increaseValue('o4s2')">M</td>
+    <td id="o4s3" onclick="increaseValue('o4s3')">M</td>
+    <td id="o4s4" onclick="increaseValue('o4s4')">M</td>
+    <td id="o4s5" onclick="increaseValue('o4s5')">M</td>
+    <td id="o4s6" onclick="increaseValue('o4s6')">M</td>
+  </tr>
+  <tr>
+    <td bgcolor="blue">Fach 5</td>
+    <td id="o5s1" onclick="increaseValue('o5s1')">M</td>
+    <td id="o5s2" onclick="increaseValue('o5s2')">M</td>
+    <td id="o5s3" onclick="increaseValue('o5s3')">M</td>
+    <td id="o5s4" onclick="increaseValue('o5s4')">M</td>
+    <td id="o5s5" onclick="increaseValue('o5s5')">M</td>
+    <td id="o5s6" onclick="increaseValue('o5s6')">M</td>
+  </tr>
+  <!-- Weitere Zeilen können hinzugefügt werden -->
+</table>
+
+<script>
+  // Hier fügen wir die Funktion hinzu, um den Wert in Spalte 1 und 2 zu ändern
+  function changeValue(cellId) {
+    var cell = document.getElementById(cellId);
+    var currentValue = cell.textContent;
+
+    // Logik zum Ersetzen der Werte in Spalte 1 und 2
+    switch (currentValue) {
+      case 'M':
+        cell.textContent = 'S';
+        break;
+      case 'S':
+        cell.textContent = 'LK';
+        break;
+      case 'LK':
+        cell.textContent = 'M';
+        break;
+      default:
+        break;
+    }
+  }
+
+  // Hier fügen wir die Funktion hinzu, um den Wert in Spalte 3-6 zu erhöhen
+  function increaseValue(cellId) {
+    var cell = document.getElementById(cellId);
+    var currentValue = cell.textContent;
+
+    // Logik zum Ersetzen der Werte in Spalte 3-6
+    switch (currentValue) {
+      case 'M':
+        cell.textContent = 'S';
+        break;
+      case 'S':
+        cell.textContent = 'LK';
+        // Wenn LK ausgewählt wird, setze Spalte 4 bis 6 ebenfalls auf LK
+        var row = cell.parentNode;
+        var columns = row.getElementsByTagName('td');
+        for (var i = 3; i < 6; i++) {
+          columns[i + 1].textContent = 'LK';
+        }
+        break;
+      case 'LK':
+        cell.textContent = 'M';
+        // Wenn von LK zu M gewechselt wird, setze Spalte 4 bis 6 auf M
+        var row = cell.parentNode;
+        var columns = row.getElementsByTagName('td');
+        for (var i = 3; i < 6; i++) {
+          columns[i + 1].textContent = 'M';
+        }
+        break;
+      default:
+        break;
+    }
+  }
+</script>
+
+</body>
+</html>
