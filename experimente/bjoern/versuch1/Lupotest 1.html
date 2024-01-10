@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Lupo Web</title>
+  <style>
+    .table-container {
+            display: flex;
+        }
+    table {
+      border-collapse: collapse;
+      margin-right: 30px;
+      width: 70%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    td:hover {
+      cursor: pointer;
+      background-color: #f0f0f0;
+    }
+    .header-container {
+      display: felx;
+      align-items: center;
+    }
+    img {
+            max-width: 190px; /* Maximale Breite des Bildes */
+            height: 94px; /* Automatische Höhe entsprechend der Breite */
+            margin-right: 20px; /* Abstand zwischen Bild und Überschrift */
+        }
+  </style>
+</head>
+<body>
+
+<div class="header-container"> 
+
+<img src="aeglogo.png" alt="Logo"> 
+
+<h1 style="text-align: center; background-color: LightGrey;">Oberstufenwahl Abijahrgang 20xx</h1>
+
+</div>
+
+<form>
+  <input type="text" id="eingabe" name="eingabe" placeholder="Vorname">
+  <input type="text" id="eingabe" name="eingabe" placeholder="Nachname">
+</form>
+	
+<form action="select.html">
+  <label>Sprachen Sek1:
+    <select name="top4" size="1">
+      <option>Französisch</option>
+      <option>Spanisch</option>
+      <option>Latein</option>
+      <option>Englisch Billingual</option>
+    </select>
+  </label>
+</form>
+
+<br>
+
+<div class="table-container">
+
+<table id="Fächerwahl" style="width:50%">
+  <tr>
+    <th style="width:15%">Objekt</th>
+    <th style="width:14%">EF.1</th>
+    <th style="width:14%">EF.2</th>
+    <th style="width:14%">Q1.1</th>
+    <th style="width:14%">Q1.2</th>
+    <th style="width:14%">Q2.1</th>
+    <th style="width:14%">Q2.2</th>
+  </tr>
+  <tr>
+    <td style="background-color:#DF0101;">Deutsch (D)</td>
+    <td id="o1s1" onclick="changeValue('o1s1')" style="background-color:#DF0101;">S</td>
+    <td id="o1s2" onclick="changeValue('o1s2')" style="background-color:#DF0101;">S</td>
+    <td id="o1s3" onclick="increaseValue('o1s3')" style="background-color:#DF0101;">S</td>
+    <td id="o1s4" style="background-color:#DF0101;">S</td>
+    <td id="o1s5" style="background-color:#DF0101;">S</td>
+    <td id="o1s6" style="background-color:#DF0101;">M</td>
+  </tr>
+  <tr>
+    <td style="background-color: #ff0000;">Französisch (F)</td>
+    <td id="o2s1" onclick="changeValue('o2s1')" style="background-color:#ff0000;"></td>
+    <td id="o2s2" onclick="changeValue('o2s2')" style="background-color:#ff0000;"></td>
+    <td id="o2s3" onclick="increaseValue('o2s3')" style="background-color:#ff0000;"></td>
+    <td id="o2s4" style="background-color:#ff0000;"></td>
+    <td id="o2s5" style="background-color:#ff0000;"></td>
+    <td id="o2s6" style="background-color:#ff0000;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#ff0000;">Spanisch (S)</td>
+    <td id="o3s1" onclick="changeValue('o3s1')" style="background-color:#ff0000;"></td>
+    <td id="o3s2" onclick="changeValue('o3s2')" style="background-color:#ff0000;"></td>
+    <td id="o3s3" onclick="increaseValue('o3s3')" style="background-color:#ff0000;"></td>
+    <td id="o3s4" style="background-color:#ff0000;"></td>
+    <td id="o3s5" style="background-color:#ff0000;"></td>
+    <td id="o3s6" style="background-color:#ff0000;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#ff0000;">Spanisch ab EF (S0)</td>
+    <td id="o4s1" onclick="changeValue('o4s1')" style="background-color:#ff0000;"></td>
+    <td id="o4s2" onclick="changeValue('o4s2')" style="background-color:#ff0000;"></td>
+    <td id="o4s3" onclick="increaseValue('o4s3')" style="background-color:#ff0000;"></td>
+    <td id="o4s4" style="background-color:#ff0000;"></td>
+    <td id="o4s5" style="background-color:#ff0000;"></td>
+    <td id="o4s6" style="background-color:#ff0000;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#ff0000;">Englisch (E)</td>
+    <td id="o5s1" onclick="changeValue('o5s1')" style="background-color:#ff0000;">S</td>
+    <td id="o5s2" onclick="changeValue('o5s2')" style="background-color:#ff0000;">S</td>
+    <td id="o5s3" onclick="increaseValue('o5s3')" style="background-color:#ff0000;">S</td>
+    <td id="o5s4" style="background-color:#ff0000;">S</td>
+    <td id="o5s5" style="background-color:#ff0000;">S</td>
+    <td id="o5s6" style="background-color:#ff0000;">M</td>
+  </tr>
+  <tr>
+    <td style="background-color:#ff0000;">Latein (L)</td>
+    <td id="o6s1" onclick="changeValue('o6s1')" style="background-color:#ff0000;"></td>
+    <td id="o6s2" onclick="changeValue('o6s2')" style="background-color:#ff0000;"></td>
+    <td id="o6s3" onclick="increaseValue('o6s3')" style="background-color:#ff0000;"></td>
+    <td id="o6s4" style="background-color:#ff0000;"></td>
+    <td id="o6s5" style="background-color:#ff0000;"></td>
+    <td id="o6s6" style="background-color:#ff0000;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#FA5858;">Kunsterziehung (KU)</td>
+    <td id="o7s1" onclick="changeValue('o7s1')" style="background-color:#FA5858;"></td>
+    <td id="o7s2" onclick="changeValue('o7s2')" style="background-color:#FA5858;"></td>
+    <td id="o7s3" onclick="increaseValue('o7s3')" style="background-color:#FA5858;"></td>
+    <td id="o7s4" style="background-color:#FA5858;"></td>
+    <td id="o7s5" style="background-color:#FA5858;"></td>
+    <td id="o7s6" style="background-color:#FA5858;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#FA5858;">Musik (MU)</td>
+    <td id="o8s1" onclick="changeValue('o8s1')" style="background-color:#FA5858;"></td>
+    <td id="o8s2" onclick="changeValue('o8s2')" style="background-color:#FA5858;"></td>
+    <td id="o8s3" onclick="increaseValue('o8s3')" style="background-color:#FA5858;"></td>
+    <td id="o8s4" style="background-color:#FA5858;"></td>
+    <td id="o8s5" style="background-color:#FA5858;"></td>
+    <td id="o8s6" style="background-color:#FA5858;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#F78181;">Literatur (LI)</td>
+    <td id="o9s1" style="background-color:grey;"></td>
+    <td id="o9s2" style="background-color:grey;"></td>
+    <td id="o9s3" onclick="increaseValue('o9s3')" style="background-color:#F78181;"></td>
+    <td id="o9s4" style="background-color:#F78181;"></td>
+    <td id="o9s5" style="background-color:grey;"></td>
+    <td id="o9s6" style="background-color:grey;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#58FA58;">Erdkunde (EK)</td>
+    <td id="o10s1" onclick="changeValue('o10s1')" style="background-color:#58FA58;"></td>
+    <td id="o10s2" onclick="changeValue('o10s2')" style="background-color:#58FA58;"></td>
+    <td id="o10s3" onclick="increaseValue('o10s3')" style="background-color:#58FA58;"></td>
+    <td id="o10s4" style="background-color:#58FA58;"></td>
+    <td id="o10s5" style="background-color:#58FA58;"></td>
+    <td id="o10s6" style="background-color:#58FA58;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#58FA58;">Geschichte (GE)</td>
+    <td id="o11s1" onclick="changeValue('o11s1')" style="background-color:#58FA58;"></td>
+    <td id="o11s2" onclick="changeValue('o11s2')" style="background-color:#58FA58;"></td>
+    <td id="o11s3" onclick="increaseValue('o11s3')" style="background-color:#58FA58;"></td>
+    <td id="o11s4" style="background-color:#58FA58;"></td>
+    <td id="o11s5" onclick="changeValue('o11s5')"style="background-color:#58FA58;"></td>
+    <td id="o11s6" style="background-color:#58FA58;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#58FA58;">Geschichte Billingual (GEE)</td>
+    <td id="o12s1" onclick="changeValue('o12s1')" style="background-color:#58FA58;"></td>
+    <td id="o12s2" onclick="changeValue('o12s2')" style="background-color:#58FA58;"></td>
+    <td id="o12s3" onclick="increaseValue('o12s3')" style="background-color:#58FA58;"></td>
+    <td id="o12s4" style="background-color:#58FA58;"></td>
+    <td id="o12s5" style="background-color:#58FA58;"></td>
+    <td id="o12s6" style="background-color:#58FA58;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#58FA58;">Sozialwissenschaften (SW)</td>
+    <td id="o13s1" onclick="changeValue('o13s1')" style="background-color:#58FA58;"></td>
+    <td id="o13s2" onclick="changeValue('o13s2')" style="background-color:#58FA58;"></td>
+    <td id="o13s3" onclick="increaseValue('o13s3')" style="background-color:#58FA58;"></td>
+    <td id="o13s4" style="background-color:#58FA58;"></td>
+    <td id="o13s5" onclick="changeValue('o13s5')" style="background-color:#58FA58;"></td>
+    <td id="o13s6" style="background-color:#58FA58;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#58FA58;">Philosophie (PL)</td>
+    <td id="o14s1" onclick="changeValue('o14s1')" style="background-color:#58FA58;"></td>
+    <td id="o14s2" onclick="changeValue('o14s2')" style="background-color:#58FA58;"></td>
+    <td id="o14s3" onclick="increaseValue('o14s3')" style="background-color:#58FA58;"></td>
+    <td id="o14s4" style="background-color:#58FA58;"></td>
+    <td id="o14s5" style="background-color:#58FA58;"></td>
+    <td id="o14s6" style="background-color:#58FA58;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#58FA58;">Pädagogik (PA)</td>
+    <td id="o15s1" onclick="changeValue('o15s1')" style="background-color:#58FA58;"></td>
+    <td id="o15s2" onclick="changeValue('o15s2')" style="background-color:#58FA58;"></td>
+    <td id="o15s3" onclick="increaseValue('o15s3')" style="background-color:#58FA58;"></td>
+    <td id="o15s4" style="background-color:#58FA58;"></td>
+    <td id="o15s5" style="background-color:#58FA58;"></td>
+    <td id="o15s6" style="background-color:#58FA58;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#81F781;">Ev. Religion (ER)</td>
+    <td id="o16s1" onclick="changeValue('o16s1')" style="background-color:#81F781;"></td>
+    <td id="o16s2" onclick="changeValue('o16s2')" style="background-color:#81F781;"></td>
+    <td id="o16s3" onclick="increaseValue('o16s3')" style="background-color:#81F781;"></td>
+    <td id="o16s4" style="background-color:#81F781;"></td>
+    <td id="o16s5" style="background-color:#81F781;"></td>
+    <td id="o16s6" style="background-color:#81F781;"></td>
+  </tr> 
+  <tr>
+    <td style="background-color:#81F781;">Kath. Religion (KR)</td>
+    <td id="o17s1" onclick="changeValue('o17s1')" style="background-color:#81F781;"></td>
+    <td id="o17s2" onclick="changeValue('o17s2')" style="background-color:#81F781;"></td>
+    <td id="o17s3" onclick="increaseValue('o17s3')" style="background-color:#81F781;"></td>
+    <td id="o17s4" style="background-color:#81F781;"></td>
+    <td id="o17s5" style="background-color:#81F781;"></td>
+    <td id="o17s6" style="background-color:#81F781;"></td>
+  </tr> 
+  <tr>
+    <td style="background-color:#2E64FE;">Mathematik (M)</td>
+    <td id="o18s1" onclick="changeValue('o18s1')" style="background-color:#2E64FE;">S</td>
+    <td id="o18s2" onclick="changeValue('o18s2')" style="background-color:#2E64FE;">S</td>
+    <td id="o18s3" onclick="increaseValue('o18s3')" style="background-color:#2E64FE;">S</td>
+    <td id="o18s4" style="background-color:#2E64FE;">S</td>
+    <td id="o18s5" style="background-color:#2E64FE;">S</td>
+    <td id="o18s6" style="background-color:#2E64FE;">M</td>
+  </tr>
+   <tr>
+    <td style="background-color:#58ACFA;">Biologie (BI)</td>
+    <td id="o19s1" onclick="changeValue('o19s1')" style="background-color:#58ACFA;"></td>
+    <td id="o19s2" onclick="changeValue('o19s2')" style="background-color:#58ACFA;"></td>
+    <td id="o19s3" onclick="increaseValue('o19s3')" style="background-color:#58ACFA;"></td>
+    <td id="o19s4" style="background-color:#58ACFA;"></td>
+    <td id="o19s5" style="background-color:#58ACFA;"></td>
+    <td id="o19s6" style="background-color:#58ACFA;"></td>
+  </tr>
+   <tr>
+    <td style="background-color:#58ACFA;">Biologie Billingual (BIE)</td>
+    <td id="o20s1" onclick="changeValue('o20s1')" style="background-color:#58ACFA;"></td>
+    <td id="o20s2" onclick="changeValue('o20s2')" style="background-color:#58ACFA;"></td>
+    <td id="o20s3" onclick="increaseValue('o20s3')" style="background-color:#58ACFA;"></td>
+    <td id="o20s4" style="background-color:#58ACFA;"></td>
+    <td id="o20s5" style="background-color:#58ACFA;"></td>
+    <td id="o20s6" style="background-color:#58ACFA;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#58ACFA;">Chemie (CH)</td>
+    <td id="o21s1" onclick="changeValue('o21s1')" style="background-color:#58ACFA;"></td>
+    <td id="o21s2" onclick="changeValue('o21s2')" style="background-color:#58ACFA;"></td>
+    <td id="o21s3" onclick="increaseValue('o21s3')" style="background-color:#58ACFA;"></td>
+    <td id="o21s4" style="background-color:#58ACFA;"></td>
+    <td id="o21s5" style="background-color:#58ACFA;"></td>
+    <td id="o21s6" style="background-color:#58ACFA;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#58ACFA;">Physik (PH)</td>
+    <td id="o22s1" onclick="changeValue('o22s1')" style="background-color:#58ACFA;"></td>
+    <td id="o22s2" onclick="changeValue('o22s2')" style="background-color:#58ACFA;"></td>
+    <td id="o22s3" onclick="increaseValue('o22s3')" style="background-color:#58ACFA;"></td>
+    <td id="o22s4" style="background-color:#58ACFA;"></td>
+    <td id="o22s5" style="background-color:#58ACFA;"></td>
+    <td id="o22s6" style="background-color:#58ACFA;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#58ACFA;">Informatik (IF)</td>
+    <td id="o23s1" onclick="changeValue('o23s1')" style="background-color:#58ACFA;"></td>
+    <td id="o23s2" onclick="changeValue('o23s2')" style="background-color:#58ACFA;"></td>
+    <td id="o23s3" onclick="increaseValue('o23s3')" style="background-color:#58ACFA;"></td>
+    <td id="o23s4" style="background-color:#58ACFA;"></td>
+    <td id="o23s5" style="background-color:#58ACFA;"></td>
+    <td id="o23s6" style="background-color:#58ACFA;"></td>
+  </tr>
+  <tr>
+    <td>Sport (SP)</td>
+    <td id="o24s1" onclick="changeValue('o24s1')">M</td>
+    <td id="o24s2" onclick="changeValue('o24s2')">M</td>
+    <td id="o24s3" onclick="increaseValue('o24s3')">M</td>
+    <td id="o24s4">M</td>
+    <td id="o24s5">M</td>
+    <td id="o24s6">M</td>
+  </tr>
+  <tr>
+    <td style="background-color:#BDBDBD;">VTF Deutsch (VF-D)</td>
+    <td id="o25s1" onclick="changeValue('o25s1')" style="background-color:#BDBDBD;"></td>
+    <td id="o25s2" onclick="changeValue('o25s2')" style="background-color:#BDBDBD;"></td>
+    <td id="o25s3" style="background-color:grey;"></td>
+    <td id="o25s4" style="background-color:grey;"></td>
+    <td id="o25s5" style="background-color:grey;"></td>
+    <td id="o25s6" style="background-color:grey;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#BDBDBD;">VTF Banana (VF-E)</td>
+    <td id="o26s1" onclick="changeValue('o26s1')" style="background-color:#BDBDBD;"></td>
+    <td id="o26s2" onclick="changeValue('o26s2')" style="background-color:#BDBDBD;"></td>
+    <td id="o26s3" style="background-color:grey;"></td>
+    <td id="o26s4" style="background-color:grey;"></td>
+    <td id="o26s5" style="background-color:grey;"></td>
+    <td id="o26s6" style="background-color:grey;"></td>
+  </tr>
+  <tr>
+    <td style="background-color:#BDBDBD;">VTF Mathe (VF-M)</td>
+    <td id="o27s1" onclick="changeValue('o27s1')" style="background-color:#BDBDBD;"></td>
+    <td id="o27s2" onclick="changeValue('o27s2')" style="background-color:#BDBDBD;"></td>
+    <td id="o27s3" style="background-color:grey;"></td>
+    <td id="o27s4" style="background-color:grey;"></td>
+    <td id="o27s5" style="background-color:grey;"></td>
+    <td id="o27s6" style="background-color:grey;"></td>
+  </tr>
+  
+  <!-- Weitere Zeilen können hinzugefügt werden -->
+</table>
+
+<table id="Infos" style="width:45%">
+  <tr style="height:40px">
+      <th>Belgungsverpflichtungen</th>
+  </tr>
+    <tr style="height:200px">
+      <td>Bababoy</td>
+    </tr> 
+  <tr style="height:40px">
+      <th>Klausurverpflichtungen</th>
+  </tr>
+    <tr style="height:200px">
+      <td>Mehr Klausuren</td>
+    </tr>
+  <tr style="height:40px">
+      <th>Informationen</th>
+  </tr>
+    <tr style="height:200px">
+      <td>BOBER KURWA</td>
+    </tr>
+</table>
+
+</div>
+
+<br>
+
+<table id="Stundenanzahl" style="width:50%">
+  <tr>
+    <th style="width:15%">Kurse:</th>
+    <th style="width:14%">x1</th>
+    <th style="width:14%">x2</th>
+    <th style="width:14%">x3</th>
+    <th style="width:14%">x4</th>
+    <th style="width:14%">x5</th>
+    <th style="width:14%">x6</th>
+  </tr>
+  <tr>
+    <td>Wochenstunden:</td>
+    <td>y1</td>
+    <td>y2</td>
+    <td>y3</td>
+    <td>y4</td>
+    <td>y5</td>
+    <td>y6</td>
+  </tr>
+  <tr>
+    <td>Durchschnitt:</td>
+    <td colspan = "2">E-Phase</td>
+    <td colspan = "4">Q-Phase</td>
+  </tr>
+
+</table>
+
+<script>
+  // Hier fügen wir die Funktion hinzu, um den Wert in Spalte 1 und 2 zu ändern
+  function changeValue(cellId) {
+    var cell = document.getElementById(cellId);
+    var currentValue = cell.textContent;
+
+    // Logik zum Ersetzen der Werte in Spalte 1 und 2
+    switch (currentValue) {
+      case '':
+        cell.textContent = 'M';
+        break;
+      case 'M':
+        cell.textContent = 'S';
+        break;
+      case 'S':
+        cell.textContent = 'LK';
+        break;
+      case 'LK':
+        cell.textContent = '';
+        break;
+      default:
+        break;
+    }
+  }
+
+  // Hier fügen wir die Funktion hinzu, um den Wert in Spalte 3-6 zu erhöhen
+  function increaseValue(cellId) {
+    var cell = document.getElementById(cellId);
+    var currentValue = cell.textContent;
+
+    // Logik zum Ersetzen der Werte in Spalte 3-6
+    switch (currentValue) {
+     
+      case 'S':
+        cell.textContent = 'LK';
+        // Wenn LK ausgewählt wird, setze Spalte 4 bis 6 ebenfalls auf LK
+        var row = cell.parentNode;
+        var columns = row.getElementsByTagName('td');
+        for (var i = 3; i < 6; i++) {
+          columns[i + 1].textContent = 'LK';
+        }
+        break;
+		case 'M':
+        cell.textContent = 'S';
+        // Wenn S ausgewählt wird, setze Spalte 4 bis 6 ebenfalls auf S
+        var row = cell.parentNode;
+        var columns = row.getElementsByTagName('td');
+        for (var i = 3; i < 6; i++) {
+          columns[i + 1].textContent = 'S';
+        }
+        break;
+      case 'LK':
+        cell.textContent = '';
+        // Wenn von LK zu M gewechselt wird, setze Spalte 4 bis 6 auf M
+        var row = cell.parentNode;
+        var columns = row.getElementsByTagName('td');
+        for (var i = 3; i < 6; i++) {
+          columns[i + 1].textContent = '';
+        }
+        break;
+        case '':
+        cell.textContent = 'M';
+        // Wenn von LK zu M gewechselt wird, setze Spalte 4 bis 6 auf M
+        var row = cell.parentNode;
+        var columns = row.getElementsByTagName('td');
+        for (var i = 3; i < 6; i++) {
+          columns[i + 1].textContent = 'M';
+        }
+        break;
+      default:
+        break;
+    }
+  }
+</script>
+
+</body>
+</html>
