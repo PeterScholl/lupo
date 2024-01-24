@@ -38,7 +38,10 @@ class Controller {
         console.log("Das Dokument wurde geladen. init() wird aufgerufen.");
 
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang "+this.wahlbogen.abiJahrgang;
-        
+
+        //TODO : nur zu Testzwecken - evtl. später entfernen
+        this.wahlbogen.erzeugeMinimaleFachbelegung();
+
 
 
 
@@ -64,6 +67,34 @@ class Controller {
         //TODO 
         let table = document.getElementById('Fächerwahl');
         //table.innerHTML=""; //Tabelle löschen
+        while (table.rows.length > 1) {
+            table.deleteRow(1); // Kopfzeile 0 bleibt erhalten
+        }
+        this.wahlbogen.fachbelegungen.forEach((value)=> {
+            //Tabellenzeile anlegen
+            this.tabellenZeileFuerFachAnhaengen(table,value);
+            
+        })
+    }
+
+    tabellenZeileFuerFachAnhaengen(tabelle,fach) {
+        let zeile = tabelle.insertRow(-1);
+        zeile.id=fach.kuerzel;
+        //Hintergrundfarbe setzen
+        zeile.style.backgroundColor=fach.bgcolor;
+        let zelle = zeile.insertCell(0);
+        zelle.innerHTML = fach.bezeichnung + " (" + fach.kuerzel + ")";
+        for (let i=0; i<6; i++) { //Halbjahre durchlaufen
+            zelle = zeile.insertCell(-1) //erstes Halbjahr
+            zelle.innerHTML = fach.belegung[i];
+            zelle.id="hj"+i;
+            zelle.addEventListener("click",(obj)=>this.cellClicked(obj));
+        }
+    }
+
+    //Methode die ausgeführt werden soll, wenn auf eine Zelle der Tabelle geklickt wird
+    cellClicked(obj) {
+        console.log("click",obj);
     }
 }
 
