@@ -31,7 +31,7 @@ class Wahlbogen {
         // Sozialwissenschaften
         this.addFachToFachbelegungen("Sozialwissenschaften","SW",['','','','','',''],"#58FA58");
         // Geographie
-        this.addFachToFachbelegungen("Geographie","Ek",['','','','','',''],"#58FA58");
+        this.addFachToFachbelegungen("Geographie","EK",['','','','','',''],"#58FA58");
         // Philosophie
         this.addFachToFachbelegungen("Philosophie","PP",['','','','','',''],"#58FA58");
         // Katholische Religion
@@ -41,19 +41,23 @@ class Wahlbogen {
         // Mathematik #2E64FE
         this.addFachToFachbelegungen("Mathematik","M",['S','S','S','','',''], "#2E64FE");
         // Biologie
-        this.addFachToFachbelegungen("Biologie","Bi",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Biologie","BI",['','','','','',''], "#2E64FE");
         // Chemie
-        this.addFachToFachbelegungen("Chemie","Ch",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Chemie","CH",['','','','','',''], "#2E64FE");
         // Physik
-        this.addFachToFachbelegungen("Physik","Ph",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Physik","PH",['','','','','',''], "#2E64FE");
         // Biologie
-        this.addFachToFachbelegungen("Informatik","If",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Informatik","IF",['','','','','',''], "#2E64FE");
         // Sport
-        this.addFachToFachbelegungen("Sport","Sp",['','','','','',''], "#FEFEFE");
+        this.addFachToFachbelegungen("Sport","SP",['','','','','',''], "#FEFEFE");
         // Projektkurs
         this.addFachToFachbelegungen("Projekt","PK",['','','','','',''], "#DDDDDD");
-        
-         
+        // Vertiefungsfach Mathe
+        this.addFachToFachbelegungen("Mathe Vertiefung","M-VF",['','','','','',''], "#DDDDDD");
+        // Vertiefungsfach Englsich
+        this.addFachToFachbelegungen("Englisch Vertiefung","E-VF",['','','','','',''], "#DDDDDD");
+        // Vertiefungsfach Deutsch
+        this.addFachToFachbelegungen("Deutsch Vertiefung","D-VF",['','','','','',''], "#DDDDDD");
 
     }
 
