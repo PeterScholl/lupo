@@ -34,6 +34,10 @@
             margin-right: 20px; /* Abstand zwischen Bild und Überschrift */
         }
   </style>
+  <script src="./javascript/c_BelegBed.js"></script>
+  <script src="./javascript/c_Fachbelegung.js"></script>
+  <script src="./javascript/c_Wahlbogen.js"></script>
+  <script src="./javascript/controller.js"></script>
 </head>
 <body>
 
@@ -78,7 +82,7 @@
   </tr>
   <tr>
     <td style="background-color:#DF0101;">Deutsch</td>
-    <td id="o1s4" style="background-color:#DF0101;">D</td>
+    <td id="o1s0" style="background-color:#DF0101;">D</td>
     <td id="o1s1" onclick="changeValue('o1s1')" style="background-color:#DF0101;">S</td>
     <td id="o1s2" onclick="changeValue('o1s2')" style="background-color:#DF0101;">S</td>
     <td id="o1s3" onclick="increaseValue('o1s3')" style="background-color:#DF0101;">S</td>
@@ -88,7 +92,7 @@
   </tr>
   <tr>
     <td style="background-color: #ff0000;">Französisch</td>
-    <td id="o1s4" style="background-color:#ff0000;">F</td>
+    <td id="o2s0" style="background-color:#ff0000;">F</td>
     <td id="o2s1" onclick="changeValue('o2s1')" style="background-color:#ff0000;"></td>
     <td id="o2s2" onclick="changeValue('o2s2')" style="background-color:#ff0000;"></td>
     <td id="o2s3" onclick="increaseValue('o2s3')" style="background-color:#ff0000;"></td>
@@ -375,7 +379,7 @@
 
 <br>
 
-<table id="Stundenanzahl" style="width:50%">
+<table id="Stundenanzahl" style="width:25%">
   <tr>
     <th style="width:15%">Kurse:</th>
     <th style="width:14%">x1</th>
