@@ -25,29 +25,29 @@ class Wahlbogen {
         // Kunst
         this.addFachToFachbelegungen("Kunst","KU",['','','','','',''],"#fccca5");
         // Musik
-        this.addFachToFachbelegungen("Musik","MU",['','','','','',''],"#FA5858");
+        this.addFachToFachbelegungen("Musik","MU",['','','','','',''],"#fccca5");
         // Geschichte
-        this.addFachToFachbelegungen("Geschichte","GE",['','','','','',''],"#58FA58");
+        this.addFachToFachbelegungen("Geschichte","GE",['','','','','',''],"#eaf1de");
         // Sozialwissenschaften
-        this.addFachToFachbelegungen("Sozialwissenschaften","SW",['','','','','',''],"#58FA58");
+        this.addFachToFachbelegungen("Sozialwissenschaften","SW",['','','','','',''],"#eaf1de");
         // Geographie
-        this.addFachToFachbelegungen("Geographie","EK",['','','','','',''],"#58FA58");
+        this.addFachToFachbelegungen("Geographie","EK",['','','','','',''],"#eaf1de");
         // Philosophie
-        this.addFachToFachbelegungen("Philosophie","PP",['','','','','',''],"#58FA58");
+        this.addFachToFachbelegungen("Philosophie","PP",['','','','','',''],"#eaf1de");
         // Katholische Religion
-        this.addFachToFachbelegungen("Kath. Religion","KR",['','','','','',''],"#58FA58");
+        this.addFachToFachbelegungen("Kath. Religion","KR",['','','','','',''],"#d7e4bc");
         // Evangelische Religion
-        this.addFachToFachbelegungen("Ev. Religion","ER",['','','','','',''],"#58FA58");
-        // Mathematik #2E64FE
-        this.addFachToFachbelegungen("Mathematik","M",['S','S','S','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Ev. Religion","ER",['','','','','',''],"#d7e4bc");
+        // Mathematik #8db4e3
+        this.addFachToFachbelegungen("Mathematik","M",['S','S','S','','',''], "#c5d9f1");
         // Biologie
-        this.addFachToFachbelegungen("Biologie","BI",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Biologie","BI",['','','','','',''], "#8db4e3");
         // Chemie
-        this.addFachToFachbelegungen("Chemie","CH",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Chemie","CH",['','','','','',''], "#8db4e3");
         // Physik
-        this.addFachToFachbelegungen("Physik","PH",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Physik","PH",['','','','','',''], "#8db4e3");
         // Biologie
-        this.addFachToFachbelegungen("Informatik","IF",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Informatik","IF",['','','','','',''], "#8db4e3");
         // Sport
         this.addFachToFachbelegungen("Sport","SP",['','','','','',''], "#FEFEFE");
         // Projektkurs
