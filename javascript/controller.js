@@ -46,6 +46,8 @@ class Controller {
 
 
         this.drawTable();
+        // Test Wahlarten
+        console.log("Test",this.wahlbogen.fachbelegungen[0].belegungsBed.gibNaechsteBelegungsmöglichkeit(2,'S'));
     }
 
     // Funktion, die aufgerufen wird, wenn etwas angeclickt wird
@@ -94,7 +96,7 @@ class Controller {
 
     //Methode die ausgeführt werden soll, wenn auf eine Zelle der Tabelle geklickt wird
     cellClicked(obj) {
-        console.log("click",obj);
+        console.log("click",obj.id);
     }
 }
 

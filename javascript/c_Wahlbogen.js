@@ -11,19 +11,19 @@ class Wahlbogen {
 
     erzeugeMinimaleFachbelegung() {
         // Deutsch(D)
-        this.addFachToFachbelegungen("Deutsch","D",['S','S','','','','']);
+        this.addFachToFachbelegungen("Deutsch","D",['S','S','','','',''],"#FDE9D9");
         // Englisch
-        this.addFachToFachbelegungen("Englisch","E",['S','S','','','','']);
+        this.addFachToFachbelegungen("Englisch","E",['S','S','','','',''],"#FDDDC3");
         // Latein
-        this.addFachToFachbelegungen("Latein","L6",['','','','','','']);
+        this.addFachToFachbelegungen("Latein","L6",['','','','','',''],"#fdddc3");
         // Französisch
-        this.addFachToFachbelegungen("Französisch","F6",['','','','','','']);
+        this.addFachToFachbelegungen("Französisch","F6",['','','','','',''],"#fdddc3");
         // Spanisch
-        this.addFachToFachbelegungen("Spanisch","S6",['','','','','','']);
+        this.addFachToFachbelegungen("Spanisch","S6",['','','','','',''],"#fdddc3");
         // Spanisch neu
-        this.addFachToFachbelegungen("Spanisch ab EF","S0",['','','','','','']);
+        this.addFachToFachbelegungen("Spanisch ab EF","S0",['','','','','',''],"#fdddc3");
         // Kunst
-        this.addFachToFachbelegungen("Kunst","KU",['','','','','',''],"#FA5858");
+        this.addFachToFachbelegungen("Kunst","KU",['','','','','',''],"#fccca5");
         // Musik
         this.addFachToFachbelegungen("Musik","MU",['','','','','',''],"#FA5858");
         // Geschichte
@@ -31,7 +31,7 @@ class Wahlbogen {
         // Sozialwissenschaften
         this.addFachToFachbelegungen("Sozialwissenschaften","SW",['','','','','',''],"#58FA58");
         // Geographie
-        this.addFachToFachbelegungen("Geographie","Ek",['','','','','',''],"#58FA58");
+        this.addFachToFachbelegungen("Geographie","EK",['','','','','',''],"#58FA58");
         // Philosophie
         this.addFachToFachbelegungen("Philosophie","PP",['','','','','',''],"#58FA58");
         // Katholische Religion
@@ -41,15 +41,15 @@ class Wahlbogen {
         // Mathematik #2E64FE
         this.addFachToFachbelegungen("Mathematik","M",['S','S','S','','',''], "#2E64FE");
         // Biologie
-        this.addFachToFachbelegungen("Biologie","Bi",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Biologie","BI",['','','','','',''], "#2E64FE");
         // Chemie
-        this.addFachToFachbelegungen("Chemie","Ch",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Chemie","CH",['','','','','',''], "#2E64FE");
         // Physik
-        this.addFachToFachbelegungen("Physik","Ph",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Physik","PH",['','','','','',''], "#2E64FE");
         // Biologie
-        this.addFachToFachbelegungen("Informatik","If",['','','','','',''], "#2E64FE");
+        this.addFachToFachbelegungen("Informatik","IF",['','','','','',''], "#2E64FE");
         // Sport
-        this.addFachToFachbelegungen("Sport","Sp",['','','','','',''], "#FEFEFE");
+        this.addFachToFachbelegungen("Sport","SP",['','','','','',''], "#FEFEFE");
         // Projektkurs
         this.addFachToFachbelegungen("Projekt","PK",['','','','','',''], "#DDDDDD");
         
@@ -57,6 +57,13 @@ class Wahlbogen {
 
     }
 
+    /**
+     * 
+     * @param {*} bezeichnung 
+     * @param {*} kuerzel 
+     * @param {*} belegung 
+     * @param {*} bgcolor 
+     */
     addFachToFachbelegungen(bezeichnung,kuerzel,belegung=['','','','','',''], bgcolor="#FA5858") {
         // TODO sinnhaftigkeit der Parameter prüfen
         // prüfe ob ein Fach mit dem Kürzel schon existiert
