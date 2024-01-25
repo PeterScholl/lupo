@@ -11,19 +11,19 @@ class Wahlbogen {
 
     erzeugeMinimaleFachbelegung() {
         // Deutsch(D)
-        this.addFachToFachbelegungen("Deutsch","D",['S','S','','','','']);
+        this.addFachToFachbelegungen("Deutsch","D",['S','S','','','',''],"#FDE9D9");
         // Englisch
-        this.addFachToFachbelegungen("Englisch","E",['S','S','','','','']);
+        this.addFachToFachbelegungen("Englisch","E",['S','S','','','',''],"#FDDDC3");
         // Latein
-        this.addFachToFachbelegungen("Latein","L6",['','','','','','']);
+        this.addFachToFachbelegungen("Latein","L6",['','','','','',''],"#fdddc3");
         // Französisch
-        this.addFachToFachbelegungen("Französisch","F6",['','','','','','']);
+        this.addFachToFachbelegungen("Französisch","F6",['','','','','',''],"#fdddc3");
         // Spanisch
-        this.addFachToFachbelegungen("Spanisch","S6",['','','','','','']);
+        this.addFachToFachbelegungen("Spanisch","S6",['','','','','',''],"#fdddc3");
         // Spanisch neu
-        this.addFachToFachbelegungen("Spanisch ab EF","S0",['','','','','','']);
+        this.addFachToFachbelegungen("Spanisch ab EF","S0",['','','','','',''],"#fdddc3");
         // Kunst
-        this.addFachToFachbelegungen("Kunst","KU",['','','','','',''],"#FA5858");
+        this.addFachToFachbelegungen("Kunst","KU",['','','','','',''],"#fccca5");
         // Musik
         this.addFachToFachbelegungen("Musik","MU",['','','','','',''],"#FA5858");
         // Geschichte
