@@ -42,12 +42,18 @@ class Controller {
         //TODO : nur zu Testzwecken - evtl. später entfernen
         this.wahlbogen.erzeugeMinimaleFachbelegung();
 
-
+        //TODO : Wann sollen die Belegungsverpflichtungen immer neu dargestellt und geprüft werden?!
+        this.drawBelegungsverpflichtungen();
 
 
         this.drawTable();
         // Test Wahlarten
         console.log("Test", this.wahlbogen.fachbelegungen[0].belegungsBed.gibNaechsteBelegungsmöglichkeit(2, 'S'));
+    }
+
+    drawBelegungsverpflichtungen() {
+        let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
+        document.getElementById('Belegverpflichtungen').innerHTML=bericht;
     }
 
     // Funktion, die aufgerufen wird, wenn etwas angeclickt wird
@@ -118,6 +124,8 @@ class Controller {
             const fach = this.wahlbogen.getFachMitKuerzel(gewKrz);
             fach.setzeBelegungWeiter(gewHj);
             this.redrawZeile(gewKrz);
+            //TODO - soll das wirklich immer passieren?
+            this.drawBelegungsverpflichtungen();
         } else {
             console.log("Angeklicktes Objekt: ", obj.target)
         }
