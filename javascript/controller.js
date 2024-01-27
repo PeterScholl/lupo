@@ -37,7 +37,7 @@ class Controller {
         let self = this;
         console.log("Das Dokument wurde geladen. init() wird aufgerufen.");
 
-        document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang "+this.wahlbogen.abiJahrgang;
+        document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
 
         //TODO : nur zu Testzwecken - evtl. später entfernen
         this.wahlbogen.erzeugeMinimaleFachbelegung();
@@ -47,7 +47,7 @@ class Controller {
 
         this.drawTable();
         // Test Wahlarten
-        console.log("Test",this.wahlbogen.fachbelegungen[0].belegungsBed.gibNaechsteBelegungsmöglichkeit(2,'S'));
+        console.log("Test", this.wahlbogen.fachbelegungen[0].belegungsBed.gibNaechsteBelegungsmöglichkeit(2, 'S'));
     }
 
     // Funktion, die aufgerufen wird, wenn etwas angeclickt wird
@@ -72,31 +72,39 @@ class Controller {
         while (table.rows.length > 1) {
             table.deleteRow(1); // Kopfzeile 0 bleibt erhalten
         }
-        this.wahlbogen.fachbelegungen.forEach((value)=> {
+        this.wahlbogen.fachbelegungen.forEach((value) => {
             //Tabellenzeile anlegen
-            this.tabellenZeileFuerFachAnhaengen(table,value);
-            
+            this.tabellenZeileFuerFachAnhaengen(table, value);
+
         })
     }
 
-    tabellenZeileFuerFachAnhaengen(tabelle,fach) {
+    tabellenZeileFuerFachAnhaengen(tabelle, fach) {
         let zeile = tabelle.insertRow(-1);
-        zeile.id=fach.kuerzel;
+        zeile.id = fach.kuerzel;
         //Hintergrundfarbe setzen
-        zeile.style.backgroundColor=fach.bgcolor;
+        zeile.style.backgroundColor = fach.bgcolor;
         let zelle = zeile.insertCell(0);
         zelle.innerHTML = fach.bezeichnung + " (" + fach.kuerzel + ")";
-        for (let i=0; i<6; i++) { //Halbjahre durchlaufen
+        for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
             zelle = zeile.insertCell(-1) //erstes Halbjahr
             zelle.innerHTML = fach.belegung[i];
-            zelle.id="hj"+i;
-            zelle.addEventListener("click",(obj)=>this.cellClicked(obj));
+            zelle.id = "hj" + i;
+            zelle.addEventListener("click", (obj) => this.cellClicked(obj));
         }
     }
 
     //Methode die ausgeführt werden soll, wenn auf eine Zelle der Tabelle geklickt wird
     cellClicked(obj) {
-        console.log("click",obj.id);
+        //obj is vom Type click?!
+        //obj.target ist ein Element vom DOM - glaube ich
+        if (obj.target.tagName == "TD" && obj.target.id.startsWith("hj")) { //Es wurde in Halbjahrszelle geklickt
+            const gewKrz = obj.target.parentNode.id;  //id des Parent Node <tr> ist das FachKürzel
+            const gewHj = Number.parseInt(obj.target.id.slice(2));
+            console.log("click - FachKrzl: ", gewKrz, " im Halbjahr: ", gewHj,"(start bei 0)");
+        } else {
+            console.log("Angeklicktes Objekt: ", obj.target)
+        }
     }
 }
 
