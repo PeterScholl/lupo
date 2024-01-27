@@ -85,8 +85,10 @@ class Controller {
         //Hintergrundfarbe setzen
         zeile.style.backgroundColor = fach.bgcolor;
         let zelle = zeile.insertCell(0);
-        zelle.innerHTML = fach.bezeichnung + " (" + fach.kuerzel + ")";
-        for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
+        zelle.innerHTML = fach.bezeichnung;
+        zelle = zeile.insertCell(1);
+        zelle.innerHTML = fach.kuerzel;
+        for (let i=0; i<6; i++) { //Halbjahre durchlaufen
             zelle = zeile.insertCell(-1) //erstes Halbjahr
             zelle.innerHTML = fach.belegung[i];
             zelle.id = "hj" + i;
