@@ -79,21 +79,32 @@ class Controller {
         })
     }
 
+    redrawZeile(kuerzel) {
+        const zeile = document.getElementById(kuerzel);
+        const fach = this.wahlbogen.getFachMitKuerzel(kuerzel);
+        if (fach!=null && zeile!=null && zeile.tagName=="TR") {
+            // Zeile existiert und fach Existiert
+            zeile.innerHTML=""; //löschen
+            //Hintergrundfarbe setzen
+            zeile.style.backgroundColor = fach.bgcolor;
+            let zelle = zeile.insertCell(0);
+            zelle.innerHTML = fach.bezeichnung;
+            zelle = zeile.insertCell(1);
+            zelle.innerHTML = fach.kuerzel;
+            for (let i=0; i<6; i++) { //Halbjahre durchlaufen
+                zelle = zeile.insertCell(-1) //erstes Halbjahr
+                zelle.innerHTML = fach.belegung[i];
+                zelle.id = "hj" + i;
+                zelle.addEventListener("click", (obj) => this.cellClicked(obj));
+            }
+        }
+
+    }
+
     tabellenZeileFuerFachAnhaengen(tabelle, fach) {
         let zeile = tabelle.insertRow(-1);
         zeile.id = fach.kuerzel;
-        //Hintergrundfarbe setzen
-        zeile.style.backgroundColor = fach.bgcolor;
-        let zelle = zeile.insertCell(0);
-        zelle.innerHTML = fach.bezeichnung;
-        zelle = zeile.insertCell(1);
-        zelle.innerHTML = fach.kuerzel;
-        for (let i=0; i<6; i++) { //Halbjahre durchlaufen
-            zelle = zeile.insertCell(-1) //erstes Halbjahr
-            zelle.innerHTML = fach.belegung[i];
-            zelle.id = "hj" + i;
-            zelle.addEventListener("click", (obj) => this.cellClicked(obj));
-        }
+        this.redrawZeile(fach.kuerzel);
     }
 
     //Methode die ausgeführt werden soll, wenn auf eine Zelle der Tabelle geklickt wird
@@ -104,6 +115,9 @@ class Controller {
             const gewKrz = obj.target.parentNode.id;  //id des Parent Node <tr> ist das FachKürzel
             const gewHj = Number.parseInt(obj.target.id.slice(2));
             console.log("click - FachKrzl: ", gewKrz, " im Halbjahr: ", gewHj,"(start bei 0)");
+            const fach = this.wahlbogen.getFachMitKuerzel(gewKrz);
+            fach.setzeBelegungWeiter(gewHj);
+            this.redrawZeile(gewKrz);
         } else {
             console.log("Angeklicktes Objekt: ", obj.target)
         }

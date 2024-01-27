@@ -18,14 +18,35 @@ class BelegBed {
 
     /**
      * 
-     * @param {Number} halbjahr in welchem Halbjahr soll die folgeBelegung ermittelt werden
+     * @param {Number} halbjahr in welchem Halbjahr (0-5) soll die folgeBelegung ermittelt werden
      * @param {char} aktBeleg  ist die aktuelle Belegung
      */
     gibNaechsteBelegungsmöglichkeit(halbjahr, aktBeleg) {
-        if (Number.isInteger(halbjahr) && halbjahr> 0 && halbjahr < 7) { //gültiges Halbjahr
-            this.wahlarten[halbjahr-1].indexOf
+        if (Number.isInteger(halbjahr) && halbjahr>= 0 && halbjahr < 6) { //gültiges Halbjahr
+            let aktpos = this.wahlarten[halbjahr].indexOf(aktBeleg);
+            const anzWahlarten = this.wahlarten[halbjahr].length;
+            if (anzWahlarten >0 && aktpos+1<anzWahlarten) {
+                return this.wahlarten[halbjahr][aktpos+1];
+            }
         }
-        return 'M'; //immer gültig
+        return ''; //immer gültig
+    }
 
+    /**
+     * prüft ob die übergebene Belegung im angegebenen Halbjahr zulässig ist
+     * eine leere Belegung ist immer gültig
+     * @param {*} halbjahr 
+     * @param {*} belegung 
+     * @returns true, wenn zulässig sonst false
+     */
+    istGueltig(halbjahr,belegung) {
+        if (belegung=='') {
+            return true; //Leere Belegung ist immer gültig
+        }
+        if (halbjahr>=0 && halbjahr<6) {
+            return this.wahlarten[halbjahr].includes(belegung);
+        }
+        console.log("Fehler: ungültiges Halbjahr in ist Gueltig abgefragt",halbjahr,belegung);
+        return false;
     }
 }

@@ -12,4 +12,23 @@ class Fachbelegung {
         this.bezeichnung=bezeichnung;
         this.kuerzel=kuerzel;
     }
+
+    /**
+     * Setzt die Belegung für das angebene Halbjahr auf den nächsten gültigen Wert
+     * und ab Q1 auch die Folgehalbjahre auf den gleichen Wert
+     * 
+     * @param {*} halbjahr 0-5 in dem die Belegung hochgesetzt werden soll
+     */
+    setzeBelegungWeiter(halbjahr) {
+        const bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr,this.belegung[halbjahr]);
+        this.belegung[halbjahr] = bel_neu;
+        //TODO Bei Q1 auch die Folgebelegungen entsprechend setzen
+        if (halbjahr>1) { //in der Q1
+            let folgeHalbjahr = halbjahr+1;
+            while (folgeHalbjahr<6 && this.belegungsBed.istGueltig(folgeHalbjahr,bel_neu)) { //gültig
+                this.belegung[folgeHalbjahr]=bel_neu;
+                folgeHalbjahr++;
+            }
+        }
+    }
 }
