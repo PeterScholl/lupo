@@ -39,6 +39,12 @@ class Controller {
 
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
 
+        //alle Buttons mit click-Eventlistener versehen
+        let buttons = document.getElementsByTagName('button'); //HTML-collection
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", (obj) => this.objectClicked(obj));
+        }
+
         //TODO : nur zu Testzwecken - evtl. später entfernen
         this.wahlbogen.erzeugeMinimaleFachbelegung();
 
@@ -53,7 +59,7 @@ class Controller {
 
     drawBelegungsverpflichtungen() {
         let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
-        document.getElementById('Belegverpflichtungen').innerHTML=bericht;
+        document.getElementById('Belegverpflichtungen').innerHTML = bericht;
     }
 
     // Funktion, die aufgerufen wird, wenn etwas angeclickt wird
@@ -62,12 +68,25 @@ class Controller {
         // Verhindert das Standardverhalten eines Links oder so (falls vorhanden)
         event.preventDefault();
 
-        // Ermittelt die ID des angeklickten Elements
-        var clickedObjectID = event.target.id;
+        // Ermittelt die ID und TAG-Name des angeklickten Elements
+        //console.log(event.target);
+        let clickedObjectID = event.target.id;
+        let clickedObjectTAG = event.target.tagName;
 
-        // Je nach Menuitem muss eine passende Reaktion progrmmiert werden
-        console.log("Objekt geklickt: " + clickedObjectID);
-        //TODO: Reaktion auf Menu-Items
+
+        // Je nach Item muss eine passende Reaktion progrmmiert werden
+        console.log("Objekt typ " + clickedObjectTAG + " geklickt: " + clickedObjectID);
+        //TODO: Reaktion auf Clicks
+        if (clickedObjectTAG === 'BUTTON') {
+            switch (clickedObjectID) {
+                case 'TestButton':
+                    console.log("Testbutton geklickt - heute Download :-)");
+                    downloadJSON(this.wahlbogen);
+                    break;
+                default:
+                    console.log("Button ID unbekannt");
+            }
+        }
     }
 
     //Funktion die den Tabellenbereich (TODO neu?) zeichnet
@@ -88,16 +107,16 @@ class Controller {
     redrawZeile(kuerzel) {
         const zeile = document.getElementById(kuerzel);
         const fach = this.wahlbogen.getFachMitKuerzel(kuerzel);
-        if (fach!=null && zeile!=null && zeile.tagName=="TR") {
+        if (fach != null && zeile != null && zeile.tagName == "TR") {
             // Zeile existiert und fach Existiert
-            zeile.innerHTML=""; //löschen
+            zeile.innerHTML = ""; //löschen
             //Hintergrundfarbe setzen
             zeile.style.backgroundColor = fach.bgcolor;
             let zelle = zeile.insertCell(0);
             zelle.innerHTML = fach.bezeichnung;
             zelle = zeile.insertCell(1);
             zelle.innerHTML = fach.kuerzel;
-            for (let i=0; i<6; i++) { //Halbjahre durchlaufen
+            for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
                 zelle = zeile.insertCell(-1) //erstes Halbjahr
                 zelle.innerHTML = fach.belegung[i];
                 zelle.id = "hj" + i;
@@ -120,7 +139,7 @@ class Controller {
         if (obj.target.tagName == "TD" && obj.target.id.startsWith("hj")) { //Es wurde in Halbjahrszelle geklickt
             const gewKrz = obj.target.parentNode.id;  //id des Parent Node <tr> ist das FachKürzel
             const gewHj = Number.parseInt(obj.target.id.slice(2));
-            console.log("click - FachKrzl: ", gewKrz, " im Halbjahr: ", gewHj,"(start bei 0)");
+            console.log("click - FachKrzl: ", gewKrz, " im Halbjahr: ", gewHj, "(start bei 0)");
             const fach = this.wahlbogen.getFachMitKuerzel(gewKrz);
             fach.setzeBelegungWeiter(gewHj);
             this.redrawZeile(gewKrz);

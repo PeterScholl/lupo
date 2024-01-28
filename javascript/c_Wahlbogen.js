@@ -2,6 +2,8 @@
     z.B. die Fächer/Belegungen, Name der Person, Abiturjahrgang....
 */
 class Wahlbogen {
+    name = "Nachname";
+    vorname = "Vorname";
     fachbelegungen = [];
     abiJahrgang = 2027;
 
