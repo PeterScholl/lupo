@@ -49,4 +49,24 @@ class BelegBed {
         console.log("Fehler: ungültiges Halbjahr in ist Gueltig abgefragt",halbjahr,belegung);
         return false;
     }
+
+    /**
+     * Methode um eine Belegungsbedingung von einem JSONObj zu generieren
+     * @param {} jsonObj 
+     * @return neue Belegungsbedingung
+     */
+    static generateFromJSONObj(jsonObj) {
+        let belBed = new BelegBed();
+        if (typeof(jsonObj.wahlarten)==='object' && Array.isArray(jsonObj.wahlarten) && jsonObj.wahlarten.length==6) {
+            belBed.wahlarten = jsonObj.wahlarten;
+        } else {
+            console.error("Fehler bei Belegungsbedingungen");
+        }
+        if (typeof(jsonObj.stundenzahlen)==='object' && Array.isArray(jsonObj.stundenzahlen) && jsonObj.stundenzahlen.length==6) {
+            belBed.stundenzahlen = jsonObj.stundenzahlen;
+        } else {
+            console.error("Fehler bei Stundenzahlen");
+        }
+        return belBed;
+    }
 }

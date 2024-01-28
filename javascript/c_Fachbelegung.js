@@ -47,4 +47,39 @@ class Fachbelegung {
         }
         return 0;
     }
+
+    /**
+     * Methode um eine Fachbelegung von einem JSONObj zu generieren
+     * @param {} jsonObj 
+     * @return neue Fachbelegung
+     */
+    static generateFromJSONObj(jsonObj) {
+        let belBed = null;
+        // Bezeichnung und Kürzel übernehmen
+        if (typeof(jsonObj.bezeichnung) === 'string' && typeof(jsonObj.kuerzel) === 'string') {
+            belBed = new Fachbelegung(jsonObj.bezeichnung, jsonObj.kuerzel);
+            console.log("Fach ",jsonObj.bezeichnung," Krzl: ",jsonObj.kuerzel);
+        } else {
+            belBed = new Fachbelegung("Ungueltig","--");
+        }
+
+        //Belegung übernehmen
+        if (typeof(jsonObj.belegung) === 'object' && Array.isArray(jsonObj.belegung) && jsonObj.belegung.length == 6) {
+            belBed.belegung = jsonObj.belegung;
+        } else {
+            console.log("Belegung in JSON-File Fehlerhaft");
+        }
+
+        //Belegungsbedingungen übernehmen
+        if (typeof(jsonObj.belegungsBed)==='object') {
+            belBed.belegungsBed = BelegBed.generateFromJSONObj(jsonObj.belegungsBed);
+        }
+
+        //BGColor übernehmen
+        if (typeof(jsonObj.bgcolor)==='string') {
+            belBed.bgcolor = jsonObj.bgcolor;
+        }
+        
+        return belBed;
+    }
 }

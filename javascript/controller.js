@@ -37,7 +37,7 @@ class Controller {
         let self = this;
         console.log("Das Dokument wurde geladen. init() wird aufgerufen.");
 
-        document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
+        this.drawAbijahrgang();
 
         //alle Buttons mit click-Eventlistener versehen
         let buttons = document.getElementsByTagName('button'); //HTML-collection
@@ -83,10 +83,30 @@ class Controller {
                     console.log("Testbutton geklickt - heute Download :-)");
                     downloadJSON(this.wahlbogen);
                     break;
+                case 'LadeDatei':
+                    console.log("Lade Datei geklickt");
+                    openJSON();
+                    break;
                 default:
                     console.log("Button ID unbekannt");
             }
         }
+    }
+
+    /**
+     * ein vollständiges Neu darstellen des Wahlbogens!
+     */
+    redraw() {
+        //Kopfzeilen
+        document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
+        // TODO Vorname, Nachname, usw.
+        this.drawTable(); //Wahlen
+        // TODO Infos
+        // TODO Summen...
+    }
+
+    drawAbijahrgang() {
+        document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
     }
 
     //Funktion die den Tabellenbereich (TODO neu?) zeichnet

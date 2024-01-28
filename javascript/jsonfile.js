@@ -65,9 +65,10 @@ function openJSON() {
                     // Versuche, den JSON-Text zu analysieren
                     let jsonObj = JSON.parse(jsonText);
 
-                    let wahlbogen = parseJSONObjToEscapewahlbogen(jsonObj);
+                    let wahlbogen = parseJSONObjToWahlbogen(jsonObj);
 
                     Controller.getInstance().wahlbogen=wahlbogen;
+                    Controller.getInstance().redraw();
 
                     // Erfolgreiches Ergebnis an eine Callback-Funktion zurückgeben
                     //ergebnisCallback(jsonObj);
@@ -95,7 +96,7 @@ function openJSON() {
  * @param {*} jsonObj zu interpretierendes JSON-Objekt
  * @returns wahlbogen
  */
-function parseJSONObjToEscapahlbogen(jsonObj) {
+function parseJSONObjToWahlbogen(jsonObj) {
     // einen sauberen Wahlbogen erstellen
     let wahlbogen = new Wahlbogen();
     // 1. Namen aus der Datei übernehmen
@@ -108,28 +109,10 @@ function parseJSONObjToEscapahlbogen(jsonObj) {
     // 2. fachbelegung übernehmen
     let fachbelegungen = [];
     if (Array.isArray(jsonObj.fachbelegungen)) {
-        fachbelegungen = jsonObj.raumliste.map(parseJSONObjToFach);
+        fachbelegungen = jsonObj.fachbelegungen.map((e)=> {return Fachbelegung.generateFromJSONObj(e)});
     }
     wahlbogen.fachbelegungen = fachbelegungen;
     return wahlbogen;
 }
 
-/**
- * aus einem hoffentlich stimmigen JSON-Objekt ein Fach machen
- * @param {*} jsonObjFach 
- * @returns 
- */
-function parseJSONObjToFach(jsonObjFach) {
-    let newFachBel = new Fachbelegung(jsonObjFach.bezeichnung, jsonObjFach.kuerzel);
-    // hier wird geprüft ob folgeräume ein Objekt/Dictionary ist
-    // Clonen ist überflüssig, da das JSON-Obj später nicht mehr 
-    // gebraucht wird (hoffentlich)
-    if (jsonObjFach.folgeraeume.constructor == Object) {
-        newFachBel.folgeraeume =jsonObjFach.folgeraeume;
-    }
-    if (jsonObjFach.infotexte.constructor === Object) {
-        newFachBel.infotexte =jsonObjFach.infotexte;
-    }
-    return newFachBel;
-}
 
