@@ -15,6 +15,10 @@ class Controller {
             this.name = name;
             Controller.instance = this;
             //TODO: Logik initialisieren
+            /**
+             * der "einzige" Wahlbogen
+             * @type Wahlbogen
+             */
             this.wahlbogen = new Wahlbogen();
         }
     }
