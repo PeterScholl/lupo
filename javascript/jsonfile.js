@@ -4,7 +4,6 @@
 /**
  * Laedt einen Wahlbogen als json-Datei herunter
  * @param {*} wahlbogen der zum Download zu bereitende Wahlbogen
- * @returns 
  */
 function downloadJSON(wahlbogen) {
     if (!wahlbogen instanceof Wahlbogen) {

@@ -1,4 +1,4 @@
-/* In dieser Klasse wird ein Fach und die Fachwahl/Belegung verwaltet
+/** In dieser Klasse wird ein Fach und die Fachwahl/Belegung verwaltet
 diese Belegung kann auch leer sein...
 */
 class Fachbelegung {

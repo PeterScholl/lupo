@@ -1,4 +1,4 @@
-/* In dieser Klasse werden Belegunsbedingungen für Fächer verwaltet
+/** In dieser Klasse werden Belegunsbedingungen für Fächer verwaltet
    Stundenzahlen in jedem Halbjahr (LK zählt immer 5)
    als M,S,LK,ZK
 */

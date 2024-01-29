@@ -1,4 +1,4 @@
-/* Die Klasse Controller bildet die Verbindung zwischen dem HTML-Dokument und
+/** Die Klasse Controller bildet die Verbindung zwischen dem HTML-Dokument und
    der Programmierlogik
    Ich führe den Controller als Singleton aus - zwei Controller machen keinen Sinn ;-)
     - nach der Webseite https://www.heise.de/blog/GoF-Entwurfsmuster-in-JavaScript-Teil-1-Singleton-3079815.html
@@ -18,7 +18,11 @@ class Controller {
             this.wahlbogen = new Wahlbogen();
         }
     }
-    //getInstanceMethode um den Controller zur erhalten
+
+    /**
+     * getInstanceMethode um den Controller zur erhalten
+     * @returns die einzige instanz des Controllers
+     */
     static getInstance() {
         Controller.instance = new Controller("Controller - Instanz");
         Controller.getInstance = function () {
@@ -27,7 +31,7 @@ class Controller {
         return Controller.instance;
     }
 
-    /* init initialisiert:
+    /** init initialisiert:
         * Den Abijahrgang
 
         * Die Tabelle...
@@ -57,12 +61,20 @@ class Controller {
         console.log("Test", this.wahlbogen.fachbelegungen[0].belegungsBed.gibNaechsteBelegungsmöglichkeit(2, 'S'));
     }
 
+    /**
+     * zeichnet das Feld Belegungsverpflichtungen neu 
+     * nachdem eine neue Überprüfung gestartet wurde
+     */
     drawBelegungsverpflichtungen() {
         let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
         document.getElementById('Belegverpflichtungen').innerHTML = bericht;
     }
 
-    // Funktion, die aufgerufen wird, wenn etwas angeclickt wird
+    /**
+     * Reagiert auf Clicks auf Elemente - bekommt das event als Parameter
+     * wird angelegt mit element.addEventListener("click", (obj) => this.cellClicked(obj));
+     * @param {*} event - das event, das ausgelöst wird
+     */
     objectClicked(event) {
         let self = this;
         // Verhindert das Standardverhalten eines Links oder so (falls vorhanden)
@@ -105,11 +117,16 @@ class Controller {
         // TODO Summen...
     }
 
+    /**
+     * Stellt den Abijahrgang aus dem Wahlbogen auf der Webseite dar (z.B. 2027)
+     */
     drawAbijahrgang() {
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
     }
 
-    //Funktion die den Tabellenbereich (TODO neu?) zeichnet
+    /**
+     * Der Tabellenbereich mit den Wahlen wird nue dargestellt
+     */
     drawTable() {
         //TODO 
         let table = document.getElementById('Fächerwahl');
