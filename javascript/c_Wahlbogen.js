@@ -36,6 +36,8 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Musik", "MU", ['', '', '', '', '', ''], "#fccca5");
         // Geschichte
         this.addFachToFachbelegungen("Geschichte", "GE", ['', '', '', '', '', ''], "#eaf1de");
+         // Geschichte Englisch
+         this.addFachToFachbelegungen("GeschichteEnglisch", "GEE", ['', '', '', '', '', ''], "#eaf1de");
         // Sozialwissenschaften
         this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "#eaf1de");
         // Geographie

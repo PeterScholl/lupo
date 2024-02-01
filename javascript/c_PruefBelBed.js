@@ -10,8 +10,8 @@ class PruefeBelegungsBedingungen {
     static pruefeAlle(wahlbogen) {
         let bericht = "Anfang<br>";
         //1. Pruefe Deutsch durchgehend belegt
-        bericht+=this.pruefeDeutschDurchgehend(wahlbogen);
-
+        bericht += this.pruefeDeutschDurchgehend(wahlbogen);
+        bericht += this.pruefeDoppeltGeschichte(wahlbogen);
         bericht += "<br>Ende";
         return bericht;
     }
@@ -23,9 +23,26 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeDeutschDurchgehend(wahlbogen) {
         const fachDeutsch = wahlbogen.getFachMitKuerzel("D");
-        if (!fachDeutsch.belegung.every((a) => {return a!='';})) {
+        if (!fachDeutsch.belegung.every((a) => { return a != ''; })) {
             return "Das Fach Deutsch muss durchgehend von der EF.1 bis Q2.2 belegt werden<br>";
         }
         return "";
     }
+    static pruefeDoppeltGeschichte(wahlbogen) {
+        const fachGeschichte = wahlbogen.getFachMitKuerzel("GE");
+        const fachGeschichteEnglisch = wahlbogen.getFachMitKuerzel("GEE");
+        let valid = true;
+        for (let i = 0; i < 6; i++) {
+            if (fachGeschichte.belegung[i]!='' && fachGeschichteEnglisch.belegung[i]!= ''){
+            valid = false;
+            break;
+            } 
+        }
+        if (!valid) {
+            return "Geschichte und GeschichteEnglisch kann nicht gleichzeitig belegt werden<br>";
+        }
+        return "";
+    }
+
+
 }
