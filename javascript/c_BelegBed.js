@@ -4,7 +4,6 @@
 */
 class BelegBed {
     
-
     constructor() {
         this.wahlarten=[];
         this.wahlarten.push(['M','S']); //Wahlmöglichkeiten für EF1
@@ -14,6 +13,9 @@ class BelegBed {
         this.wahlarten.push(['M','S','LK']); //Wahlmöglichkeiten für Q2.1
         this.wahlarten.push(['M','S','LK']); //Wahlmöglichkeiten für Q2.2
         this.stundenzahlen=[3,3,3,3,3,3]; //Stundenzahlen für die 6 Halbjahre
+        this.einsetzend=[true,false,false,false,false,false]; // In welchen Halbjahren darf begonnen werden
+        //Falls Belegung ZK zulässig darf auch bei false begonnen werden
+        this.vorgaengerFaecher=[]; //Fächer die als Vorgänger betrachtet werden dürfen (KR,ER,PP, BIE,BI, ...)
     }
 
     /**

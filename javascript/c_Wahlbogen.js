@@ -90,4 +90,12 @@ class Wahlbogen {
         if (typeof (fach) === 'undefined') return null;
         return fach;
     }
+
+    /**
+     * sucht die LK -Fächer
+     * @returns Array mit den LK-Fächern
+     */
+    gibLKFaecher() {
+        return this.fachbelegungen.filter((e) => {return e.istLK();});
+    }
 }
