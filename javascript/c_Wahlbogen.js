@@ -37,7 +37,7 @@ class Wahlbogen {
         // Geschichte
         this.addFachToFachbelegungen("Geschichte", "GE", ['', '', '', '', '', ''], "#eaf1de");
          // Geschichte Englisch
-         this.addFachToFachbelegungen("GeschichteEnglisch", "GEE", ['', '', '', '', '', ''], "#eaf1de");
+         this.addFachToFachbelegungen("Geschichte Englisch", "GEE", ['', '', '', '', '', ''], "#eaf1de");
         // Sozialwissenschaften
         this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "#eaf1de");
         // Geographie
@@ -52,6 +52,8 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Mathematik", "M", ['S', 'S', 'S', '', '', ''], "#c5d9f1");
         // Biologie
         this.addFachToFachbelegungen("Biologie", "BI", ['', '', '', '', '', ''], "#8db4e3");
+        // Biologie Englisch
+        this.addFachToFachbelegungen("Biologie Englisch", "BIE", ['', '', '', '', '', ''], "#8db4e3");
         // Chemie
         this.addFachToFachbelegungen("Chemie", "CH", ['', '', '', '', '', ''], "#8db4e3");
         // Physik

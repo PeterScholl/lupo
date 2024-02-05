@@ -12,6 +12,7 @@ class PruefeBelegungsBedingungen {
         //1. Pruefe Deutsch durchgehend belegt
         bericht += this.pruefeDeutschDurchgehend(wahlbogen);
         bericht += this.pruefeDoppeltGeschichte(wahlbogen);
+        bericht += this.pruefeDoppeltBiologie(wahlbogen);
         bericht += "<br>Ende";
         return bericht;
     }
@@ -28,6 +29,7 @@ class PruefeBelegungsBedingungen {
         }
         return "";
     }
+
     static pruefeDoppeltGeschichte(wahlbogen) {
         const fachGeschichte = wahlbogen.getFachMitKuerzel("GE");
         const fachGeschichteEnglisch = wahlbogen.getFachMitKuerzel("GEE");
@@ -39,10 +41,27 @@ class PruefeBelegungsBedingungen {
             } 
         }
         if (!valid) {
-            return "Geschichte und GeschichteEnglisch kann nicht gleichzeitig belegt werden<br>";
+            let f1 = Controller.getInstance().wahlbogen.getFachMitKuerzel("GE");
+            return f1.bezeichnung +" und Geschichte Englisch kann nicht gleichzeitig belegt werden<br>";
         }
         return "";
     }
+    static pruefeDoppeltBiologie(wahlbogen) {
+        const fachBiologie = wahlbogen.getFachMitKuerzel("BI");
+        const fachBiologieEnglisch = wahlbogen.getFachMitKuerzel("BIE");
+        let valid = true;
+        for (let i = 0; i < 6; i++) {
+            if (fachBiologie.belegung[i]!='' && fachBiologieEnglisch.belegung[i]!= ''){
+            valid = false;
+            break;
+            } 
+        }
+        if (!valid) {
+            return "Biologie und Biologie Englisch kann nicht gleichzeitig belegt werden<br>";
+        }
+        return "";
+    }
+
 
 
 }
