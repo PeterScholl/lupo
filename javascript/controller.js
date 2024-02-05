@@ -147,12 +147,14 @@ class Controller {
 
     redrawZeile(kuerzel) {
         const zeile = document.getElementById(kuerzel);
+        zeile.classList.add('Fach');
         const fach = this.wahlbogen.getFachMitKuerzel(kuerzel);
         if (fach != null && zeile != null && zeile.tagName == "TR") {
             // Zeile existiert und fach Existiert
             zeile.innerHTML = ""; //löschen
             //Hintergrundfarbe setzen
-            zeile.style.backgroundColor = fach.bgcolor;
+            //zeile.style.backgroundColor = fach.bgcolor;
+            zeile.classList.add(fach.faecherGruppe);
             let zelle = zeile.insertCell(0);
             zelle.innerHTML = fach.bezeichnung;
             zelle = zeile.insertCell(1);

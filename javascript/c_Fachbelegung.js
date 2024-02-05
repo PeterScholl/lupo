@@ -6,7 +6,7 @@ class Fachbelegung {
     kuerzel = "D"
     belegung = ['', '', '', '', '', '']; //nicht belegt
     belegungsBed = new BelegBed(); // Stundenzahl, M,S,LK,ZK möglich
-    bgcolor = "#DF0101";
+    faecherGruppe = "FG1"; 
 
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
@@ -75,9 +75,9 @@ class Fachbelegung {
             belBed.belegungsBed = BelegBed.generateFromJSONObj(jsonObj.belegungsBed);
         }
 
-        //BGColor übernehmen
-        if (typeof(jsonObj.bgcolor)==='string') {
-            belBed.bgcolor = jsonObj.bgcolor;
+        //Fächergruppe übernehmen
+        if (typeof(jsonObj.faecherGruppe)==='string') {
+            belBed.faecherGruppe = jsonObj.faecherGruppe;
         }
         
         return belBed;

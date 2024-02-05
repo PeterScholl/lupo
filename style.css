@@ -1,0 +1,149 @@
+/* Hintergrundfarben nach Fächergruppen */
+.FG1D {
+    background-color: #fde9d9;
+}
+
+.FG1 {
+    background-color: #fdddc3;
+}
+
+.FG1KuMu {
+    background-color: #fccca5;
+}
+
+.FG2 {
+    background-color: #eaf1de;
+}
+
+.FG2Rel {
+    background-color: #d7e4bc;
+}
+
+.FG3M {
+    background-color: #c5d9f1;
+}
+
+.FG3 {
+    background-color: #8db4e3;
+}
+
+.FGSp {
+    background-color: #fefefe;
+}
+
+.FGPK {
+    background-color: #dddddd;
+}
+
+/* Ende Hintergrundfarben nach Fächergruppen */
+
+.table-container {
+    display: flex;
+}
+
+table {
+    border-collapse: collapse;
+    margin-right: 30px;
+    width: 70%;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+}
+
+@media print {
+    tr.Fach {
+        background-color: transparent;
+    }
+}
+
+img {
+    max-width: 190px;
+    /* Maximale Breite des Bildes */
+    height: 94px;
+    /* Automatische Höhe entsprechend der Breite */
+    margin-right: 20px;
+    /* Abstand zwischen Bild und Überschrift */
+}
+
+/* Responsive Design */
+* {
+    box-sizing: border-box;
+}
+
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+    border: 1px solid red;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}

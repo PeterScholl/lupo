@@ -19,47 +19,47 @@ class Wahlbogen {
      */
     erzeugeMinimaleFachbelegung() {
         // Deutsch(D)
-        this.addFachToFachbelegungen("Deutsch", "D", ['S', 'S', '', '', '', ''], "#FDE9D9");
+        this.addFachToFachbelegungen("Deutsch", "D", ['S', 'S', '', '', '', ''], "FG1D");
         // Englisch
-        this.addFachToFachbelegungen("Englisch", "E", ['S', 'S', '', '', '', ''], "#FDDDC3");
+        this.addFachToFachbelegungen("Englisch", "E", ['S', 'S', '', '', '', ''], "FG1");
         // Latein
-        this.addFachToFachbelegungen("Latein", "L6", ['', '', '', '', '', ''], "#fdddc3");
+        this.addFachToFachbelegungen("Latein", "L6", ['', '', '', '', '', ''],  "FG1");
         // Französisch
-        this.addFachToFachbelegungen("Französisch", "F6", ['', '', '', '', '', ''], "#fdddc3");
+        this.addFachToFachbelegungen("Französisch", "F6", ['', '', '', '', '', ''], "FG1");
         // Spanisch
-        this.addFachToFachbelegungen("Spanisch", "S6", ['', '', '', '', '', ''], "#fdddc3");
+        this.addFachToFachbelegungen("Spanisch", "S6", ['', '', '', '', '', ''], "FG1");
         // Spanisch neu
-        this.addFachToFachbelegungen("Spanisch ab EF", "S0", ['', '', '', '', '', ''], "#fdddc3");
+        this.addFachToFachbelegungen("Spanisch ab EF", "S0", ['', '', '', '', '', ''], "FG1");
         // Kunst
-        this.addFachToFachbelegungen("Kunst", "KU", ['', '', '', '', '', ''], "#fccca5");
+        this.addFachToFachbelegungen("Kunst", "KU", ['', '', '', '', '', ''], "FG1");
         // Musik
-        this.addFachToFachbelegungen("Musik", "MU", ['', '', '', '', '', ''], "#fccca5");
+        this.addFachToFachbelegungen("Musik", "MU", ['', '', '', '', '', ''], "FG1");
         // Geschichte
-        this.addFachToFachbelegungen("Geschichte", "GE", ['', '', '', '', '', ''], "#eaf1de");
+        this.addFachToFachbelegungen("Geschichte", "GE", ['', '', '', '', '', ''], "FG2");
         // Sozialwissenschaften
-        this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "#eaf1de");
+        this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "FG2");
         // Geographie
-        this.addFachToFachbelegungen("Geographie", "EK", ['', '', '', '', '', ''], "#eaf1de");
+        this.addFachToFachbelegungen("Geographie", "EK", ['', '', '', '', '', ''], "FG2");
         // Philosophie
-        this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "#eaf1de");
+        this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "FG2");
         // Katholische Religion
-        this.addFachToFachbelegungen("Kath. Religion", "KR", ['', '', '', '', '', ''], "#d7e4bc");
+        this.addFachToFachbelegungen("Kath. Religion", "KR", ['', '', '', '', '', ''], "FG2");
         // Evangelische Religion
-        this.addFachToFachbelegungen("Ev. Religion", "ER", ['', '', '', '', '', ''], "#d7e4bc");
+        this.addFachToFachbelegungen("Ev. Religion", "ER", ['', '', '', '', '', ''], "FG2");
         // Mathematik #8db4e3
-        this.addFachToFachbelegungen("Mathematik", "M", ['S', 'S', 'S', '', '', ''], "#c5d9f1");
+        this.addFachToFachbelegungen("Mathematik", "M", ['S', 'S', 'S', '', '', ''], "FG3");
         // Biologie
-        this.addFachToFachbelegungen("Biologie", "BI", ['', '', '', '', '', ''], "#8db4e3");
+        this.addFachToFachbelegungen("Biologie", "BI", ['', '', '', '', '', ''], "FG3");
         // Chemie
-        this.addFachToFachbelegungen("Chemie", "CH", ['', '', '', '', '', ''], "#8db4e3");
+        this.addFachToFachbelegungen("Chemie", "CH", ['', '', '', '', '', ''], "FG3");
         // Physik
-        this.addFachToFachbelegungen("Physik", "PH", ['', '', '', '', '', ''], "#8db4e3");
+        this.addFachToFachbelegungen("Physik", "PH", ['', '', '', '', '', ''], "FG3");
         // Biologie
-        this.addFachToFachbelegungen("Informatik", "IF", ['', '', '', '', '', ''], "#8db4e3");
+        this.addFachToFachbelegungen("Informatik", "IF", ['', '', '', '', '', ''], "FG3");
         // Sport
-        this.addFachToFachbelegungen("Sport", "SP", ['', '', '', '', '', ''], "#FEFEFE");
+        this.addFachToFachbelegungen("Sport", "SP", ['', '', '', '', '', ''], "FGSp");
         // Projektkurs
-        this.addFachToFachbelegungen("Projekt", "PK", ['', '', '', '', '', ''], "#DDDDDD");
+        this.addFachToFachbelegungen("Projekt", "PK", ['', '', '', '', '', ''], "FGPK");
     }
 
     /**
@@ -69,13 +69,13 @@ class Wahlbogen {
      * @param {*} belegung die Belegung (Standardvorgabe alle 6 Halbjahre leer '')
      * @param {*} bgcolor die Hintergrundfarbe in HTML für das Fach
      */
-    addFachToFachbelegungen(bezeichnung, kuerzel, belegung = ['', '', '', '', '', ''], bgcolor = "#FA5858") {
+    addFachToFachbelegungen(bezeichnung, kuerzel, belegung = ['', '', '', '', '', ''], faecherGruppe="FG1") {
         // TODO sinnhaftigkeit der Parameter prüfen
         // prüfe ob ein Fach mit dem Kürzel schon existiert
         if (this.getFachMitKuerzel(kuerzel) == null) {
             let fach = new Fachbelegung(bezeichnung, kuerzel);
             fach.belegung = [...belegung]; //wenn sinnvoll
-            fach.bgcolor = bgcolor;
+            fach.faecherGruppe = faecherGruppe;
             this.fachbelegungen.push(fach);
         }
     }
