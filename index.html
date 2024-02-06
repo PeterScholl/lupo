@@ -22,7 +22,7 @@
 
     <img src="Bilder/aeglogo.png" alt="Logo">
 
-    <h1 id="kopfzeile" style="text-align: center; background-color: LightGrey; font-size:70px;">Oberstufenwahl
+    <h1 id="kopfzeile" style="">Oberstufenwahl
       Abijahrgang 20xx</h1>
 
   </div>
@@ -32,7 +32,7 @@
     <input type="text" id="eingabe" name="eingabe" placeholder="Nachname">
   </form>
 
-  <form action="select.html">
+  <form class="print_hide" action="select.html">
     <label>Sprachen Sek1:
       <select name="top4" size="1">
         <option>Französisch</option>
@@ -45,7 +45,7 @@
 
   <br>
   <div class="row">
-    <div class="col-7">
+    <div class="col-7 print_show">
 
       <table id="Fächerwahl">
         <tr>
@@ -61,7 +61,7 @@
         </tr>
       </table>
 
-      <table id="Stundenanzahl" style="width:60%; margin-top: 10px;">
+      <table id="Stundenanzahl" class="stunden">
         <tr>
           <th style="width:15%">Kurse:</th>
           <th style="width:14%">x1</th>
@@ -91,22 +91,22 @@
 
     <div class="col-5">
       <table id="Infotabelle" style="width:100%">
-        <tr style="height:40px">
+        <tr class="infoKopf">
           <th>Belgungsverpflichtungen</th>
         </tr>
-        <tr style="height:200px">
+        <tr class="infoInhalt">
           <td id="Belegverpflichtungen">Belegungsverpflichtungen</td>
         </tr>
-        <tr style="height:40px">
+        <tr class="infoKopf">
           <th>Klausurverpflichtungen</th>
         </tr>
-        <tr style="height:200px">
+        <tr class="infoInhalt">
           <td id="Klausurverpflichtungen">tba</td>
         </tr>
-        <tr style="height:40px">
+        <tr class="infoKopf">
           <th>Informationen</th>
         </tr>
-        <tr style="height:200px">
+        <tr class="infoInhalt">
           <td id="Infos">tba</td>
         </tr>
       </table>
@@ -115,9 +115,10 @@
   </div>
   <br>
 
-
-  <button id="TestButton">TestButton</button>
-  <button id="LadeDatei">Lade aus Datei</button>
+  <div class="print_hide testbuttons">
+    <button id="TestButton">Speichern in Datei</button>
+    <button id="LadeDatei">Lade aus Datei</button>
+  </div>
 </body>
 
 </html>

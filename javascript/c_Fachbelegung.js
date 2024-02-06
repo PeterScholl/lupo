@@ -65,6 +65,15 @@ class Fachbelegung {
     }
 
     /**
+     * prüft ob dieses Fach als drittes oder viertes Abifach gewählt werden kann
+     * und ob es in der Q2.2 belegt war
+     * @returns true, wenn dieses Fach als Abifach gewählt werden kann
+     */
+    alsAbifachMgl() {
+        return ((this.belegungsBed.alsAbifach.includes(3) || this.belegungsBed.alsAbifach.includes(4)) && this.belegung[5]!='')  
+    }
+
+    /**
      * gibt die zu wertende Stundenzahl im angebgebenen Halbjahr (0-5)
      * @param {*} halbjahr 0-5
      * @returns Stundenzahl für dieses Halbjahr

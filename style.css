@@ -37,8 +37,19 @@
 
 /* Ende Hintergrundfarben nach Fächergruppen */
 
+#kopfzeile {
+    text-align: center;
+    background-color: LightGrey;
+    font-size: 4.2vw;
+}
+
 .table-container {
     display: flex;
+}
+
+.stundenzahl {
+    width: 60%;
+    margin-top: 10px;
 }
 
 table {
@@ -52,6 +63,11 @@ td {
     border: 1px solid black;
     padding: 8px;
     text-align: center;
+}
+
+.infoKopf th,td {
+    text-align: left;
+    vertical-align: text-top;
 }
 
 th {
@@ -68,10 +84,56 @@ td:hover {
     align-items: center;
 }
 
+td.disabled {
+    background-color: darkgrey;
+}
+
+tr.infoKopf {
+    height: 40px;
+    text-align: left;
+}
+
+tr.infoInhalt {
+    height: 200px;
+}
+
 @media print {
     tr.Fach {
         background-color: transparent;
     }
+
+    .header-container {
+        width: 750px;
+    }
+
+    div.print_show {
+        width: 750px;
+    }
+
+    .print_hide {
+        display: none;
+    }
+
+    table, td, th {
+        margin-top: 10px;
+        border-width: 2px;
+        border-style: solid;
+        font-size: medium;
+        padding: 0%;
+    }
+
+    tr.infoKopf {
+        width: 750px;
+        padding: 2px;
+        height: 0px;
+    }
+
+    tr.infoInhalt {
+        width: 750px;
+        padding: 2px;
+        height: 0px;
+    }
+
 }
 
 img {

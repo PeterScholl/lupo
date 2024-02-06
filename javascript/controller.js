@@ -141,7 +141,6 @@ class Controller {
         this.wahlbogen.fachbelegungen.forEach((value) => {
             //Tabellenzeile anlegen
             this.tabellenZeileFuerFachAnhaengen(table, value);
-
         })
     }
 
@@ -160,10 +159,17 @@ class Controller {
             zelle = zeile.insertCell(1);
             zelle.innerHTML = fach.kuerzel;
             for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
-                zelle = zeile.insertCell(-1) //erstes Halbjahr
+                zelle = zeile.insertCell(-1); //erstes Halbjahr
                 zelle.innerHTML = fach.belegung[i];
                 zelle.id = "hj" + i;
                 zelle.addEventListener("click", (obj) => this.cellClicked(obj));
+            }
+            // Zelle für das Abifach
+            zelle = zeile.insertCell(-1); // Zelle für das Abifach
+            if (!fach.alsAbifachMgl()) {
+                zelle.classList.add("disabled");
+            } else {
+                zelle.innerHTML = fach.abifach > 0 ? fach.abifach : '';
             }
         }
 
