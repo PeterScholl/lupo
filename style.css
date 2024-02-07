@@ -52,10 +52,32 @@
     margin-top: 10px;
 }
 
+/* Tabellengestaltung */
 table {
     border-collapse: collapse;
-    margin-right: 30px;
-    width: 70%;
+    /*margin-right: 30px;
+    width: 70%;*/
+}
+
+table.stunden {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.col_fachbez {
+    width: 24%;
+}
+.col_fkrzl {
+    width: 8%;
+}
+
+.col_hj {
+    width: 10%;
+}
+
+.col_abi {
+    width: 8%;
 }
 
 th,
