@@ -5,6 +5,11 @@
 class BelegBed {
     
     constructor() {
+        /**
+         * enthält für jedes der 6 Halbjahre eine Liste von Strings die 
+         * als Bezeichnung einer Wahl in dem entsprechenden Halbjahr erlaubt sind
+         * @type string[][]
+         */
         this.wahlarten=[];
         this.wahlarten.push(['M','S']); //Wahlmöglichkeiten für EF1
         this.wahlarten.push(['M','S']); //Wahlmöglichkeiten für EF2
@@ -12,11 +17,31 @@ class BelegBed {
         this.wahlarten.push(['M','S','LK']); //Wahlmöglichkeiten für Q1.2
         this.wahlarten.push(['M','S','LK']); //Wahlmöglichkeiten für Q2.1
         this.wahlarten.push(['M','S','LK']); //Wahlmöglichkeiten für Q2.2
+        /**
+         * gibt für jedes der 6 Halbjahre an, mit wie vielen Stunden das Fach belegt wird
+         * in der Regel 3
+         * @type Integer[]
+         */
         this.stundenzahlen=[3,3,3,3,3,3]; //Stundenzahlen für die 6 Halbjahre
+        /**
+         * gibt an, in welchen Halbjahren das Fach neu einsetzen darf
+         * Standardmäßig nur in EF.1
+         * Falls die Belegung ZK enthält darf auch in dem entsprechenden Halbjahr begonnen werden
+         * wenn hier nicht true steht
+         * @type Boolean[]
+         */
         this.einsetzend=[true,false,false,false,false,false]; // In welchen Halbjahren darf begonnen werden
-        //Falls Belegung ZK zulässig darf auch bei false begonnen werden
+        /**
+         * gibt an welche Fächer ggf. als Vorgängerbelegung erlaubt sind, z.B. bei KR auch ER und PP oder 
+         * bei BIE auch BI...
+         * @type String[]
+         */ 
         this.vorgaengerFaecher=[]; //Fächer die als Vorgänger betrachtet werden dürfen (KR,ER,PP, BIE,BI, ...)
-        this.alsAbifach = true; // Ist dieses Fach als 3./4. Abifach erlaubt
+        /**
+         * gibt an ob dieses Fach als 3. oder 4. Abifach erlaubt ist (z.B. bei Sport könnte das verboten sein)
+         * @type boolean
+         */
+        this.alsAbifach = true; 
     }
 
     /**
