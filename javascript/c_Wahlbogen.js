@@ -58,6 +58,8 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Informatik", "IF", ['', '', '', '', '', ''], "FG3");
         // Sport
         this.addFachToFachbelegungen("Sport", "SP", ['', '', '', '', '', ''], "FGSp");
+        let sport = this.getFachMitKuerzel("SP");
+        sport.belegungsBed.alsAbifach = false;
         // Projektkurs
         this.addFachToFachbelegungen("Projekt", "PK", ['', '', '', '', '', ''], "FGPK");
     }

@@ -166,10 +166,13 @@ class Controller {
             }
             // Zelle für das Abifach
             zelle = zeile.insertCell(-1); // Zelle für das Abifach
-            if (!fach.alsAbifachMgl()) {
+            if (!fach.alsAbifachMgl() && fach.belegung[5]!='LK') {
+                //disabled wenn das FAch nicht Abifach werden kann
                 zelle.classList.add("disabled");
             } else {
                 zelle.innerHTML = fach.abifach > 0 ? fach.abifach : '';
+                zelle.id = "abifach";
+                zelle.addEventListener("click", (obj) => this.cellClicked(obj));
             }
         }
 

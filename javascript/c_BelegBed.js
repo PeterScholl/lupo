@@ -16,7 +16,7 @@ class BelegBed {
         this.einsetzend=[true,false,false,false,false,false]; // In welchen Halbjahren darf begonnen werden
         //Falls Belegung ZK zulässig darf auch bei false begonnen werden
         this.vorgaengerFaecher=[]; //Fächer die als Vorgänger betrachtet werden dürfen (KR,ER,PP, BIE,BI, ...)
-        this.alsAbifach = [1,2,3,4]; // Ist das Fach als 1., 2., 3. oder 4. Abifach erlaubt
+        this.alsAbifach = true; // Ist dieses Fach als 3./4. Abifach erlaubt
     }
 
     /**

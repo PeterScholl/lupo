@@ -65,7 +65,8 @@ td {
     text-align: center;
 }
 
-.infoKopf th,td {
+.infoKopf th,
+.infoKopf td {
     text-align: left;
     vertical-align: text-top;
 }
@@ -97,11 +98,15 @@ tr.infoInhalt {
     height: 200px;
 }
 
+/* Darstellungseinstellungen für die Druckausgabe */
 @media print {
     tr.Fach {
         background-color: transparent;
     }
 
+    div.row {
+        font-family: Arial, Helvetica, sans-serif;
+    }
     .header-container {
         width: 750px;
     }
@@ -114,12 +119,14 @@ tr.infoInhalt {
         display: none;
     }
 
-    table, td, th {
+    table,
+    td,
+    th {
         margin-top: 10px;
-        border-width: 2px;
+        border-width: 1px;
         border-style: solid;
         font-size: medium;
-        padding: 0%;
+        padding: 2px;
     }
 
     tr.infoKopf {
