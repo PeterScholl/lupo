@@ -71,7 +71,12 @@ class Controller {
      */
     drawBelegungsverpflichtungen() {
         let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
-        document.getElementById('Belegverpflichtungen').innerHTML = bericht;
+        let newdiv = document.createElement('div');
+        newdiv.style.overflowY="scroll";
+        newdiv.innerHTML=bericht;
+        let td_bel = document.getElementById('Belegverpflichtungen');
+        td_bel.innerHTML=""; //löschen
+        td_bel.appendChild(newdiv);
     }
 
     /**
