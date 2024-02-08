@@ -91,13 +91,16 @@ class Controller {
 
 
         // Je nach Item muss eine passende Reaktion progrmmiert werden
+        
         console.log("Objekt typ " + clickedObjectTAG + " geklickt: " + clickedObjectID);
         //TODO: Reaktion auf Clicks
         if (clickedObjectTAG === 'BUTTON') {
             switch (clickedObjectID) {
                 case 'TestButton':
                     console.log("Testbutton geklickt - heute Download :-)");
-                    downloadJSON(this.wahlbogen);
+                    //downloadJSON(this.wahlbogen);
+                    document.getElementById('x1').innerHTML="62";
+                    document.getElementById('x4').innerHTML=(this.getFachMitKuerzel(D).belegung);
                     break;
                 case 'LadeDatei':
                     console.log("Lade Datei geklickt");
@@ -190,6 +193,23 @@ class Controller {
             console.log("Angeklicktes Objekt: ", obj.target)
         }
     }
+    /**
+     * zählt  für alle Halbjahre die anzahl an kursen
+     * @returns Array[6] mit den Kursanzahlen 
+     */
+    getKurseFuershalbjahr(){
+        // alle fachwahlen durchlaufen und Stundenzahlen summieren
+        let stundenzahlen = Array(6).fill(0);
+        this.wahlbogen.fachbelegungen.forEach((fach) => {
+            stundenzahlen[i]+=fach.gibStundenZahlImHJ(i);
+        });
+        return stundenzahlen; 
+    }
+
+
+
+
+
 }
 
 let c = new Controller("Hauptcontroller");
