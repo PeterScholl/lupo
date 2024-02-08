@@ -8,15 +8,18 @@ class PruefeBelegungsBedingungen {
      * @returns String mit dem Bericht
      */
     static pruefeAlle(wahlbogen) {
-        let bericht = "Anfang<br>";
+        let bericht = "<br>";
         //1. Pruefe Deutsch durchgehend belegt
         bericht += this.pruefeFachDurchgehend(wahlbogen, "D");
         bericht += this.pruefeFachDurchgehend(wahlbogen, "M");
+        bericht += this.pruefeFachDurchgehend(wahlbogen, "SP");
+        bericht += this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW");
+        bericht += this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE");
         bericht += this.pruefeDoppelteBelegung(wahlbogen, "GE","GEE");
         bericht += this.pruefeDoppelteBelegung(wahlbogen, "BI","BIE");
         bericht += this.pruefeDoppelteBelegung(wahlbogen, "EK","EKE");
         bericht += this.pruefeDoppelteBelegung(wahlbogen, "KR","ER");
-        bericht += "<br>Ende";
+        bericht += "<br>";
         return bericht;
     }
 
@@ -49,4 +52,12 @@ class PruefeBelegungsBedingungen {
         return "";
     }
     
+    static pruefeFachDurchgehendoderZusatzkurs(wahlbogen,krz1) {
+        const fach1 = wahlbogen.getFachMitKuerzel(krz1);
+        if (!fach1.belegung.slice(0,4).every(function (a) { return a != ''; }) || (fach1.belegung[4]== 'ZK' && fach1.belegung[5]=='ZK')) {
+            return "Das Fach " + fach1.bezeichnung  + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden<br>";
+        }
+        return "";
     }
+
+}

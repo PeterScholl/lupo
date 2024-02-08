@@ -36,6 +36,10 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Musik", "MU", ['', '', '', '', '', ''], "#fccca5");
         // Geschichte
         this.addFachToFachbelegungen("Geschichte", "GE", ['', '', '', '', '', ''], "#eaf1de");
+        let ge = this.getFachMitKuerzel('GE');
+        ge.belegungsBed.wahlarten[5].push('ZK');
+        ge.belegungsBed.wahlarten[4].push('ZK');
+        
          // Geschichte Englisch
          this.addFachToFachbelegungen("Geschichte Englisch", "GEE", ['', '', '', '', '', ''], "#eaf1de");
         // Sozialwissenschaften
