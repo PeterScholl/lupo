@@ -36,10 +36,17 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Musik", "MU", ['', '', '', '', '', ''], "FG1");
         // Geschichte
         this.addFachToFachbelegungen("Geschichte", "GE", ['', '', '', '', '', ''], "FG2");
+        let ge = this.getFachMitKuerzel('GE');
+        ge.belegungsBed.wahlarten[5].push('ZK');
+        ge.belegungsBed.wahlarten[4].push('ZK');
+         // Geschichte Englisch
+         this.addFachToFachbelegungen("Geschichte Englisch", "GEE", ['', '', '', '', '', ''], "FG2");
         // Sozialwissenschaften
         this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "FG2");
         // Geographie
         this.addFachToFachbelegungen("Geographie", "EK", ['', '', '', '', '', ''], "FG2");
+        // Geographie Englisch
+        this.addFachToFachbelegungen("Geographie Englisch", "EKE", ['', '', '', '', '', ''], "FG2");
         // Philosophie
         this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "FG2");
         // Katholische Religion
@@ -50,6 +57,8 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Mathematik", "M", ['S', 'S', 'S', '', '', ''], "FG3");
         // Biologie
         this.addFachToFachbelegungen("Biologie", "BI", ['', '', '', '', '', ''], "FG3");
+        // Biologie Englisch
+        this.addFachToFachbelegungen("Biologie Englisch", "BIE", ['', '', '', '', '', ''], "FG3");
         // Chemie
         this.addFachToFachbelegungen("Chemie", "CH", ['', '', '', '', '', ''], "FG3");
         // Physik

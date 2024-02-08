@@ -10,9 +10,16 @@ class PruefeBelegungsBedingungen {
     static pruefeAlle(wahlbogen) {
         let bericht = "";
         //1. Pruefe Deutsch durchgehend belegt
-        bericht+=this.pruefeDeutschDurchgehend(wahlbogen);
-
-        //bericht += "<br>Ende";
+        bericht += this.pruefeFachDurchgehend(wahlbogen, "D");
+        bericht += this.pruefeFachDurchgehend(wahlbogen, "M");
+        bericht += this.pruefeFachDurchgehend(wahlbogen, "SP");
+        bericht += this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW");
+        bericht += this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE");
+        bericht += this.pruefeDoppelteBelegung(wahlbogen, "GE","GEE");
+        bericht += this.pruefeDoppelteBelegung(wahlbogen, "BI","BIE");
+        bericht += this.pruefeDoppelteBelegung(wahlbogen, "EK","EKE");
+        bericht += this.pruefeDoppelteBelegung(wahlbogen, "KR","ER");
+        bericht += "<br>";
         return bericht;
     }
 
@@ -21,11 +28,36 @@ class PruefeBelegungsBedingungen {
      * @param {*} wahlbogen der zu prüfende Wahlbogen
      * @returns String mit der Meldung falls nicht Bedingung nicht erfüllt, sonst Leerstring.
      */
-    static pruefeDeutschDurchgehend(wahlbogen) {
-        const fachDeutsch = wahlbogen.getFachMitKuerzel("D");
-        if (!fachDeutsch.belegung.every((a) => {return a!='';})) {
-            return "Das Fach Deutsch muss durchgehend von der EF.1 bis Q2.2 belegt werden<br>";
+    static pruefeFachDurchgehend(wahlbogen,krz1) {
+        const fach1 = wahlbogen.getFachMitKuerzel(krz1);
+        if (!fach1.belegung.every((a) => { return a != ''; })) {
+            return "Das Fach " + fach1.bezeichnung  + " muss durchgehend von der EF.1 bis Q2.2 belegt werden<br>";
         }
         return "";
     }
+
+    static pruefeDoppelteBelegung(wahlbogen,krz1,krz2) {
+        const fach1 = wahlbogen.getFachMitKuerzel(krz1);
+        const fach2 = wahlbogen.getFachMitKuerzel(krz2);
+        let valid = true;
+        for (let i = 0; i < 6; i++) {
+            if (fach1.belegung[i]!='' && fach2.belegung[i]!= ''){
+            valid = false;
+            break;
+            } 
+        }
+        if (!valid) {
+            return fach1.bezeichnung + " und " + fach2.bezeichnung + " kann nicht gleichzeitig belegt werden<br>";
+        }
+        return "";
+    }
+    
+    static pruefeFachDurchgehendoderZusatzkurs(wahlbogen,krz1) {
+        const fach1 = wahlbogen.getFachMitKuerzel(krz1);
+        if (!fach1.belegung.slice(0,4).every(function (a) { return a != ''; }) || (fach1.belegung[4]== 'ZK' && fach1.belegung[5]=='ZK')) {
+            return "Das Fach " + fach1.bezeichnung  + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden<br>";
+        }
+        return "";
+    }
+
 }
