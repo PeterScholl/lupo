@@ -8,11 +8,11 @@ class PruefeBelegungsBedingungen {
      * @returns String mit dem Bericht
      */
     static pruefeAlle(wahlbogen) {
-        let bericht = "Anfang<br>";
+        let bericht = "";
         //1. Pruefe Deutsch durchgehend belegt
         bericht+=this.pruefeDeutschDurchgehend(wahlbogen);
 
-        bericht += "<br>Ende";
+        //bericht += "<br>Ende";
         return bericht;
     }
 

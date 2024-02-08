@@ -6,7 +6,8 @@ class Fachbelegung {
     kuerzel = "D"
     belegung = ['', '', '', '', '', '']; //nicht belegt
     belegungsBed = new BelegBed(); // Stundenzahl, M,S,LK,ZK möglich
-    bgcolor = "#DF0101";
+    faecherGruppe = "FG1";
+    abifach = 0; //kein Abifach sonst 1-4
 
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
@@ -20,7 +21,15 @@ class Fachbelegung {
      * @param {*} halbjahr 0-5 in dem die Belegung hochgesetzt werden soll
      */
     setzeBelegungWeiter(halbjahr) {
-        const bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, this.belegung[halbjahr]);
+        let bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, this.belegung[halbjahr]);
+        if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
+            bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+        }
+        if (halbjahr > 2 && bel_neu != "LK" && this.istLK()) { // ein Halbjahr nach Q1.1 wurde vom LK weg gewählt
+            //alle Haljahre der Q-Phase abwählen
+            halbjahr=2;
+            bel_neu='';
+        }
         this.belegung[halbjahr] = bel_neu;
         // Bei Q1 auch die Folgebelegungen entsprechend setzen
         if (halbjahr > 1) { //in der Q1
@@ -30,6 +39,38 @@ class Fachbelegung {
                 folgeHalbjahr++;
             }
         }
+    }
+
+    /**
+     * prüft ob das Fach als LK belegt wurde
+     * @returns true wenn das Fach in einem Halbjahr als LK belegt wurde
+     */
+    istLK() {
+        return this.belegung.some((e) => { return e === 'LK'; });
+    }
+
+    /**
+     * prüft ob eine Wahl als LK in diesem Halbjahr zulässig ist
+     * @param {int} halbjahr 0-5 
+     * @returns true wenn zulässig
+     */
+    istLKWahlZulaessig(halbjahr) {
+        let valid = true;
+        const wb = Controller.getInstance().wahlbogen;
+        valid &= this.istLK() || wb.gibLKFaecher().length < 2; // es gibt schon zwei andere LKs
+        //valid &= (halbjahr == 2) || (halbjahr > 2 && this.belegung[halbjahr - 1] == 'LK'); // Änderung auf LK nur in Q1.1
+        valid &= (halbjahr == 2); // Änderung auf LK nur in Q1.1
+        valid &= this.belegung[1] != ''; //wurde in der EF belegt
+        return valid;
+    }
+
+    /**
+     * prüft ob dieses Fach als drittes oder viertes Abifach gewählt werden kann
+     * und ob es in der Q2.2 belegt war
+     * @returns true, wenn dieses Fach als Abifach gewählt werden kann
+     */
+    alsAbifachMgl() {
+        return (this.belegungsBed.alsAbifach && this.belegung[5]!='')  
     }
 
     /**
@@ -56,30 +97,30 @@ class Fachbelegung {
     static generateFromJSONObj(jsonObj) {
         let belBed = null;
         // Bezeichnung und Kürzel übernehmen
-        if (typeof(jsonObj.bezeichnung) === 'string' && typeof(jsonObj.kuerzel) === 'string') {
+        if (typeof (jsonObj.bezeichnung) === 'string' && typeof (jsonObj.kuerzel) === 'string') {
             belBed = new Fachbelegung(jsonObj.bezeichnung, jsonObj.kuerzel);
-            console.log("Fach ",jsonObj.bezeichnung," Krzl: ",jsonObj.kuerzel);
+            console.log("Fach ", jsonObj.bezeichnung, " Krzl: ", jsonObj.kuerzel);
         } else {
-            belBed = new Fachbelegung("Ungueltig","--");
+            belBed = new Fachbelegung("Ungueltig", "--");
         }
 
         //Belegung übernehmen
-        if (typeof(jsonObj.belegung) === 'object' && Array.isArray(jsonObj.belegung) && jsonObj.belegung.length == 6) {
+        if (typeof (jsonObj.belegung) === 'object' && Array.isArray(jsonObj.belegung) && jsonObj.belegung.length == 6) {
             belBed.belegung = jsonObj.belegung;
         } else {
             console.log("Belegung in JSON-File Fehlerhaft");
         }
 
         //Belegungsbedingungen übernehmen
-        if (typeof(jsonObj.belegungsBed)==='object') {
+        if (typeof (jsonObj.belegungsBed) === 'object') {
             belBed.belegungsBed = BelegBed.generateFromJSONObj(jsonObj.belegungsBed);
         }
 
-        //BGColor übernehmen
-        if (typeof(jsonObj.bgcolor)==='string') {
-            belBed.bgcolor = jsonObj.bgcolor;
+        //Fächergruppe übernehmen
+        if (typeof (jsonObj.faecherGruppe) === 'string') {
+            belBed.faecherGruppe = jsonObj.faecherGruppe;
         }
-        
+
         return belBed;
     }
 }

@@ -71,7 +71,12 @@ class Controller {
      */
     drawBelegungsverpflichtungen() {
         let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
-        document.getElementById('Belegverpflichtungen').innerHTML = bericht;
+        let newdiv = document.createElement('div');
+        newdiv.style.overflowY="scroll";
+        newdiv.innerHTML=bericht;
+        let td_bel = document.getElementById('Belegverpflichtungen');
+        td_bel.innerHTML=""; //löschen
+        td_bel.appendChild(newdiv);
     }
 
     /**
@@ -141,26 +146,37 @@ class Controller {
         this.wahlbogen.fachbelegungen.forEach((value) => {
             //Tabellenzeile anlegen
             this.tabellenZeileFuerFachAnhaengen(table, value);
-
         })
     }
 
     redrawZeile(kuerzel) {
         const zeile = document.getElementById(kuerzel);
+        zeile.classList.add('Fach');
         const fach = this.wahlbogen.getFachMitKuerzel(kuerzel);
         if (fach != null && zeile != null && zeile.tagName == "TR") {
             // Zeile existiert und fach Existiert
             zeile.innerHTML = ""; //löschen
             //Hintergrundfarbe setzen
-            zeile.style.backgroundColor = fach.bgcolor;
+            //zeile.style.backgroundColor = fach.bgcolor;
+            zeile.classList.add(fach.faecherGruppe);
             let zelle = zeile.insertCell(0);
             zelle.innerHTML = fach.bezeichnung;
             zelle = zeile.insertCell(1);
             zelle.innerHTML = fach.kuerzel;
             for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
-                zelle = zeile.insertCell(-1) //erstes Halbjahr
+                zelle = zeile.insertCell(-1); //erstes Halbjahr
                 zelle.innerHTML = fach.belegung[i];
                 zelle.id = "hj" + i;
+                zelle.addEventListener("click", (obj) => this.cellClicked(obj));
+            }
+            // Zelle für das Abifach
+            zelle = zeile.insertCell(-1); // Zelle für das Abifach
+            if (!fach.alsAbifachMgl() && fach.belegung[5]!='LK') {
+                //disabled wenn das FAch nicht Abifach werden kann
+                zelle.classList.add("disabled");
+            } else {
+                zelle.innerHTML = fach.abifach > 0 ? fach.abifach : '';
+                zelle.id = "abifach";
                 zelle.addEventListener("click", (obj) => this.cellClicked(obj));
             }
         }

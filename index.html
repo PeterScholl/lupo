@@ -1,38 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8">
   <title>Lupo Web</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    .table-container {
-            display: flex;
-        }
-    table {
-      border-collapse: collapse;
-      margin-right: 30px;
-      width: 70%;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    td:hover {
-      cursor: pointer;
-      background-color: #f0f0f0;
-    }
-    .header-container {
-      display: flex;
-      align-items: center;
-    }
-    img {
-            max-width: 190px; /* Maximale Breite des Bildes */
-            height: 94px; /* Automatische Höhe entsprechend der Breite */
-            margin-right: 20px; /* Abstand zwischen Bild und Überschrift */
-        }
+
   </style>
   <script src="./javascript/jsonfile.js"></script>
   <script src="./javascript/c_BelegBed.js"></script>
@@ -41,102 +15,109 @@
   <script src="./javascript/c_PruefBelBed.js"></script>
   <script src="./javascript/controller.js"></script>
 </head>
+
 <body>
 
-<div class="header-container"> 
+  <div class="header-container">
 
-<img src="Bilder/aeglogo.png" alt="Logo"> 
+    <img src="Bilder/aeglogo.png" alt="Logo">
 
-<h1 id="kopfzeile" style="text-align: center; background-color: LightGrey; font-size:70px;">Oberstufenwahl Abijahrgang 20xx</h1>
+    <h1 id="kopfzeile">Oberstufenwahl
+      Abijahrgang 20xx</h1>
 
-</div>
+  </div>
 
-<form>
-  <input type="text" id="eingabe" name="eingabe" placeholder="Vorname">
-  <input type="text" id="eingabe" name="eingabe" placeholder="Nachname">
-</form>
-	
-<form action="select.html">
-  <label>Sprachen Sek1:
-    <select name="top4" size="1">
-      <option>Französisch</option>
-      <option>Spanisch</option>
-      <option>Latein</option>
-      <option>Englisch Billingual</option>
-    </select>
-  </label>
-</form>
+  <form>
+    <input type="text" id="eingabe" name="eingabe" placeholder="Vorname">
+    <input type="text" id="eingabe" name="eingabe" placeholder="Nachname">
+  </form>
 
-<br>
+  <form class="print_hide" action="select.html">
+    <label>Sprachen Sek1:
+      <select name="top4" size="1">
+        <option>Französisch</option>
+        <option>Spanisch</option>
+        <option>Latein</option>
+        <option>Englisch Billingual</option>
+      </select>
+    </label>
+  </form>
 
-<div class="table-container">
+  <br>
+  <div class="row">
+    <div class="col-7 print_show">
 
-<table id="Fächerwahl" style="width:50%">
-  <tr>
-    <th style="width:15%">Objekt</th>
-    <th style="width:5%">Kürzel</th>
-    <th style="width:13%">EF.1</th>
-    <th style="width:13%">EF.2</th>
-    <th style="width:13%">Q1.1</th>
-    <th style="width:13%">Q1.2</th>
-    <th style="width:13%">Q2.1</th>
-    <th style="width:13%">Q2.2</th>
-  </tr>
-  
-</table>
+      <table id="Fächerwahl">
+        <tr>
+          <th class="col_fach">Fach</th>
+          <th class="col_fkrzl">Krzl</th>
+          <th class="col_hj">EF.1</th>
+          <th class="col_hj">EF.2</th=>
+          <th class="col_hj">Q1.1</th>
+          <th class="col_hj">Q1.2</th>
+          <th class="col_hj">Q2.1</the=>
+          <th class="col_hj">Q2.2</thle=>
+          <th class="col_abi">Abi</the=>
+        </tr>
+      </table>
 
-<table id="Infotabelle" style="width:45%">
-  <tr style="height:40px">
-      <th>Belgungsverpflichtungen</th>
-  </tr>
-    <tr style= "height:200px">
-      <td id= "Belegverpflichtungen" >Belegungsverpflichtungen</td>
-    </tr> 
-  <tr style="height:40px">
-      <th>Klausurverpflichtungen</th>
-  </tr>
-    <tr style="height:200px">
-      <td id= "Klausurverpflichtungen" >tba</td>
-    </tr>
-  <tr style="height:40px">
-      <th>Informationen</th>
-  </tr>
-    <tr style= "height:200px">
-      <td id="Infos">tba</td>
-    </tr>
-</table>
+      <table id="Stundenanzahl" class="stunden">
+        <tr>
+          <th style="width:15%">Kurse:</th>
+          <th style="width:14%">x1</th>
+          <th style="width:14%">x2</th>
+          <th style="width:14%">x3</th>
+          <th style="width:14%">x4</th>
+          <th style="width:14%">x5</th>
+          <th style="width:14%">x6</th>
+        </tr>
+        <tr>
+          <td>Wochenstunden:</td>
+          <td>y1</td>
+          <td>y2</td>
+          <td>y3</td>
+          <td>y4</td>
+          <td>y5</td>
+          <td>y6</td>
+        </tr>
+        <tr>
+          <td>Durchschnitt:</td>
+          <td colspan="2">E-Phase</td>
+          <td colspan="4">Q-Phase</td>
+        </tr>
 
-</div>
+      </table>
+    </div>
 
-<br>
+    <div class="col-5">
+      <table id="Infotabelle" style="width:100%">
+        <tr class="infoKopf">
+          <th>Belegungsverpflichtungen</th>
+        </tr>
+        <tr class="infoInhalt">
+          <td id="Belegverpflichtungen">Belegungsverpflichtungen</td>
+        </tr>
+        <tr class="infoKopf">
+          <th>Klausurverpflichtungen</th>
+        </tr>
+        <tr class="infoInhalt">
+          <td id="Klausurverpflichtungen">Klausur</td>
+        </tr>
+        <tr class="infoKopf">
+          <th>Informationen</th>
+        </tr>
+        <tr class="infoInhalt">
+          <td id="Infos">Infos</td>
+        </tr>
+      </table>
 
-<table id="Stundenanzahl" style="width:30%">
-  <tr>
-    <th style="width:15%">Kurse:</th>
-    <th style="width:14%">x1</th>
-    <th style="width:14%">x2</th>
-    <th style="width:14%">x3</th>
-    <th style="width:14%">x4</th>
-    <th style="width:14%">x5</th>
-    <th style="width:14%">x6</th>
-  </tr>
-  <tr>
-    <td>Wochenstunden:</td>
-    <td>y1</td>
-    <td>y2</td>
-    <td>y3</td>
-    <td>y4</td>
-    <td>y5</td>
-    <td>y6</td>
-  </tr>
-  <tr>
-    <td>Durchschnitt:</td>
-    <td colspan = "2">E-Phase</td>
-    <td colspan = "4">Q-Phase</td>
-  </tr>
+    </div>
+  </div>
 
-</table>
-<button id="TestButton">TestButton</button>
-<button id="LadeDatei">Lade aus Datei</button>
+  <div class="print_hide testbuttons">
+    <button id="TestButton">Speichern in Datei</button>
+    <button id="LadeDatei">Lade aus Datei</button>
+  </div>
 </body>
+
 </html>
