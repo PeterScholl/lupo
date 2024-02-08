@@ -42,6 +42,8 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "#eaf1de");
         // Geographie
         this.addFachToFachbelegungen("Geographie", "EK", ['', '', '', '', '', ''], "#eaf1de");
+        // Geographie Englisch
+        this.addFachToFachbelegungen("Geographie Englisch", "EKE", ['', '', '', '', '', ''], "#eaf1de");
         // Philosophie
         this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "#eaf1de");
         // Katholische Religion
