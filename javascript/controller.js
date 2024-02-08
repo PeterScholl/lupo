@@ -63,7 +63,11 @@ class Controller {
         this.drawTable();
         // Test Wahlarten
         console.log("Test", this.wahlbogen.fachbelegungen[0].belegungsBed.gibNaechsteBelegungsmöglichkeit(2, 'S'));
+
+        //TODO : Muss erstmal funktionieren
+        //this.erzeugestundenzahl();
     }
+
 
     /**
      * zeichnet das Feld Belegungsverpflichtungen neu 
