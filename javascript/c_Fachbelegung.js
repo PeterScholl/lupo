@@ -90,6 +90,22 @@ class Fachbelegung {
     }
 
     /**
+     * Schreibt für das Fach die Belegung vom übergebenen Halbjahr an hoch
+     * sofern Möglich
+     * @param {Integer} halbjahr (0-5)
+     */
+    hochschreibenVon(halbjahr) {
+        //console.log("Hochschreiben Fach",this.bezeichnung);
+        for (let i=halbjahr+1; i<6; i++) {
+            if (this.belegungsBed.wahlarten[i].includes(this.belegung[i-1])) {
+                this.belegung[i]=this.belegung[i-1];
+            } else {
+                this.belegung[i]='';
+            }
+        }
+    }
+
+    /**
      * Methode um eine Fachbelegung von einem JSONObj zu generieren
      * @param {} jsonObj 
      * @return neue Fachbelegung

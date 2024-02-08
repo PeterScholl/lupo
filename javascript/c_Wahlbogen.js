@@ -109,4 +109,12 @@ class Wahlbogen {
     gibLKFaecher() {
         return this.fachbelegungen.filter((e) => {return e.istLK();});
     }
+
+    /**
+     * Schreibt für alle Fächer die Belegung vom übergebenen Halbjahr an hoch
+     * @param {Integer} halbjahr (0-5)
+     */
+    hochschreibenVon(halbjahr) {
+        this.fachbelegungen.forEach((f) => {f.hochschreibenVon(halbjahr);});
+    }
 }

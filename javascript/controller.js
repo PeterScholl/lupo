@@ -71,12 +71,10 @@ class Controller {
      */
     drawBelegungsverpflichtungen() {
         let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
-        let newdiv = document.createElement('div');
-        newdiv.style.overflowY="scroll";
-        newdiv.innerHTML=bericht;
-        let td_bel = document.getElementById('Belegverpflichtungen');
-        td_bel.innerHTML=""; //löschen
-        td_bel.appendChild(newdiv);
+        let newdiv = document.getElementById('Belegverpflichtungen');
+        //newdiv.style.overflowY="scroll";
+        newdiv.classList.add('div-pruef');
+        newdiv.innerHTML = bericht;
     }
 
     /**
@@ -108,10 +106,32 @@ class Controller {
                     console.log("Lade Datei geklickt");
                     openJSON();
                     break;
+                case 'HochschreibenEF1':
+                    console.log("Hochschreiben von der EF1");
+                    this.wahlbogen.hochschreibenVon(0);
+                    this.drawTable();
+                    this.drawBelegungsverpflichtungen(); //inklusive Prüfung
+                    break;
+                case 'HochschreibenEF2':
+                    console.log("Hochschreiben von der EF.2");
+                    this.wahlbogen.hochschreibenVon(1);
+                    this.drawTable();
+                    this.drawBelegungsverpflichtungen(); //inklusive Prüfung
+                    break;
                 default:
                     console.log("Button ID unbekannt");
             }
         }
+    }
+
+    /**
+     * Methode um beim anklicken eines Objekts eine Klasse zu aktivieren oder zu deaktivieren
+     * @param {} target - das angeklickte Objekt 
+     * @param {*} className - die zu toggelnde Klasse
+     */
+    objectClickedToggleClass(target, className) {
+        console.dir(target);
+        target.classList.toggle(className);
     }
 
     /**
@@ -134,11 +154,11 @@ class Controller {
     }
 
     /**
-     * Der Tabellenbereich mit den Wahlen wird nue dargestellt
+     * Der Tabellenbereich mit den Wahlen wird neu dargestellt
      */
     drawTable() {
         //TODO 
-        let table = document.getElementById('Fächerwahl');
+        let table = document.getElementById('Faecherwahl');
         //table.innerHTML=""; //Tabelle löschen
         while (table.rows.length > 1) {
             table.deleteRow(1); // Kopfzeile 0 bleibt erhalten
@@ -171,7 +191,7 @@ class Controller {
             }
             // Zelle für das Abifach
             zelle = zeile.insertCell(-1); // Zelle für das Abifach
-            if (!fach.alsAbifachMgl() && fach.belegung[5]!='LK') {
+            if (!fach.alsAbifachMgl() && fach.belegung[5] != 'LK') {
                 //disabled wenn das FAch nicht Abifach werden kann
                 zelle.classList.add("disabled");
             } else {
