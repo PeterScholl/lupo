@@ -54,7 +54,7 @@ class PruefeBelegungsBedingungen {
     
     static pruefeFachDurchgehendoderZusatzkurs(wahlbogen,krz1) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
-        if (!fach1.belegung.slice(0,4).every(function (a) { return a != ''; }) || (fach1.belegung[4]== 'ZK' && fach1.belegung[5]=='ZK')) {
+        if (!fach1.belegung.slice(0,4).every(function (a) { return a != ''; }) && (fach1.belegung[4]!= 'ZK' && fach1.belegung[5]!='ZK')) {
             return "Das Fach " + fach1.bezeichnung  + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden<br>";
         }
         return "";
