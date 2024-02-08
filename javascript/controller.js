@@ -94,13 +94,20 @@ class Controller {
         
         console.log("Objekt typ " + clickedObjectTAG + " geklickt: " + clickedObjectID);
         //TODO: Reaktion auf Clicks
+        //TODO: kurszahlen array muss anständig gefüllt werden
         if (clickedObjectTAG === 'BUTTON') {
             switch (clickedObjectID) {
                 case 'TestButton':
                     console.log("Testbutton geklickt - heute Download :-)");
                     //downloadJSON(this.wahlbogen);
-                    document.getElementById('x1').innerHTML="62";
-                    document.getElementById('x4').innerHTML=(this.getFachMitKuerzel(D).belegung);
+                    const kurszahlen = [];
+                    kurszahlen[1] = this.getKurseFuershalbjahr(); 
+                    document.getElementById('x1').innerHTML= kurszahlen[1];
+                    document.getElementById('x2').innerHTML= kurszahlen[2];
+                    document.getElementById('x3').innerHTML= kurszahlen[3];
+                    document.getElementById('x4').innerHTML= kurszahlen[4];
+                    document.getElementById('x5').innerHTML= kurszahlen[5];
+                    document.getElementById('x6').innerHTML= kurszahlen[6];
                     break;
                 case 'LadeDatei':
                     console.log("Lade Datei geklickt");
@@ -194,17 +201,34 @@ class Controller {
         }
     }
     /**
-     * zählt  für alle Halbjahre die anzahl an kursen
-     * @returns Array[6] mit den Kursanzahlen 
+     * zählt  für alle Halbjahre die Stundenzahl aller kurse
+     * @returns Array[6] mit den Stundenanzahlen
      */
-    getKurseFuershalbjahr(){
+    getStundenFuershalbjahr(){
         // alle fachwahlen durchlaufen und Stundenzahlen summieren
         let stundenzahlen = Array(6).fill(0);
         this.wahlbogen.fachbelegungen.forEach((fach) => {
-            stundenzahlen[i]+=fach.gibStundenZahlImHJ(i);
+            for (let i = 0; i < 6; i++){
+            stundenzahlen[i]+=fach.gibStundenzahlImHalbjahr(i);
+            }
         });
         return stundenzahlen; 
     }
+        /**
+     * zählt  für alle Halbjahre die Anzahl an Kursen
+     * @returns Array[6] mit den Kursanzahlen
+     */
+    getKurseFuershalbjahr(){
+            // alle fachwahlen durchlaufen und Kurse summieren
+            let kurszahlen = Array(6).fill(0);
+            this.wahlbogen.fachbelegungen.forEach((fach) => {
+                for (let i = 0; i < 6; i++){
+                    if (fach.belegung[i] != '')
+                        kurszahlen[i]+= 1;
+                    }
+            });
+            return kurszahlen; 
+        }
 
 
 
