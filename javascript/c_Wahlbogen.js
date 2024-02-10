@@ -23,12 +23,20 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Deutsch", "D", ['S', 'S', '', '', '', ''], "FG1D");
         // Englisch
         this.addFachToFachbelegungen("Englisch", "E", ['S', 'S', '', '', '', ''], "FG1");
+        const e = this.getFachMitKuerzel('E');
+        e.istFFS = true; //Englisch ist fortgeführte Fremdsprache
         // Latein
         this.addFachToFachbelegungen("Latein", "L6", ['', '', '', '', '', ''],  "FG1");
+        const l6 = this.getFachMitKuerzel('L6');
+        l6.istFFS = true; //Latein ist fortgeführte Fremdsprache
         // Französisch
         this.addFachToFachbelegungen("Französisch", "F6", ['', '', '', '', '', ''], "FG1");
+        const f6 = this.getFachMitKuerzel('F6');
+        f6.istFFS = true; //Französisch ist fortgeführte Fremdsprache
         // Spanisch
         this.addFachToFachbelegungen("Spanisch", "S6", ['', '', '', '', '', ''], "FG1");
+        const s6 = this.getFachMitKuerzel('S6');
+        s6.istFFS = true; //Spanisch ist fortgeführte Fremdsprache
         // Spanisch neu
         this.addFachToFachbelegungen("Spanisch ab EF", "S0", ['', '', '', '', '', ''], "FG1");
         // Kunst

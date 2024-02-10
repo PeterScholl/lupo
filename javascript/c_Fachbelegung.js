@@ -146,6 +146,11 @@ class Fachbelegung {
         //Abifach
         neueBlg.abifach = jsonObj.abifach;
 
+        //fortgeführte Fremdsprache
+        if (typeof(jsonObj.istFFS) === 'boolean') {
+            neueBlg.istFFS = jsonObj.istFFS;
+        }
+
         return neueBlg;
     }
 }
