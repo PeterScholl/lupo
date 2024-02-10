@@ -222,7 +222,20 @@ class Controller {
             const fach = this.wahlbogen.getFachMitKuerzel(gewKrz);
             fach.setzeBelegungWeiter(gewHj);
             this.redrawZeile(gewKrz);
-            //TODO - soll das wirklich immer passieren?
+            this.drawBelegungsverpflichtungen();
+        } else if (obj.target.tagName === "TD" && obj.target.id === "abifach") {
+            //Es wurde in die Abifachzelle geklickt
+            const gewKrz = obj.target.parentNode.id; // id des Parent Node <tr> ist das FachKürzel
+            //console.log("Angeklicktes Abifach: ", gewKrz);
+            this.wahlbogen.aendereAbifach(gewKrz);
+            this.redraw(gewKrz);
+            //ggf. Abi3 und Abifach 4 neu zeichnen
+            [3,4].forEach(el => {
+                let abif = this.wahlbogen.gibAbifach(el);
+                if (abif!=null && abif.kuerzel!=gewKrz) {
+                    this.redraw(abif.kuerzel);
+                }                    
+            });
             this.drawBelegungsverpflichtungen();
         } else {
             console.log("Angeklicktes Objekt: ", obj.target)

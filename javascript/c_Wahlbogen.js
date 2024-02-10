@@ -105,6 +105,55 @@ class Wahlbogen {
     }
 
     /**
+     * ändert das Abifach mit dem angegebenen Kürzel
+     * wenn dieses Fach noch nicht Abifach ist 
+     *   wenn Abifach3 nicht vorhanden - von 0 auf 3 (wenn 3 nicht vorhanden)
+     *   wenn Abifach3 vorhanden aber Abifach 4 nicht - von 0 auf 4
+     *   sonst von 0 auf 3 und 3 auf 4 und 4 auf 0
+     * wenn dieses Fach Abifach ist
+     *   von 3 auf 4 und 4 ggf auf 3
+     *   von 4 auf 0
+     * @param {*} krzl 
+     */
+    aendereAbifach(krzl) {
+        let diesesFach = this.getFachMitKuerzel(krzl);
+        let abi3 = this.gibAbifach(3);
+        let abi4 = this.gibAbifach(4);
+        if (diesesFach==null || diesesFach.istLK()) return;
+        if (diesesFach.abifach > 2) { //dieses ist Abifach
+            if (diesesFach.abifach==3) {
+                diesesFach.abifach=4;
+                if (abi4!=null) abi4.abifach=3;
+            } else { //dieses ist viertes Abifach
+                diesesFach.abifach=0;
+            }
+        } else { //dieses Fach ist noch kein Abifach
+            if (abi3!=null) { //Es gibt schon ein drittes Abifach
+                if (abi4!=null) { // und auch ein viertes
+                    diesesFach.abifach = 3;
+                    abi3.abifach = 4;
+                    abi4.abifach =0;
+                } else { //drittes aber kein viertes
+                    diesesFach.abifach = 4;
+                }
+            } else { // noch kein drittes Abifach
+                diesesFach.abifach=3;
+            }
+        }
+    }
+
+    /**
+     * gibt das erste (und i.d.R. einzige) Fach mit der gesuchten Abifachnummer
+     * @param {Integer} nr Abifach-Nummer 1-4
+     * @returns das erste Fach mit diesem Wert als Abifach oder null
+     */
+    gibAbifach(nr) {
+        let fach = this.fachbelegungen.find((f) => {return f.abifach===nr;});
+        if (typeof (fach) === 'undefined') return null;
+        return fach;
+   }
+
+    /**
      * sucht die LK -Fächer
      * @returns Array mit den LK-Fächern
      */

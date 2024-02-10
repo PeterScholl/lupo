@@ -70,7 +70,7 @@ class Fachbelegung {
      * @returns true, wenn dieses Fach als Abifach gewählt werden kann
      */
     alsAbifachMgl() {
-        return (this.belegungsBed.alsAbifach && this.belegung[5]!='')  
+        return (this.belegungsBed.alsAbifach && this.belegung[5]!='' && this.belegung[5]!='ZK');  
     }
 
     /**
