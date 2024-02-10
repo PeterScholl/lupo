@@ -111,6 +111,11 @@ function parseJSONObjToWahlbogen(jsonObj) {
         fachbelegungen = jsonObj.fachbelegungen.map((e)=> {return Fachbelegung.generateFromJSONObj(e)});
     }
     wahlbogen.fachbelegungen = fachbelegungen;
+
+    if (Array.isArray(jsonObj.verboteneFachKombis)) {
+        console.log("Verbotene Fachkombis:",JSON.stringify(jsonObj.verboteneFachKombis));
+        wahlbogen.verboteneFachKombis = jsonObj.verboteneFachKombis;
+    }
     return wahlbogen;
 }
 

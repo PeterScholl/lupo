@@ -6,6 +6,7 @@ class Wahlbogen {
     vorname = "Vorname";
     fachbelegungen = [];
     abiJahrgang = 2027;
+    verboteneFachKombis =[]; //enthält verbotene Fächerkombinationen als Array von zwei Kürzeln, z.B. ['GE','GEE']
 
     /**
      * im Konstruktor werden die Basisdaten festgelegt
@@ -41,6 +42,7 @@ class Wahlbogen {
         ge.belegungsBed.wahlarten[4].push('ZK');
          // Geschichte Englisch
          this.addFachToFachbelegungen("Geschichte Englisch", "GEE", ['', '', '', '', '', ''], "FG2");
+         this.verboteneFachKombis.push(['GE','GEE']);
         // Sozialwissenschaften
         this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "FG2");
         // Geographie

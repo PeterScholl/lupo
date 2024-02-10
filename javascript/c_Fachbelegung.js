@@ -7,7 +7,7 @@ class Fachbelegung {
     belegung = ['', '', '', '', '', '']; //nicht belegt
     belegungsBed = new BelegBed(); // Stundenzahl, M,S,LK,ZK möglich
     faecherGruppe = "FG1";
-    abifach = 0; //kein Abifach sonst 1-4
+    abifach = 0; // ist dieses Fach ein gewähltes Abifach 1-4 sonst 0
 
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
@@ -111,32 +111,35 @@ class Fachbelegung {
      * @return neue Fachbelegung
      */
     static generateFromJSONObj(jsonObj) {
-        let belBed = null;
+        let neueBlg = null;
         // Bezeichnung und Kürzel übernehmen
         if (typeof (jsonObj.bezeichnung) === 'string' && typeof (jsonObj.kuerzel) === 'string') {
-            belBed = new Fachbelegung(jsonObj.bezeichnung, jsonObj.kuerzel);
+            neueBlg = new Fachbelegung(jsonObj.bezeichnung, jsonObj.kuerzel);
             console.log("Fach ", jsonObj.bezeichnung, " Krzl: ", jsonObj.kuerzel);
         } else {
-            belBed = new Fachbelegung("Ungueltig", "--");
+            neueBlg = new Fachbelegung("Ungueltig", "--");
         }
 
         //Belegung übernehmen
         if (typeof (jsonObj.belegung) === 'object' && Array.isArray(jsonObj.belegung) && jsonObj.belegung.length == 6) {
-            belBed.belegung = jsonObj.belegung;
+            neueBlg.belegung = jsonObj.belegung;
         } else {
             console.log("Belegung in JSON-File Fehlerhaft");
         }
 
         //Belegungsbedingungen übernehmen
         if (typeof (jsonObj.belegungsBed) === 'object') {
-            belBed.belegungsBed = BelegBed.generateFromJSONObj(jsonObj.belegungsBed);
+            neueBlg.belegungsBed = BelegBed.generateFromJSONObj(jsonObj.belegungsBed);
         }
 
         //Fächergruppe übernehmen
         if (typeof (jsonObj.faecherGruppe) === 'string') {
-            belBed.faecherGruppe = jsonObj.faecherGruppe;
+            neueBlg.faecherGruppe = jsonObj.faecherGruppe;
         }
 
-        return belBed;
+        //Abifach
+        neueBlg.abifach = jsonObj.abifach;
+
+        return neueBlg;
     }
 }
