@@ -23,6 +23,9 @@ class Fachbelegung {
      */
     setzeBelegungWeiter(halbjahr) {
         let bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, this.belegung[halbjahr]);
+        if (bel_neu === "ZK" && !(this.belegung[halbjahr-1]=='' || this.belegung[halbjahr-1] == 'ZK') ) { //prüfen ob ZK hier zulässig ist sonst noch einen weiter setzen
+            bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+        }
         if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
             bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
         }
