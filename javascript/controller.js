@@ -53,16 +53,17 @@ class Controller {
             buttons[i].addEventListener("click", (obj) => this.objectClicked(obj));
         }
 
-        //TODO : nur zu Testzwecken - evtl. später entfernen
-        this.wahlbogen.erzeugeMinimaleFachbelegung();
-
-        //TODO : Wann sollen die Belegungsverpflichtungen immer neu dargestellt und geprüft werden?!
-        this.drawBelegungsverpflichtungen();
-
-
-        this.drawTable();
-        // Test Wahlarten
-        console.log("Test", this.wahlbogen.fachbelegungen[0].belegungsBed.gibNaechsteBelegungsmöglichkeit(2, 'S'));
+        //Prüfen ob eine Datei mit einem get-Parmeter übergeben wurde
+        //Wurde ein Dokument per get-Parameter übergeben?
+        //sonst Minimalbelegung erzeugen
+        let dest = getUrlParam("url");
+        if (dest) {
+            console.log("JSON laden von " + dest);
+            openJSONFromURL(dest); //Wird dann automatisch gezeichnet
+        } else {
+            this.wahlbogen.erzeugeMinimaleFachbelegung();
+            this.redraw(); //Alles zeichnen
+        }
     }
 
     /**
@@ -140,10 +141,11 @@ class Controller {
     redraw() {
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
-        // TODO Vorname, Nachname, usw.
+                // TODO Vorname, Nachname, usw.
         this.drawTable(); //Wahlen
-        // TODO Infos
         // TODO Summen...
+        this.drawBelegungsverpflichtungen(); //Belegungsverpflichtungen
+        // TODO Infos
     }
 
     /**

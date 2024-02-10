@@ -66,7 +66,7 @@ function openJSON() {
 
                     let wahlbogen = parseJSONObjToWahlbogen(jsonObj);
 
-                    Controller.getInstance().wahlbogen=wahlbogen;
+                    Controller.getInstance().wahlbogen = wahlbogen;
                     Controller.getInstance().redraw();
 
                     // Erfolgreiches Ergebnis an eine Callback-Funktion zurückgeben
@@ -90,6 +90,36 @@ function openJSON() {
 }
 
 /**
+ * Lädt ein JSON-Dokument, das per URL übergeben wurde
+ * @param {*} dest URL des Dokuments 
+ */
+function openJSONFromURL(dest) {
+    fetch(dest, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Netzwerkantwort war nicht OK');
+            }
+            return response.json();
+        }).then(response => parseJSONObjToWahlbogen(response))
+        .then(response => { Controller.getInstance().wahlbogen=response; Controller.getInstance().redraw(); })
+        .catch(error => {
+            // Hier wird der Fehler behandelt
+            console.log('Fehler bei der Fetch-Anfrage:' + error);
+            // Füge hier weitere Fehlerbehandlung hinzu, falls erforderlich
+            alert("Wahlbogen fehlerhaft - kann nicht gelesen werden");
+            Controller.getInstance().wahlbogen.erzeugeMinimaleFachbelegung();
+            Controller.getInstance().redraw();
+        });
+
+        //Hier Controller.getInstance().wahlbogen = response
+}
+
+/**
  * Erzeugt aus einem hoffentlich stimmigen JSON-Objekt einen 
  * Wahlbogen
  * @param {*} jsonObj zu interpretierendes JSON-Objekt
@@ -108,12 +138,12 @@ function parseJSONObjToWahlbogen(jsonObj) {
     // 2. fachbelegung übernehmen
     let fachbelegungen = [];
     if (Array.isArray(jsonObj.fachbelegungen)) {
-        fachbelegungen = jsonObj.fachbelegungen.map((e)=> {return Fachbelegung.generateFromJSONObj(e)});
+        fachbelegungen = jsonObj.fachbelegungen.map((e) => { return Fachbelegung.generateFromJSONObj(e) });
     }
     wahlbogen.fachbelegungen = fachbelegungen;
 
     if (Array.isArray(jsonObj.verboteneFachKombis)) {
-        console.log("Verbotene Fachkombis:",JSON.stringify(jsonObj.verboteneFachKombis));
+        console.log("Verbotene Fachkombis:", JSON.stringify(jsonObj.verboteneFachKombis));
         wahlbogen.verboteneFachKombis = jsonObj.verboteneFachKombis;
     }
     return wahlbogen;

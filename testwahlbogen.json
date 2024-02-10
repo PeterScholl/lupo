@@ -1,0 +1,1551 @@
+{
+  "name": "Nachname",
+  "vorname": "Vorname",
+  "fachbelegungen": [
+    {
+      "bezeichnung": "Deutsch",
+      "kuerzel": "D",
+      "belegung": [
+        "S",
+        "S",
+        "M",
+        "M",
+        "M",
+        "M"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG1D",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Englisch",
+      "kuerzel": "E",
+      "belegung": [
+        "S",
+        "S",
+        "M",
+        "M",
+        "M",
+        "M"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG1",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Latein",
+      "kuerzel": "L6",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG1",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Französisch",
+      "kuerzel": "F6",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG1",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Spanisch",
+      "kuerzel": "S6",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG1",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Spanisch ab EF",
+      "kuerzel": "S0",
+      "belegung": [
+        "S",
+        "S",
+        "S",
+        "S",
+        "S",
+        "S"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG1",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Kunst",
+      "kuerzel": "KU",
+      "belegung": [
+        "M",
+        "M",
+        "M",
+        "M",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG1",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Musik",
+      "kuerzel": "MU",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG1",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Geschichte",
+      "kuerzel": "GE",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "ZK",
+        "ZK"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK",
+            "ZK"
+          ],
+          [
+            "M",
+            "S",
+            "LK",
+            "ZK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Geschichte Englisch",
+      "kuerzel": "GEE",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Sozialwissenschaften",
+      "kuerzel": "SW",
+      "belegung": [
+        "M",
+        "M",
+        "M",
+        "M",
+        "M",
+        "M"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Geographie",
+      "kuerzel": "EK",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Geographie Englisch",
+      "kuerzel": "EKE",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Philosophie",
+      "kuerzel": "PP",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Kath. Religion",
+      "kuerzel": "KR",
+      "belegung": [
+        "M",
+        "M",
+        "M",
+        "M",
+        "M",
+        "M"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Ev. Religion",
+      "kuerzel": "ER",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Mathematik",
+      "kuerzel": "M",
+      "belegung": [
+        "S",
+        "S",
+        "S",
+        "S",
+        "S",
+        "S"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG3",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Biologie",
+      "kuerzel": "BI",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG3",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Biologie Englisch",
+      "kuerzel": "BIE",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG3",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Chemie",
+      "kuerzel": "CH",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG3",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Physik",
+      "kuerzel": "PH",
+      "belegung": [
+        "S",
+        "S",
+        "LK",
+        "LK",
+        "LK",
+        "LK"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG3",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Informatik",
+      "kuerzel": "IF",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG3",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Sport",
+      "kuerzel": "SP",
+      "belegung": [
+        "M",
+        "M",
+        "M",
+        "M",
+        "M",
+        "M"
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": false
+      },
+      "faecherGruppe": "FGSp",
+      "abifach": 0
+    },
+    {
+      "bezeichnung": "Projekt",
+      "kuerzel": "PK",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FGPK",
+      "abifach": 0
+    }
+  ],
+  "abiJahrgang": 2027,
+  "verboteneFachKombis": [
+    [
+      "GE",
+      "GEE"
+    ]
+  ]
+}
