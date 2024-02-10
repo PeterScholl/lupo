@@ -21,6 +21,13 @@ class PruefeBelegungsBedingungen {
         return bericht;
     }
 
+    /**
+     * funktion die beim Ergänzen des Berichts mittels den einzelnen Prüfmethoden ein
+     * HTML-Span-Tag drum herum setzt - dies ermöglicht ggf. auch, dass man die
+     * Ergebnisse anklicken kann
+     * @param {String} erg Resultat, dass in einen <span> gepackt werden soll 
+     * @returns String der den inhalt in einen <span>-Block gepackt hat.
+     */
     static ergaenzeBericht(erg) {
         if (erg != '') {
             return "<span class='belegmeldung' onclick='Controller.getInstance().objectClickedToggleClass(this,\"highlight\")'>" + erg + "</span><br>";
@@ -42,6 +49,13 @@ class PruefeBelegungsBedingungen {
         return "";
     }
 
+    /**
+     * prueft ob im Wahlbogen die Fächer mit den Kürzeln krz1 und krz2 gleichzeitig belegt sind
+     * @param {Wahlbogen} wahlbogen der zu prüfende Wahlbogen 
+     * @param {String} krz1 Fachkürzel des ersten zu prüfenden Fachs 
+     * @param {String} krz2 Fachkürzel des zweiten zu prüfenden Fachs
+     * @returns Leerstring oder String mit Belegungsinformation
+     */
     static pruefeDoppelteBelegung(wahlbogen, krz1, krz2) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
         const fach2 = wahlbogen.getFachMitKuerzel(krz2);
@@ -58,6 +72,13 @@ class PruefeBelegungsBedingungen {
         return "";
     }
 
+    /**
+     * Prüft ob das Fach mit dem übergebenen Kürzel durchgehend von der EF.1 bis in die Q1.2 oder
+     * als Zusatzkurs belegt wurde
+     * @param {*} wahlbogen der zu prüfende Wahlbogen
+     * @param {*} krz1 das zu prüfende Fachkürzel
+     * @returns Leerstring oder String mit Belegungsinformation
+     */
     static pruefeFachDurchgehendoderZusatzkurs(wahlbogen, krz1) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
         if (!fach1.belegung.slice(0, 4).every(function (a) { return a != ''; }) && (fach1.belegung[4] != 'ZK' && fach1.belegung[5] != 'ZK')) {
