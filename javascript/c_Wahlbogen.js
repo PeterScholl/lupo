@@ -162,6 +162,28 @@ class Wahlbogen {
     }
 
     /**
+     * setzt für die beieden Abifächer die "richtige" Abifachnummer 1 oder 2
+     */
+    setzeLKAbifachNr() {
+        let lks = this.gibLKFaecher();
+        if (lks.length == 1) {
+            lks[0].abifach = 2; // 2 ist nie falsch ;-)
+            Controller.getInstance().redrawZeile(lks[0].kuerzel);
+        } else if (lks.length == 2) {
+            // entscheide für lks[0]
+            if (['D','M','BI','PH','CH'].includes(lks[0].kuerzel || lks[0].istFFS)) {
+                lks[0].abifach = 1;
+            } else {
+                lks[0].abifach = 2;
+            }
+            // lks[1] bekommt die andere Nr.
+            lks[1].abifach = 3-lks[0].abifach;
+            Controller.getInstance().redrawZeile(lks[0].kuerzel);
+            Controller.getInstance().redrawZeile(lks[1].kuerzel);
+        }
+    }
+
+    /**
      * Schreibt für alle Fächer die Belegung vom übergebenen Halbjahr an hoch
      * @param {Integer} halbjahr (0-5)
      */

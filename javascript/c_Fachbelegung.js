@@ -8,6 +8,7 @@ class Fachbelegung {
     belegungsBed = new BelegBed(); // Stundenzahl, M,S,LK,ZK möglich
     faecherGruppe = "FG1";
     abifach = 0; // ist dieses Fach ein gewähltes Abifach 1-4 sonst 0
+    istFFS = false; // ist fortgeführte Fremdsprache
 
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
@@ -25,10 +26,12 @@ class Fachbelegung {
         if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
             bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
         }
-        if (halbjahr > 2 && bel_neu != "LK" && this.istLK()) { // ein Halbjahr nach Q1.1 wurde vom LK weg gewählt
+        if (halbjahr > 1 && bel_neu != "LK" && this.istLK()) { // ein Halbjahr nach Q1.1 wurde vom LK weg gewählt
             //alle Haljahre der Q-Phase abwählen
             halbjahr=2;
             bel_neu='';
+            console.log("Abifach von ",this.kuerzel,"auf 0 zurückgesetzt");
+            this.abifach=0; //Abifach zurücksetzen
         }
         this.belegung[halbjahr] = bel_neu;
         // Bei Q1 auch die Folgebelegungen entsprechend setzen
@@ -38,6 +41,9 @@ class Fachbelegung {
                 this.belegung[folgeHalbjahr] = bel_neu;
                 folgeHalbjahr++;
             }
+        }
+        if (this.istLK()) { // Dieses Fach ist jetzt LK
+            Controller.getInstance().wahlbogen.setzeLKAbifachNr();
         }
     }
 
