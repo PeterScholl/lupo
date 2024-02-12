@@ -53,6 +53,12 @@ class Controller {
             buttons[i].addEventListener("click", (obj) => this.objectClicked(obj));
         }
 
+        //alle Menuitems mit click-Eventlistener versehen
+        let anchors = document.querySelectorAll('.dropdown-content a'); 
+        for (let i = 0; i < anchors.length; i++) {
+            anchors[i].addEventListener("click", (obj) => this.objectClicked(obj));
+        }
+
         //Prüfen ob eine Datei mit einem get-Parmeter übergeben wurde
         //Wurde ein Dokument per get-Parameter übergeben?
         //sonst Minimalbelegung erzeugen
@@ -97,10 +103,10 @@ class Controller {
         // Je nach Item muss eine passende Reaktion progrmmiert werden
         console.log("Objekt typ " + clickedObjectTAG + " geklickt: " + clickedObjectID);
         //TODO: Reaktion auf Clicks
-        if (clickedObjectTAG === 'BUTTON') {
+        if (clickedObjectTAG === 'BUTTON' || clickedObjectTAG === 'A') {
             switch (clickedObjectID) {
-                case 'TestButton':
-                    console.log("Testbutton geklickt - heute Download :-)");
+                case 'Speichern':
+                    console.log("Speichern geklickt");
                     downloadJSON(this.wahlbogen);
                     break;
                 case 'LadeDatei':
@@ -219,10 +225,11 @@ class Controller {
                 zelle = zeile.insertCell(-1); //erstes Halbjahr
                 if (fach.istFFS && !fach.istFFSSekI) {
                     zelle.classList.add("disabled");    
+                } else {
+                    zelle.addEventListener("click", (obj) => this.cellClicked(obj));
                 }
                 zelle.innerHTML = fach.belegung[i];
                 zelle.id = "hj" + i;
-                zelle.addEventListener("click", (obj) => this.cellClicked(obj));
             }
             // Zelle für das Abifach
             zelle = zeile.insertCell(-1); // Zelle für das Abifach

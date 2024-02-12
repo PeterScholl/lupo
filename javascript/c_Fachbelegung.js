@@ -113,6 +113,7 @@ class Fachbelegung {
                 this.belegung[i]='';
             }
         }
+        this.abifach = 0; //Sollte beim hochschreiben zurückgesetzt werden
     }
 
     /**
