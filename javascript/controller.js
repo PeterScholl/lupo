@@ -122,6 +122,14 @@ class Controller {
                 default:
                     console.log("Button ID unbekannt");
             }
+        } else if (clickedObjectTAG === 'INPUT' && event.target.type === 'checkbox') {
+            //console.log(clickedObjectID+" wird auf "+ event.target.checked + " gesetzt");
+            const fach = this.wahlbogen.getFachMitKuerzel(clickedObjectID);
+            fach.istFFSSekI = event.target.checked;
+            if (!event.target.checked) {
+                fach.abwaehlen();
+            }
+            this.redrawZeile(clickedObjectID);
         }
     }
 
@@ -139,9 +147,31 @@ class Controller {
      * ein vollständiges Neu darstellen des Wahlbogens!
      */
     redraw() {
+        let self = this;
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
                 // TODO Vorname, Nachname, usw.
+        //fortgeführte Fremdsprachen
+        let ffs = document.querySelector("FORM#ffs");
+        ffs.innerHTML="";
+        ffs.appendChild(document.createTextNode("Fremdsprachen SekI: "));
+        this.wahlbogen.gibFortgefuehrteFS().forEach(
+            function (e) {
+                let input = document.createElement("input");
+                input.setAttribute('type','checkbox');
+                input.setAttribute('id',e.kuerzel);
+                input.setAttribute('name',e.kuerzel);
+                input.setAttribute('value',e.kuerzel);
+                input.checked = e.istFFSSekI;
+                input.addEventListener('change',(e) => {self.objectClicked(e);});
+                ffs.appendChild(input);
+                let label = document.createElement("label");
+                label.setAttribute('for',e.kuerzel);
+                label.innerHTML=e.kuerzel;
+                ffs.appendChild(label);
+            }
+        );
+
         this.drawTable(); //Wahlen
         // TODO Summen...
         this.drawBelegungsverpflichtungen(); //Belegungsverpflichtungen
@@ -172,7 +202,7 @@ class Controller {
     }
 
     redrawZeile(kuerzel) {
-        const zeile = document.getElementById(kuerzel);
+        const zeile = document.querySelector("TR#"+kuerzel);
         zeile.classList.add('Fach');
         const fach = this.wahlbogen.getFachMitKuerzel(kuerzel);
         if (fach != null && zeile != null && zeile.tagName == "TR") {
@@ -187,6 +217,9 @@ class Controller {
             zelle.innerHTML = fach.kuerzel;
             for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
                 zelle = zeile.insertCell(-1); //erstes Halbjahr
+                if (fach.istFFS && !fach.istFFSSekI) {
+                    zelle.classList.add("disabled");    
+                }
                 zelle.innerHTML = fach.belegung[i];
                 zelle.id = "hj" + i;
                 zelle.addEventListener("click", (obj) => this.cellClicked(obj));

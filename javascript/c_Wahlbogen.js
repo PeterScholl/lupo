@@ -25,6 +25,7 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Englisch", "E", ['S', 'S', '', '', '', ''], "FG1");
         const e = this.getFachMitKuerzel('E');
         e.istFFS = true; //Englisch ist fortgeführte Fremdsprache
+        e.istFFSSekI = true;
         // Latein
         this.addFachToFachbelegungen("Latein", "L6", ['', '', '', '', '', ''],  "FG1");
         const l6 = this.getFachMitKuerzel('L6');
@@ -33,6 +34,7 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Französisch", "F6", ['', '', '', '', '', ''], "FG1");
         const f6 = this.getFachMitKuerzel('F6');
         f6.istFFS = true; //Französisch ist fortgeführte Fremdsprache
+        f6.istFFSSekI = true;
         // Spanisch
         this.addFachToFachbelegungen("Spanisch", "S6", ['', '', '', '', '', ''], "FG1");
         const s6 = this.getFachMitKuerzel('S6');
@@ -167,6 +169,14 @@ class Wahlbogen {
      */
     gibLKFaecher() {
         return this.fachbelegungen.filter((e) => {return e.istLK();});
+    }
+
+    /**
+     * sucht die Fächer, die fortgeführte Fremdsprachen sind
+     * @returns Array mit FFS
+     */
+    gibFortgefuehrteFS() {
+        return this.fachbelegungen.filter((e) => {return e.istFFS;});
     }
 
     /**

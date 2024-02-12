@@ -9,6 +9,7 @@ class Fachbelegung {
     faecherGruppe = "FG1";
     abifach = 0; // ist dieses Fach ein gewähltes Abifach 1-4 sonst 0
     istFFS = false; // ist fortgeführte Fremdsprache
+    istFFSSekI = false; // wurde als FFS in der Sek I belegt
 
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
@@ -115,6 +116,14 @@ class Fachbelegung {
     }
 
     /**
+     * wählt das Fach vollständig ab
+     */
+    abwaehlen() {
+        this.belegung = Array(6).fill('');
+        this.abifach = 0;
+    }
+
+    /**
      * Methode um eine Fachbelegung von einem JSONObj zu generieren
      * @param {} jsonObj 
      * @return neue Fachbelegung
@@ -152,6 +161,9 @@ class Fachbelegung {
         //fortgeführte Fremdsprache
         if (typeof(jsonObj.istFFS) === 'boolean') {
             neueBlg.istFFS = jsonObj.istFFS;
+        }
+        if (typeof(jsonObj.istFFSSekI) === 'boolean') {
+            neueBlg.istFFSSekI = jsonObj.istFFSSekI;
         }
 
         return neueBlg;
