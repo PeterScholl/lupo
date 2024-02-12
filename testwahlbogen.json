@@ -1,6 +1,6 @@
 {
-  "name": "Nachname",
-  "vorname": "Vorname",
+  "name": "Muster",
+  "vorname": "Maxi",
   "fachbelegungen": [
     {
       "bezeichnung": "Deutsch",
@@ -8,10 +8,10 @@
       "belegung": [
         "S",
         "S",
-        "M",
-        "M",
-        "M",
-        "M"
+        "LK",
+        "LK",
+        "LK",
+        "LK"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -64,8 +64,9 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG1D",
-      "abifach": 0,
-      "istFFS": false
+      "abifach": 1,
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Englisch",
@@ -73,10 +74,10 @@
       "belegung": [
         "S",
         "S",
-        "M",
-        "M",
-        "M",
-        "M"
+        "S",
+        "S",
+        "S",
+        "S"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -130,7 +131,8 @@
       },
       "faecherGruppe": "FG1",
       "abifach": 0,
-      "istFFS": true
+      "istFFS": true,
+      "istFFSSekI": true
     },
     {
       "bezeichnung": "Latein",
@@ -195,7 +197,8 @@
       },
       "faecherGruppe": "FG1",
       "abifach": 0,
-      "istFFS": true
+      "istFFS": true,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Französisch",
@@ -260,7 +263,8 @@
       },
       "faecherGruppe": "FG1",
       "abifach": 0,
-      "istFFS": true
+      "istFFS": true,
+      "istFFSSekI": true
     },
     {
       "bezeichnung": "Spanisch",
@@ -325,18 +329,19 @@
       },
       "faecherGruppe": "FG1",
       "abifach": 0,
-      "istFFS": true
+      "istFFS": true,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Spanisch ab EF",
       "kuerzel": "S0",
       "belegung": [
-        "S",
-        "S",
-        "S",
-        "S",
-        "S",
-        "S"
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -370,12 +375,12 @@
           ]
         ],
         "stundenzahlen": [
-          4,
-          4,
-          4,
-          4,
-          4,
-          4
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
         ],
         "einsetzend": [
           true,
@@ -390,7 +395,8 @@
       },
       "faecherGruppe": "FG1",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Kunst",
@@ -455,7 +461,8 @@
       },
       "faecherGruppe": "FG1",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Musik",
@@ -520,14 +527,15 @@
       },
       "faecherGruppe": "FG1",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Geschichte",
       "kuerzel": "GE",
       "belegung": [
-        "",
-        "",
+        "M",
+        "M",
         "",
         "",
         "ZK",
@@ -587,7 +595,8 @@
       },
       "faecherGruppe": "FG2",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Geschichte Englisch",
@@ -652,7 +661,8 @@
       },
       "faecherGruppe": "FG2",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Sozialwissenschaften",
@@ -660,10 +670,10 @@
       "belegung": [
         "M",
         "M",
-        "M",
-        "M",
-        "M",
-        "M"
+        "LK",
+        "LK",
+        "LK",
+        "LK"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -718,15 +728,16 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
-      "abifach": 0,
-      "istFFS": false
+      "abifach": 2,
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Geographie",
       "kuerzel": "EK",
       "belegung": [
-        "",
-        "",
+        "M",
+        "M",
         "",
         "",
         "",
@@ -784,7 +795,8 @@
       },
       "faecherGruppe": "FG2",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Geographie Englisch",
@@ -849,7 +861,8 @@
       },
       "faecherGruppe": "FG2",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Philosophie",
@@ -914,7 +927,8 @@
       },
       "faecherGruppe": "FG2",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Kath. Religion",
@@ -979,7 +993,8 @@
       },
       "faecherGruppe": "FG2",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Ev. Religion",
@@ -1044,7 +1059,8 @@
       },
       "faecherGruppe": "FG2",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Mathematik",
@@ -1108,19 +1124,20 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG3",
-      "abifach": 0,
-      "istFFS": false
+      "abifach": 4,
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Biologie",
       "kuerzel": "BI",
       "belegung": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "M",
+        "M",
+        "M",
+        "M",
+        "M",
+        "M"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -1174,7 +1191,8 @@
       },
       "faecherGruppe": "FG3",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Biologie Englisch",
@@ -1239,7 +1257,8 @@
       },
       "faecherGruppe": "FG3",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Chemie",
@@ -1304,18 +1323,19 @@
       },
       "faecherGruppe": "FG3",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Physik",
       "kuerzel": "PH",
       "belegung": [
+        "M",
+        "M",
         "S",
         "S",
-        "LK",
-        "LK",
-        "LK",
-        "LK"
+        "S",
+        "S"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -1368,19 +1388,20 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG3",
-      "abifach": 0,
-      "istFFS": false
+      "abifach": 3,
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Informatik",
       "kuerzel": "IF",
       "belegung": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "M",
+        "M",
+        "M",
+        "M",
+        "M",
+        "M"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -1434,7 +1455,8 @@
       },
       "faecherGruppe": "FG3",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Sport",
@@ -1499,7 +1521,8 @@
       },
       "faecherGruppe": "FGSp",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     },
     {
       "bezeichnung": "Projekt",
@@ -1564,7 +1587,8 @@
       },
       "faecherGruppe": "FGPK",
       "abifach": 0,
-      "istFFS": false
+      "istFFS": false,
+      "istFFSSekI": false
     }
   ],
   "abiJahrgang": 2027,

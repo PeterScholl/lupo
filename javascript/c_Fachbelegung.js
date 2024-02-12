@@ -164,6 +164,7 @@ class Fachbelegung {
             neueBlg.istFFS = jsonObj.istFFS;
         }
         if (typeof(jsonObj.istFFSSekI) === 'boolean') {
+            console.log("json:", jsonObj.istFFSSekI);
             neueBlg.istFFSSekI = jsonObj.istFFSSekI;
         }
 
