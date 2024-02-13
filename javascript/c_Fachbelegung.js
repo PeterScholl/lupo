@@ -24,28 +24,44 @@ class Fachbelegung {
      */
     setzeBelegungWeiter(halbjahr) {
         let bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, this.belegung[halbjahr]);
-        if (bel_neu === "ZK" && !(this.belegung[halbjahr-1]=='' || this.belegung[halbjahr-1] == 'ZK') ) { //prüfen ob ZK hier zulässig ist sonst noch einen weiter setzen
-            bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
-        }
-        if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
-            bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
-        }
+        let validFound=false;
+        do {
+            validFound=true;
+            if (bel_neu === '') {
+                continue;
+            }
+            if (bel_neu === "ZK" && !(this.belegung[halbjahr - 1] == '' || this.belegung[halbjahr - 1] == 'ZK')) { //prüfen ob ZK hier zulässig ist sonst noch einen weiter setzen
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                validFound = false;
+                continue;
+            }
+            if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                validFound = false;
+                continue;
+            }
+            if (bel_neu != 'ZK' && halbjahr>0 && this.belegung[halbjahr-1] == '' && this.belegungsBed.einsetzend[halbjahr]===false) {
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                validFound = false;
+                continue;
+            }
+        } while (!validFound);
         if (halbjahr > 1 && bel_neu != "LK" && this.istLK()) { // ein Halbjahr nach Q1.1 wurde vom LK weg gewählt
             //alle Haljahre der Q-Phase abwählen
-            halbjahr=2;
-            bel_neu='';
-            console.log("Abifach von ",this.kuerzel,"auf 0 zurückgesetzt");
-            this.abifach=0; //Abifach zurücksetzen
+            halbjahr = 2;
+            bel_neu = '';
+            console.log("Abifach von ", this.kuerzel, "auf 0 zurückgesetzt");
+            this.abifach = 0; //Abifach zurücksetzen
         }
-        this.belegung[halbjahr] = bel_neu;
-        // Bei Q1 auch die Folgebelegungen entsprechend setzen
-        if (halbjahr > 1) { //in der Q1
+    this.belegung[halbjahr] = bel_neu;
+        // Bei Q1 oder Abwahl auch die Folgebelegungen entsprechend setzen 
+        if (halbjahr > 1 || bel_neu === '') { //in der Q1 oder abwahl
             let folgeHalbjahr = halbjahr + 1;
             while (folgeHalbjahr < 6 && this.belegungsBed.istGueltig(folgeHalbjahr, bel_neu)) { //gültig
                 this.belegung[folgeHalbjahr] = bel_neu;
                 folgeHalbjahr++;
             }
-        }
+        } 
         if (this.istLK()) { // Dieses Fach ist jetzt LK
             Controller.getInstance().wahlbogen.setzeLKAbifachNr();
         }
@@ -80,9 +96,44 @@ class Fachbelegung {
      * @returns true, wenn dieses Fach als Abifach gewählt werden kann
      */
     alsAbifachMgl() {
-        return (this.belegungsBed.alsAbifach && this.belegung[5]!='' && this.belegung[5]!='ZK');  
+        return (this.belegungsBed.alsAbifach && this.belegung[5] != '' && this.belegung[5] != 'ZK');
     }
 
+    /**
+     * ermittelt ob das Fach in dem angegebenen Halbjahr gewählt werden kann
+     * @param {Integer} halbjahr 
+     */
+    istWaehlbar(halbjahr) {
+        // Es gibt keine Wahlart
+        if (this.belegungsBed.wahlarten[halbjahr].length === 0) return false;
+        // darf hier neu einsetzen
+        if (this.belegungsBed.einsetzend[halbjahr] === true) return true;
+        // in diesem Halbjahr als Zusatzkurs wählbar
+        if (this.belegungsBed.wahlarten[halbjahr].includes('ZK')) return true;
+        // Fortgeführte Fremdsprache, die nicht in SekI belegt wurde
+        if (this.istFFS && !this.istFFSSekI) return false;
+        // war im Halbjahr davor nicht belegt (und auch kein alternatives Fach)
+        if (halbjahr > 0 && this.belegung[halbjahr - 1] === '') {
+            console.log("Vorgängerfach suchen");
+            if (this.belegungsBed.vorgaengerFaecher.some((krzl) => {
+                console.log(" - Fach:", krzl);
+                let fach = Controller.getInstance().wahlbogen.getFachMitKuerzel(krzl);
+                return (fach.belegung[halbjahr - 1] != '');
+            })) return true; //es gibt ein belegtes Vorgängerfach
+            return false;
+        }
+        // ansonsten spricht wohl nichts dagegen
+        return true;
+    }
+
+    /**
+     * prüft ob das Fach mit dem übergebenen Kürzel ein Vorgängerfach ist
+     * @param {String} krzl 
+     * @returns true, wenn krzl Vorgänger ist
+     */
+    hatVorgaenger(krzl) {
+        return this.belegungsBed.vorgaengerFaecher.includes(krzl);
+    }
     /**
      * gibt die zu wertende Stundenzahl im angebgebenen Halbjahr (0-5)
      * @param {*} halbjahr 0-5
@@ -106,11 +157,11 @@ class Fachbelegung {
      */
     hochschreibenVon(halbjahr) {
         //console.log("Hochschreiben Fach",this.bezeichnung);
-        for (let i=halbjahr+1; i<6; i++) {
-            if (this.belegungsBed.wahlarten[i].includes(this.belegung[i-1])) {
-                this.belegung[i]=this.belegung[i-1];
+        for (let i = halbjahr + 1; i < 6; i++) {
+            if (this.belegungsBed.wahlarten[i].includes(this.belegung[i - 1])) {
+                this.belegung[i] = this.belegung[i - 1];
             } else {
-                this.belegung[i]='';
+                this.belegung[i] = '';
             }
         }
         this.abifach = 0; //Sollte beim hochschreiben zurückgesetzt werden
@@ -160,10 +211,10 @@ class Fachbelegung {
         neueBlg.abifach = jsonObj.abifach;
 
         //fortgeführte Fremdsprache
-        if (typeof(jsonObj.istFFS) === 'boolean') {
+        if (typeof (jsonObj.istFFS) === 'boolean') {
             neueBlg.istFFS = jsonObj.istFFS;
         }
-        if (typeof(jsonObj.istFFSSekI) === 'boolean') {
+        if (typeof (jsonObj.istFFSSekI) === 'boolean') {
             console.log("json:", jsonObj.istFFSSekI);
             neueBlg.istFFSSekI = jsonObj.istFFSSekI;
         }

@@ -223,7 +223,7 @@ class Controller {
             zelle.innerHTML = fach.kuerzel;
             for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
                 zelle = zeile.insertCell(-1); //erstes Halbjahr
-                if (fach.istFFS && !fach.istFFSSekI) {
+                if (!fach.istWaehlbar(i)) {
                     zelle.classList.add("disabled");    
                 } else {
                     zelle.addEventListener("click", (obj) => this.cellClicked(obj));
@@ -262,6 +262,11 @@ class Controller {
             const fach = this.wahlbogen.getFachMitKuerzel(gewKrz);
             fach.setzeBelegungWeiter(gewHj);
             this.redrawZeile(gewKrz);
+            // alle Fächer die dieses Fach als Vorgänger haben auch neu Zeichnen
+            this.wahlbogen.gibFaecherMitVorgaenger(gewKrz).forEach((fach) => {
+                console.log("Neu zeichnen",fach.kuerzel);
+                this.redrawZeile(fach.kuerzel);
+            });
             this.drawBelegungsverpflichtungen();
         } else if (obj.target.tagName === "TD" && obj.target.id === "abifach") {
             //Es wurde in die Abifachzelle geklickt

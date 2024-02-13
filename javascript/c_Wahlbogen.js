@@ -50,6 +50,7 @@ class Wahlbogen {
         let ge = this.getFachMitKuerzel('GE');
         ge.belegungsBed.wahlarten[5].push('ZK');
         ge.belegungsBed.wahlarten[4].push('ZK');
+        ge.belegungsBed.vorgaengerFaecher.push('GEE');
          // Geschichte Englisch
          this.addFachToFachbelegungen("Geschichte Englisch", "GEE", ['', '', '', '', '', ''], "FG2");
          this.verboteneFachKombis.push(['GE','GEE']);
@@ -173,12 +174,21 @@ class Wahlbogen {
 
     /**
      * sucht die Fächer, die fortgeführte Fremdsprachen sind
-     * @returns Array mit FFS
+     * @returns Array mit Fächern die FFS sind
      */
     gibFortgefuehrteFS() {
         return this.fachbelegungen.filter((e) => {return e.istFFS;});
     }
 
+    /**
+     * gibt alle Fächer die das Fach mit übergebenem Kürzel als Vorgänger haben
+     * - nicht jedoch das Fach selbst
+     * @param {String} krzl 
+     * @returns Array mit Fachbelegungen
+     */
+    gibFaecherMitVorgaenger(krzl) {
+        return this.fachbelegungen.filter((e) => {return e.hatVorgaenger(krzl);});
+    }
     /**
      * setzt für die beieden Abifächer die "richtige" Abifachnummer 1 oder 2
      */
