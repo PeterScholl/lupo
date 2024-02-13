@@ -38,18 +38,20 @@
 /* Ende Hintergrundfarben nach Fächergruppen */
 
 /***** Menü auf der rechten Seite ***/
+
 .dropbtn {
     background-color: #4CAF50;
     color: white;
-    padding: 16px;
+    padding: 10px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .dropdown {
     position: sticky;
-    float: right;
+    float: left;
     top: 0px;
     right: 0px;
     z-index: 1;
@@ -59,7 +61,7 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    right: 0px;
+    left: 0px;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -104,7 +106,9 @@ table {
 }
 
 table#Faecherwahl {
-    width: max(fit-content, 600);
+    /* width: 100%;
+    border-right: 40px;
+    margin-right: 40px; */
 }
 
 table.stunden {
@@ -243,14 +247,13 @@ img {
 
 /* Responsive Design */
 * {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 /* For mobile phones and small screens: */
 .col1,
 .col2 {
     width: 100%;
-    max-width: 600px;
 }
 
 @media only screen and (min-width: 1000px) {
@@ -264,7 +267,8 @@ img {
     }
 
     .col2 {
-        max-width: calc(100vw - 800px);
+        /*max-width: calc(100vw - 700px);*/
+        max-width: 40%;
         display: block;
     }
 }
@@ -272,7 +276,7 @@ img {
 .col1,
 .col2 {
     float: left;
-    padding: 15px;
+    padding: 5px;
     /* border: 1px solid red; */
 }
 
