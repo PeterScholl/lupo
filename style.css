@@ -105,11 +105,12 @@ table {
     border-collapse: collapse;
 }
 
-table#Faecherwahl {
-    /* width: 100%;
+/* table#Faecherwahl {
+ width: 100%;
     border-right: 40px;
-    margin-right: 40px; */
+    margin-right: 40px; 
 }
+*/
 
 table.stunden {
     margin-top: 10px;
@@ -246,9 +247,9 @@ img {
 }
 
 /* Responsive Design */
-* {
-    /*box-sizing: border-box;*/
-}
+/* * {
+    box-sizing: border-box;
+}*/
 
 /* For mobile phones and small screens: */
 .col1,

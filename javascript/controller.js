@@ -223,7 +223,7 @@ class Controller {
             zelle.innerHTML = fach.kuerzel;
             for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
                 zelle = zeile.insertCell(-1); //erstes Halbjahr
-                if (!fach.istWaehlbar(i)) {
+                if (!(fach.istWaehlbar(i) || fach.istAlsZKWaehlbar(i))) {
                     zelle.classList.add("disabled");    
                 } else {
                     zelle.addEventListener("click", (obj) => this.cellClicked(obj));
