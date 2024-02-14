@@ -120,10 +120,10 @@ class Fachbelegung {
         // Es gibt keine Wahlart
         //console.log("wahlarten: ",this.belegungsBed.wahlarten,"halbjahr",halbjahr);
         if (this.belegungsBed.wahlarten[halbjahr].length === 0) return false;
-        // darf hier neu einsetzen
-        if (this.belegungsBed.einsetzend[halbjahr] === true) return true;
         // Fortgeführte Fremdsprache, die nicht in SekI belegt wurde
         if (this.istFFS && !this.istFFSSekI) return false;
+        // darf hier neu einsetzen
+        if (this.belegungsBed.einsetzend[halbjahr] === true) return true;
         // war im Halbjahr davor nicht belegt (und auch kein alternatives Fach)
         if (halbjahr > 0 && this.belegung[halbjahr - 1] === '') {
             //console.log("Vorgängerfach suchen");

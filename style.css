@@ -197,6 +197,10 @@ h1 {
         background-color: transparent;
     }
 
+    tr:nth-child(even) {
+        background-color: #aaa;
+    }
+
     div.row {
         font-family: Arial, Helvetica, sans-serif;
     }
@@ -217,10 +221,18 @@ h1 {
     td,
     th {
         margin-top: 10px;
-        border-width: 1px;
+        border-width: 1.4px;
         border-style: solid;
         font-size: medium;
         padding: 2px;
+    }
+
+    table {
+        width: 700px;
+    }
+
+    table.stunden {
+        width: 650px;
     }
 
     div.infoKopf {
