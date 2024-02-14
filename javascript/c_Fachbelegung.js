@@ -7,7 +7,9 @@ class Fachbelegung {
     belegung = ['', '', '', '', '', '']; //nicht belegt
     belegungsBed = new BelegBed(); // Stundenzahl, M,S,LK,ZK möglich
     faecherGruppe = "FG1";
-    abifach = 0; //kein Abifach sonst 1-4
+    abifach = 0; // ist dieses Fach ein gewähltes Abifach 1-4 sonst 0
+    istFFS = false; // ist fortgeführte Fremdsprache
+    istFFSSekI = false; // wurde als FFS in der Sek I belegt
 
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
@@ -22,22 +24,59 @@ class Fachbelegung {
      */
     setzeBelegungWeiter(halbjahr) {
         let bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, this.belegung[halbjahr]);
-        if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
-            bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
-        }
-        if (halbjahr > 2 && bel_neu != "LK" && this.istLK()) { // ein Halbjahr nach Q1.1 wurde vom LK weg gewählt
+        let validFound = false;
+        do {
+            validFound = true;
+            //Leer ist immer gültig
+            if (bel_neu === '') {
+                continue;
+            }
+            // Zusatzkurs darf nicht gewählt werden, wenn im HJ davor etwas anderes
+            if (bel_neu === "ZK" && !(this.belegung[halbjahr - 1] == '' || this.belegung[halbjahr - 1] == 'ZK')) { //prüfen ob ZK hier zulässig ist sonst noch einen weiter setzen
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                validFound = false;
+                continue;
+            }
+            // LK nur wenn zulässig
+            if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                validFound = false;
+                continue;
+            }
+            // M oder S ohne dass hier wählbar ist
+            if (['M','S'].includes(bel_neu) && !this.istWaehlbar(halbjahr)) {
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                validFound = false;
+                continue;
+            }
+        } while (!validFound);
+        if (halbjahr > 1 && bel_neu != "LK" && this.istLK()) { // ein Halbjahr nach Q1.1 wurde vom LK weg gewählt
             //alle Haljahre der Q-Phase abwählen
-            halbjahr=2;
-            bel_neu='';
+            halbjahr = 2;
+            bel_neu = '';
+            console.log("Abifach von ", this.kuerzel, "auf 0 zurückgesetzt");
+            this.abifach = 0; //Abifach zurücksetzen
         }
         this.belegung[halbjahr] = bel_neu;
-        // Bei Q1 auch die Folgebelegungen entsprechend setzen
+        if (bel_neu === '') {
+            //Bei Abwahl müssen auch die Folgefächer geprüft werden
+            //Liste aller Fächer, die dieses Fach als Vorgänger haben
+            //Belegung prüfen
+            this.pruefeBelegung();
+            while (Controller.getInstance().wahlbogen.gibFaecherMitVorgaenger(this.kuerzel).some((e) => e.pruefeBelegung())) {
+                this.pruefeBelegung();
+            }
+        }
+        // Bei Q1 auch die Folgebelegungen entsprechend setzen 
         if (halbjahr > 1) { //in der Q1
             let folgeHalbjahr = halbjahr + 1;
             while (folgeHalbjahr < 6 && this.belegungsBed.istGueltig(folgeHalbjahr, bel_neu)) { //gültig
                 this.belegung[folgeHalbjahr] = bel_neu;
                 folgeHalbjahr++;
             }
+        }
+        if (this.istLK()) { // Dieses Fach ist jetzt LK
+            Controller.getInstance().wahlbogen.setzeLKAbifachNr();
         }
     }
 
@@ -70,9 +109,69 @@ class Fachbelegung {
      * @returns true, wenn dieses Fach als Abifach gewählt werden kann
      */
     alsAbifachMgl() {
-        return (this.belegungsBed.alsAbifach && this.belegung[5]!='')  
+        return (this.belegungsBed.alsAbifach && this.belegung[5] != '' && this.belegung[5] != 'ZK');
     }
 
+    /**
+     * ermittelt ob das Fach in dem angegebenen Halbjahr regulär (nicht als ZK) gewählt werden kann
+     * @param {Integer} halbjahr 
+     */
+    istWaehlbar(halbjahr) {
+        // Es gibt keine Wahlart
+        //console.log("wahlarten: ",this.belegungsBed.wahlarten,"halbjahr",halbjahr);
+        if (this.belegungsBed.wahlarten[halbjahr].length === 0) return false;
+        // Fortgeführte Fremdsprache, die nicht in SekI belegt wurde
+        if (this.istFFS && !this.istFFSSekI) return false;
+        // darf hier neu einsetzen
+        if (this.belegungsBed.einsetzend[halbjahr] === true) return true;
+        // war im Halbjahr davor nicht belegt (und auch kein alternatives Fach)
+        if (halbjahr > 0 && this.belegung[halbjahr - 1] === '') {
+            //console.log("Vorgängerfach suchen");
+            if (this.belegungsBed.vorgaengerFaecher.some((krzl) => {
+                //console.log(" - Fach:", krzl);
+                let fach = Controller.getInstance().wahlbogen.getFachMitKuerzel(krzl);
+                return !(fach.belegung[halbjahr - 1] == '' || fach.belegung[halbjahr - 1] == 'ZK');
+            })) return true; //es gibt ein belegtes Vorgängerfach
+            return false;
+        }
+        // ansonsten spricht wohl nichts dagegen
+        return true;
+    }
+
+    /**
+     * prüft ob das Fach als Zusatzkurs wählbar ist
+     * @param {Integer} halbjahr 
+     * @returns true wenn in dem Halbjahr als ZK wählbar
+     */
+    istAlsZKWaehlbar(halbjahr) {
+        // in diesem Halbjahr als Zusatzkurs wählbar
+        return this.belegungsBed.wahlarten[halbjahr].includes('ZK')
+    }
+
+    /**
+     * Prüft ob Belegungen in Halbjahren vorliegen, die nicht belegt werden
+     * dürfen und korrigiert dies
+     * @returns true - wenn eine korrektur stattgefunden hat
+     */
+    pruefeBelegung() {
+        let found = false;
+        for (let h = 0; h < 6; h++) {
+            if (this.belegung[h] != '' && !this.istWaehlbar(h)) {
+                this.belegung[h] = '';
+                found = true;
+            }
+        }
+        return found;
+    }
+
+    /**
+     * prüft ob das Fach mit dem übergebenen Kürzel ein Vorgängerfach ist
+     * @param {String} krzl 
+     * @returns true, wenn krzl Vorgänger ist
+     */
+    hatVorgaenger(krzl) {
+        return this.belegungsBed.vorgaengerFaecher.includes(krzl);
+    }
     /**
      * gibt die zu wertende Stundenzahl im angebgebenen Halbjahr (0-5)
      * @param {*} halbjahr 0-5
@@ -90,37 +189,74 @@ class Fachbelegung {
     }
 
     /**
+     * Schreibt für das Fach die Belegung vom übergebenen Halbjahr an hoch
+     * sofern Möglich
+     * @param {Integer} halbjahr (0-5)
+     */
+    hochschreibenVon(halbjahr) {
+        //console.log("Hochschreiben Fach",this.bezeichnung);
+        for (let i = halbjahr + 1; i < 6; i++) {
+            if (this.belegungsBed.wahlarten[i].includes(this.belegung[i - 1])) {
+                this.belegung[i] = this.belegung[i - 1];
+            } else {
+                this.belegung[i] = '';
+            }
+        }
+        this.abifach = 0; //Sollte beim hochschreiben zurückgesetzt werden
+    }
+
+    /**
+     * wählt das Fach vollständig ab
+     */
+    abwaehlen() {
+        this.belegung = Array(6).fill('');
+        this.abifach = 0;
+    }
+
+    /**
      * Methode um eine Fachbelegung von einem JSONObj zu generieren
      * @param {} jsonObj 
      * @return neue Fachbelegung
      */
     static generateFromJSONObj(jsonObj) {
-        let belBed = null;
+        let neueBlg = null;
         // Bezeichnung und Kürzel übernehmen
         if (typeof (jsonObj.bezeichnung) === 'string' && typeof (jsonObj.kuerzel) === 'string') {
-            belBed = new Fachbelegung(jsonObj.bezeichnung, jsonObj.kuerzel);
+            neueBlg = new Fachbelegung(jsonObj.bezeichnung, jsonObj.kuerzel);
             console.log("Fach ", jsonObj.bezeichnung, " Krzl: ", jsonObj.kuerzel);
         } else {
-            belBed = new Fachbelegung("Ungueltig", "--");
+            neueBlg = new Fachbelegung("Ungueltig", "--");
         }
 
         //Belegung übernehmen
         if (typeof (jsonObj.belegung) === 'object' && Array.isArray(jsonObj.belegung) && jsonObj.belegung.length == 6) {
-            belBed.belegung = jsonObj.belegung;
+            neueBlg.belegung = jsonObj.belegung;
         } else {
             console.log("Belegung in JSON-File Fehlerhaft");
         }
 
         //Belegungsbedingungen übernehmen
         if (typeof (jsonObj.belegungsBed) === 'object') {
-            belBed.belegungsBed = BelegBed.generateFromJSONObj(jsonObj.belegungsBed);
+            neueBlg.belegungsBed = BelegBed.generateFromJSONObj(jsonObj.belegungsBed);
         }
 
         //Fächergruppe übernehmen
         if (typeof (jsonObj.faecherGruppe) === 'string') {
-            belBed.faecherGruppe = jsonObj.faecherGruppe;
+            neueBlg.faecherGruppe = jsonObj.faecherGruppe;
         }
 
-        return belBed;
+        //Abifach
+        neueBlg.abifach = jsonObj.abifach;
+
+        //fortgeführte Fremdsprache
+        if (typeof (jsonObj.istFFS) === 'boolean') {
+            neueBlg.istFFS = jsonObj.istFFS;
+        }
+        if (typeof (jsonObj.istFFSSekI) === 'boolean') {
+            console.log("json:", jsonObj.istFFSSekI);
+            neueBlg.istFFSSekI = jsonObj.istFFSSekI;
+        }
+
+        return neueBlg;
     }
 }

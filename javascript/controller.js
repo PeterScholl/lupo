@@ -53,16 +53,23 @@ class Controller {
             buttons[i].addEventListener("click", (obj) => this.objectClicked(obj));
         }
 
-        //TODO : nur zu Testzwecken - evtl. später entfernen
-        this.wahlbogen.erzeugeMinimaleFachbelegung();
+        //alle Menuitems mit click-Eventlistener versehen
+        let anchors = document.querySelectorAll('.dropdown-content a'); 
+        for (let i = 0; i < anchors.length; i++) {
+            anchors[i].addEventListener("click", (obj) => this.objectClicked(obj));
+        }
 
-        //TODO : Wann sollen die Belegungsverpflichtungen immer neu dargestellt und geprüft werden?!
-        this.drawBelegungsverpflichtungen();
-
-
-        this.drawTable();
-        // Test Wahlarten
-        console.log("Test", this.wahlbogen.fachbelegungen[0].belegungsBed.gibNaechsteBelegungsmöglichkeit(2, 'S'));
+        //Prüfen ob eine Datei mit einem get-Parmeter übergeben wurde
+        //Wurde ein Dokument per get-Parameter übergeben?
+        //sonst Minimalbelegung erzeugen
+        let dest = getUrlParam("url");
+        if (dest) {
+            console.log("JSON laden von " + dest);
+            openJSONFromURL(dest); //Wird dann automatisch gezeichnet
+        } else {
+            this.wahlbogen.erzeugeMinimaleFachbelegung();
+            this.redraw(); //Alles zeichnen
+        }
     }
 
     /**
@@ -71,12 +78,10 @@ class Controller {
      */
     drawBelegungsverpflichtungen() {
         let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
-        let newdiv = document.createElement('div');
-        newdiv.style.overflowY="scroll";
-        newdiv.innerHTML=bericht;
-        let td_bel = document.getElementById('Belegverpflichtungen');
-        td_bel.innerHTML=""; //löschen
-        td_bel.appendChild(newdiv);
+        let newdiv = document.getElementById('Belegverpflichtungen');
+        //newdiv.style.overflowY="scroll";
+        newdiv.classList.add('div-pruef');
+        newdiv.innerHTML = bericht;
     }
 
     /**
@@ -98,32 +103,85 @@ class Controller {
         // Je nach Item muss eine passende Reaktion progrmmiert werden
         console.log("Objekt typ " + clickedObjectTAG + " geklickt: " + clickedObjectID);
         //TODO: Reaktion auf Clicks
-        if (clickedObjectTAG === 'BUTTON') {
+        if (clickedObjectTAG === 'BUTTON' || clickedObjectTAG === 'A') {
             switch (clickedObjectID) {
-                case 'TestButton':
-                    console.log("Testbutton geklickt - heute Download :-)");
+                case 'Speichern':
+                    console.log("Speichern geklickt");
                     downloadJSON(this.wahlbogen);
                     break;
                 case 'LadeDatei':
                     console.log("Lade Datei geklickt");
                     openJSON();
                     break;
+                case 'HochschreibenEF1':
+                    console.log("Hochschreiben von der EF1");
+                    this.wahlbogen.hochschreibenVon(0);
+                    this.drawTable();
+                    this.drawBelegungsverpflichtungen(); //inklusive Prüfung
+                    break;
+                case 'HochschreibenEF2':
+                    console.log("Hochschreiben von der EF.2");
+                    this.wahlbogen.hochschreibenVon(1);
+                    this.drawTable();
+                    this.drawBelegungsverpflichtungen(); //inklusive Prüfung
+                    break;
                 default:
                     console.log("Button ID unbekannt");
             }
+        } else if (clickedObjectTAG === 'INPUT' && event.target.type === 'checkbox') {
+            //console.log(clickedObjectID+" wird auf "+ event.target.checked + " gesetzt");
+            const fach = this.wahlbogen.getFachMitKuerzel(clickedObjectID);
+            fach.istFFSSekI = event.target.checked;
+            if (!event.target.checked) {
+                fach.abwaehlen();
+            }
+            this.redrawZeile(clickedObjectID);
         }
+    }
+
+    /**
+     * Methode um beim anklicken eines Objekts eine Klasse zu aktivieren oder zu deaktivieren
+     * @param {} target - das angeklickte Objekt 
+     * @param {*} className - die zu toggelnde Klasse
+     */
+    objectClickedToggleClass(target, className) {
+        console.dir(target);
+        target.classList.toggle(className);
     }
 
     /**
      * ein vollständiges Neu darstellen des Wahlbogens!
      */
     redraw() {
+        let self = this;
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
-        // TODO Vorname, Nachname, usw.
+                // TODO Vorname, Nachname, usw.
+        //fortgeführte Fremdsprachen
+        let ffs = document.querySelector("FORM#ffs");
+        ffs.innerHTML="";
+        ffs.appendChild(document.createTextNode("Fremdsprachen SekI: "));
+        this.wahlbogen.gibFortgefuehrteFS().forEach(
+            function (e) {
+                let input = document.createElement("input");
+                input.setAttribute('type','checkbox');
+                input.setAttribute('id',e.kuerzel);
+                input.setAttribute('name',e.kuerzel);
+                input.setAttribute('value',e.kuerzel);
+                input.checked = e.istFFSSekI;
+                input.addEventListener('change',(e) => {self.objectClicked(e);});
+                ffs.appendChild(input);
+                let label = document.createElement("label");
+                label.setAttribute('for',e.kuerzel);
+                label.innerHTML=e.kuerzel;
+                ffs.appendChild(label);
+            }
+        );
+
         this.drawTable(); //Wahlen
-        // TODO Infos
         // TODO Summen...
+        this.drawBelegungsverpflichtungen(); //Belegungsverpflichtungen
+        // TODO Infos
     }
 
     /**
@@ -134,11 +192,11 @@ class Controller {
     }
 
     /**
-     * Der Tabellenbereich mit den Wahlen wird nue dargestellt
+     * Der Tabellenbereich mit den Wahlen wird neu dargestellt
      */
     drawTable() {
         //TODO 
-        let table = document.getElementById('Fächerwahl');
+        let table = document.getElementById('Faecherwahl');
         //table.innerHTML=""; //Tabelle löschen
         while (table.rows.length > 1) {
             table.deleteRow(1); // Kopfzeile 0 bleibt erhalten
@@ -150,7 +208,7 @@ class Controller {
     }
 
     redrawZeile(kuerzel) {
-        const zeile = document.getElementById(kuerzel);
+        const zeile = document.querySelector("TR#"+kuerzel);
         zeile.classList.add('Fach');
         const fach = this.wahlbogen.getFachMitKuerzel(kuerzel);
         if (fach != null && zeile != null && zeile.tagName == "TR") {
@@ -165,13 +223,17 @@ class Controller {
             zelle.innerHTML = fach.kuerzel;
             for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
                 zelle = zeile.insertCell(-1); //erstes Halbjahr
+                if (!(fach.istWaehlbar(i) || fach.istAlsZKWaehlbar(i))) {
+                    zelle.classList.add("disabled");    
+                } else {
+                    zelle.addEventListener("click", (obj) => this.cellClicked(obj));
+                }
                 zelle.innerHTML = fach.belegung[i];
                 zelle.id = "hj" + i;
-                zelle.addEventListener("click", (obj) => this.cellClicked(obj));
             }
             // Zelle für das Abifach
             zelle = zeile.insertCell(-1); // Zelle für das Abifach
-            if (!fach.alsAbifachMgl() && fach.belegung[5]!='LK') {
+            if (!fach.alsAbifachMgl() && fach.belegung[5] != 'LK') {
                 //disabled wenn das FAch nicht Abifach werden kann
                 zelle.classList.add("disabled");
             } else {
@@ -200,7 +262,25 @@ class Controller {
             const fach = this.wahlbogen.getFachMitKuerzel(gewKrz);
             fach.setzeBelegungWeiter(gewHj);
             this.redrawZeile(gewKrz);
-            //TODO - soll das wirklich immer passieren?
+            // alle Fächer die dieses Fach als Vorgänger haben auch neu Zeichnen
+            this.wahlbogen.gibFaecherMitVorgaenger(gewKrz).forEach((fach) => {
+                console.log("Neu zeichnen",fach.kuerzel);
+                this.redrawZeile(fach.kuerzel);
+            });
+            this.drawBelegungsverpflichtungen();
+        } else if (obj.target.tagName === "TD" && obj.target.id === "abifach") {
+            //Es wurde in die Abifachzelle geklickt
+            const gewKrz = obj.target.parentNode.id; // id des Parent Node <tr> ist das FachKürzel
+            //console.log("Angeklicktes Abifach: ", gewKrz);
+            this.wahlbogen.aendereAbifach(gewKrz);
+            this.redraw(gewKrz);
+            //ggf. Abi3 und Abifach 4 neu zeichnen
+            [3,4].forEach(el => {
+                let abif = this.wahlbogen.gibAbifach(el);
+                if (abif!=null && abif.kuerzel!=gewKrz) {
+                    this.redraw(abif.kuerzel);
+                }                    
+            });
             this.drawBelegungsverpflichtungen();
         } else {
             console.log("Angeklicktes Objekt: ", obj.target)

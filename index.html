@@ -5,9 +5,7 @@
   <meta charset="UTF-8">
   <title>Lupo Web</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-
-  </style>
+  <script src="./javascript/hilfsfunktionen.js"></script>
   <script src="./javascript/jsonfile.js"></script>
   <script src="./javascript/c_BelegBed.js"></script>
   <script src="./javascript/c_Fachbelegung.js"></script>
@@ -24,30 +22,37 @@
 
     <h1 id="kopfzeile">Oberstufenwahl
       Abijahrgang 20xx</h1>
-
   </div>
 
-  <form>
-    <input type="text" id="eingabe" name="eingabe" placeholder="Vorname">
-    <input type="text" id="eingabe" name="eingabe" placeholder="Nachname">
-  </form>
+  <div class="kopfinfos">
+    <div class="dropdown print_hide">
+      <button class="dropbtn">Menu</button>
+      <div class="dropdown-content">
+        <a id="Speichern" href="#">Speichern</a>
+        <a id="LadeDatei" href="#" style="border-bottom: 1px solid black;">Laden</a>
+        <a id="HochschreibenEF1">Hochschreiben von EF.1</a>
+        <a id="HochschreibenEF2">Hochschreiben von EF.2</a>
+      </div>
+    </div>
 
-  <form class="print_hide" action="select.html">
-    <label>Sprachen Sek1:
-      <select name="top4" size="1">
-        <option>Französisch</option>
-        <option>Spanisch</option>
-        <option>Latein</option>
-        <option>Englisch Billingual</option>
-      </select>
-    </label>
-  </form>
+    <form>
+      <input type="text" id="eingabe" name="eingabe" placeholder="Vorname">
+      <input type="text" id="eingabe" name="eingabe" placeholder="Nachname">
+    </form>
 
-  <br>
+    <form class="print_hide" id="ffs">
+      Fremdsprachen Sek1:
+      <input type="checkbox" id="F6" name="F6" value="F6">
+      <label for="F6">F6</label>
+      <input type="checkbox" id="L6" name="L6" value="L6">
+      <label for="L6">L6</label>
+      </label>
+    </form>
+  </div>
   <div class="row">
-    <div class="col-7 print_show">
+    <div class="col1 print_show">
 
-      <table id="Fächerwahl">
+      <table id="Faecherwahl">
         <tr>
           <th class="col_fach">Fach</th>
           <th class="col_fkrzl">Krzl</th>
@@ -89,35 +94,34 @@
       </table>
     </div>
 
-    <div class="col-5">
-      <table id="Infotabelle" style="width:100%">
-        <tr class="infoKopf">
-          <th>Belegungsverpflichtungen</th>
-        </tr>
-        <tr class="infoInhalt">
-          <td id="Belegverpflichtungen">Belegungsverpflichtungen</td>
-        </tr>
-        <tr class="infoKopf">
-          <th>Klausurverpflichtungen</th>
-        </tr>
-        <tr class="infoInhalt">
-          <td id="Klausurverpflichtungen">Klausur</td>
-        </tr>
-        <tr class="infoKopf">
-          <th>Informationen</th>
-        </tr>
-        <tr class="infoInhalt">
-          <td id="Infos">Infos</td>
-        </tr>
-      </table>
+    <div class="col2 print_hide">
+      <div id="Infotabelle">
+        <div class="infoKopf">
+          <h2>Belegungsverpflichtungen</h2>
+        </div>
+        <div class="infoInhalt div-pruef" id="Belegverpflichtungen">Belegungsverpflichtungen</div>
+        <div class="infoKopf">
+          <h2>Klausurverpflichtungen</h2>
+        </div>
+        <div class="infoInhalt div-pruef" id="Klausurverpflichtungen">Klausur</div>
+        <div class="infoKopf">
+          <h2>Informationen</h2>
+        </div>
+        <div class="infoInhalt div-pruef" id="Infos">Infos</div>
+      </div>
 
     </div>
   </div>
 
-  <div class="print_hide testbuttons">
-    <button id="TestButton">Speichern in Datei</button>
-    <button id="LadeDatei">Lade aus Datei</button>
+  <div class="footer print_hide">
+    <hr>
+    <small>
+      Projekt des IF-Grundkurses im Abiturjahrgang 2024 -
+      Lizenz <CC-BY-SA>CC-BY-SA</CC-BY-SA> -
+      Quelltext auf <a href="https://github.com/PeterScholl/lupo">Github</a>
+    </small>
   </div>
+
 </body>
 
 </html>
