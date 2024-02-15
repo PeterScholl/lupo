@@ -63,8 +63,13 @@ class Wahlbogen {
         sw.belegungsBed.wahlarten[4].push('ZK');
         // Geographie
         this.addFachToFachbelegungen("Geographie", "EK", ['', '', '', '', '', ''], "FG2");
+        let ek = this.getFachMitKuerzel('EK');
+        ek.belegungsBed.vorgaengerFaecher.push('EKE');
         // Geographie Englisch
         this.addFachToFachbelegungen("Geographie Englisch", "EKE", ['', '', '', '', '', ''], "FG2");
+        this.verboteneFachKombis.push(['EK', 'EKE']);
+        let eke = this.getFachMitKuerzel('EKE');
+        eke.belegungsBed.vorgaengerFaecher.push('EK');
         // Philosophie
         this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "FG2");
         let pp = this.getFachMitKuerzel('PP');

@@ -15,6 +15,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
+        bericht += this.ergaenzeBericht(this.pruefeeinGesellschaftsFachDurchgehend(wahlbogen, "GE", "GEE","SW", "EK", "EKE"));
         bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "GE", "GEE"));
         bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "BI", "BIE"));
         bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "EK", "EKE"));
@@ -43,6 +44,7 @@ class PruefeBelegungsBedingungen {
      * @returns String mit der Meldung falls nicht Bedingung nicht erfüllt, sonst Leerstring.
      */
     static pruefeFachDurchgehend(wahlbogen, krz1) {
+        const fach1 = wahlbogen.getFachMitKuerzel(krz1);
         if (!this.istFachDurchgehend(wahlbogen,krz1)) {
             return "Das Fach " + fach1.bezeichnung + " muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
@@ -58,7 +60,7 @@ class PruefeBelegungsBedingungen {
     static istFachDurchgehend(wahlbogen, krz) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz);
         if (fach1==null) return false;
-        return !fach1.belegung.every((a) => { return a != ''; })
+        return fach1.belegung.every((a) => { return a != ''; })
     }
 
 
@@ -110,4 +112,15 @@ class PruefeBelegungsBedingungen {
         return "";
     }
 
+    static pruefeeinGesellschaftsFachDurchgehend(wahlbogen, krz1, krz2, krz3, krz4, krz5) {
+        const fach1d = this.istFachDurchgehend(wahlbogen,krz1); // boolean
+        const fach2d = this.istFachDurchgehend(wahlbogen,krz2);
+        const fach3d = this.istFachDurchgehend(wahlbogen,krz3);
+        const fach4d = this.istFachDurchgehend(wahlbogen,krz4);
+        const fach5d = this.istFachDurchgehend(wahlbogen,krz5);
+        if (!(fach1d || fach2d || fach3d || fach4d || fach5d)) {
+            return "Mind. eine Gesellschaftswissenschaft muss durchgehend von der EF.1 bis Q2.2 belegt werden";
+        }
+        return "";
+    }
 }
