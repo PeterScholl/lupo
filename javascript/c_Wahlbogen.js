@@ -100,4 +100,53 @@ class Wahlbogen {
         if (typeof (fach) === 'undefined') return null;
         return fach;
     }
+     /**
+     * zählt  für ein bestimmtes Halbjahr die Stundenzahl aller kurse
+     * @param {*} halbjahr 0-5
+     * @returns die Stundenanzahl des übergebenen Halbjahres
+     */
+      getStundenFuershalbjahr(halbjahr){
+        // alle fachwahlen durchlaufen und Stundenzahlen summieren
+        let stundenzahlen = 0;
+        this.fachbelegungen.forEach((fach) => {
+            stundenzahlen +=fach.gibStundenzahlImHalbjahr(halbjahr);
+            });
+        return stundenzahlen; 
+    }
+                /**
+         * zählt  für ein bestimmtes Halbjahr die Anzahl an Kursen
+         * @param {*} halbjahr 0-5
+         * @returns die Kursanzahl fürs übergebene Halbjahr
+         */
+                 getKurseFuershalbjahr(halbjahr){
+                    // alle fachwahlen durchlaufen und Kurse summieren
+                    let kurszahlen = 0;
+                    this.fachbelegungen.forEach((fach) => {
+                            if (fach.belegung[halbjahr] != '')
+                                kurszahlen += 1;
+                            });
+                    return kurszahlen; 
+                }
+
+                /**
+                 *  summiert die Anzahl an Stunden der beiden Halbjahre in der E-Phase aller gewählten Kurse
+                 * @returns die gesamt Anzahl an Stunden der gewählten Kurse
+                 */
+                getStundenDurchschnittFuerEPhase(){
+                    let Stundenzahl = this.getStundenFuershalbjahr(0) + this.getStundenFuershalbjahr(1);
+                    Stundenzahl /= 2;
+                    return Stundenzahl;
+                }
+                /**
+                 *  summiert die Anzahl an Stunden der vier Halbjahre in der Q-Phase aller gewählten Kurse
+                 * @returns die gesamt Anzahl an Stunden der gewählten Kurse
+                 */
+                 getStundenDurchschnittFuerQPhase(){
+                    let Stundenzahl = 0;
+                    for ( let i = 2; i < 6; i++){
+                        Stundenzahl += this.getStundenFuershalbjahr(i);
+                    }
+                    Stundenzahl /= 4;
+                    return Stundenzahl;
+                }
 }

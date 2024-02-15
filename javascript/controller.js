@@ -99,15 +99,21 @@ class Controller {
             switch (clickedObjectID) {
                 case 'TestButton':
                     console.log("Testbutton geklickt - heute Download :-)");
-                    //downloadJSON(this.wahlbogen);
-                    const kurszahlen = [];
-                    kurszahlen[1] = this.getKurseFuershalbjahr(); 
-                    document.getElementById('x1').innerHTML= kurszahlen[1];
-                    document.getElementById('x2').innerHTML= kurszahlen[2];
-                    document.getElementById('x3').innerHTML= kurszahlen[3];
-                    document.getElementById('x4').innerHTML= kurszahlen[4];
-                    document.getElementById('x5').innerHTML= kurszahlen[5];
-                    document.getElementById('x6').innerHTML= kurszahlen[6];
+                    //downloadJSON(this.wahlbogen); 
+                    document.getElementById('x1').innerHTML= this.wahlbogen.getKurseFuershalbjahr(0);
+                    document.getElementById('x2').innerHTML= this.wahlbogen.getKurseFuershalbjahr(1);
+                    document.getElementById('x3').innerHTML= this.wahlbogen.getKurseFuershalbjahr(2);
+                    document.getElementById('x4').innerHTML= this.wahlbogen.getKurseFuershalbjahr(3);
+                    document.getElementById('x5').innerHTML= this.wahlbogen.getKurseFuershalbjahr(4);
+                    document.getElementById('x6').innerHTML= this.wahlbogen.getKurseFuershalbjahr(5);
+                    document.getElementById('y1').innerHTML= this.wahlbogen.getStundenFuershalbjahr(0);
+                    document.getElementById('y2').innerHTML= this.wahlbogen.getStundenFuershalbjahr(1);
+                    document.getElementById('y3').innerHTML= this.wahlbogen.getStundenFuershalbjahr(2);
+                    document.getElementById('y4').innerHTML= this.wahlbogen.getStundenFuershalbjahr(3);
+                    document.getElementById('y5').innerHTML= this.wahlbogen.getStundenFuershalbjahr(4);
+                    document.getElementById('y6').innerHTML= this.wahlbogen.getStundenFuershalbjahr(5);
+                    document.getElementById('z1').innerHTML= this.wahlbogen.getStundenDurchschnittFuerEPhase();
+                    document.getElementById('z2').innerHTML= this.wahlbogen.getStundenDurchschnittFuerQPhase();
                     break;
                 case 'LadeDatei':
                     console.log("Lade Datei geklickt");
@@ -200,35 +206,8 @@ class Controller {
             console.log("Angeklicktes Objekt: ", obj.target)
         }
     }
-    /**
-     * zählt  für alle Halbjahre die Stundenzahl aller kurse
-     * @returns Array[6] mit den Stundenanzahlen
-     */
-    getStundenFuershalbjahr(){
-        // alle fachwahlen durchlaufen und Stundenzahlen summieren
-        let stundenzahlen = Array(6).fill(0);
-        this.wahlbogen.fachbelegungen.forEach((fach) => {
-            for (let i = 0; i < 6; i++){
-            stundenzahlen[i]+=fach.gibStundenzahlImHalbjahr(i);
-            }
-        });
-        return stundenzahlen; 
-    }
-        /**
-     * zählt  für alle Halbjahre die Anzahl an Kursen
-     * @returns Array[6] mit den Kursanzahlen
-     */
-    getKurseFuershalbjahr(){
-            // alle fachwahlen durchlaufen und Kurse summieren
-            let kurszahlen = Array(6).fill(0);
-            this.wahlbogen.fachbelegungen.forEach((fach) => {
-                for (let i = 0; i < 6; i++){
-                    if (fach.belegung[i] != '')
-                        kurszahlen[i]+= 1;
-                    }
-            });
-            return kurszahlen; 
-        }
+
+
 
 
 
