@@ -32,6 +32,7 @@
         <a id="LadeDatei" href="#" style="border-bottom: 1px solid black;">Laden</a>
         <a id="HochschreibenEF1">Hochschreiben von EF.1</a>
         <a id="HochschreibenEF2">Hochschreiben von EF.2</a>
+        <a id="TestButton">Testbutton</a>
       </div>
     </div>
 
@@ -42,6 +43,7 @@
 
     <form class="print_hide" id="ffs">
       Fremdsprachen Sek1:
+      <!-- wird von Javascript ersetzt -->
       <input type="checkbox" id="F6" name="F6" value="F6">
       <label for="F6">F6</label>
       <input type="checkbox" id="L6" name="L6" value="L6">
@@ -64,37 +66,38 @@
           <th class="col_hj">Q2.2</thle=>
           <th class="col_abi">Abi</the=>
         </tr>
-      </table>
+      <!-- wird von Javascript gefüllt -->
+    </table>
 
       <table id="Stundenanzahl" class="stunden">
         <tr>
           <th style="width:15%">Kurse:</th>
-          <th style="width:14%">x1</th>
-          <th style="width:14%">x2</th>
-          <th style="width:14%">x3</th>
-          <th style="width:14%">x4</th>
-          <th style="width:14%">x5</th>
-          <th style="width:14%">x6</th>
+          <th style="width:14%", id="x1">x1</th>
+          <th style="width:14%", id="x2">x2</th>
+          <th style="width:14%", id="x3">x3</th>
+          <th style="width:14%", id="x4">x4</th>
+          <th style="width:14%", id="x5">x5</th>
+          <th style="width:14%", id="x6">x6</th>
         </tr>
         <tr>
           <td>Wochenstunden:</td>
-          <td>y1</td>
-          <td>y2</td>
-          <td>y3</td>
-          <td>y4</td>
-          <td>y5</td>
-          <td>y6</td>
+          <td id="y1">y1</td>
+          <td id="y2">y2</td>
+          <td id="y3">y3</td>
+          <td id="y4">y4</td>
+          <td id="y5">y5</td>
+          <td id="y6">y6</td>
         </tr>
         <tr>
           <td>Durchschnitt:</td>
-          <td colspan="2">E-Phase</td>
-          <td colspan="4">Q-Phase</td>
+          <td id="z1" colspan = "2">E-Phase</td>
+          <td id="z2" colspan = "4">Q-Phase</td>
         </tr>
 
       </table>
     </div>
 
-    <div class="col2 print_hide">
+    <div class="col2">
       <div id="Infotabelle">
         <div class="infoKopf">
           <h2>Belegungsverpflichtungen</h2>

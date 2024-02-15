@@ -111,8 +111,7 @@ class Controller {
                     downloadJSON(this.wahlbogen);
                     break;
                 case 'TestButton':
-                    console.log("Testbutton geklickt - heute Download :-)");
-                    //downloadJSON(this.wahlbogen); 
+                    console.log("Testbutton geklickt - heute Stundenzahlen :-)");
                     document.getElementById('x1').innerHTML= this.wahlbogen.getKurseFuershalbjahr(0);
                     document.getElementById('x2').innerHTML= this.wahlbogen.getKurseFuershalbjahr(1);
                     document.getElementById('x3').innerHTML= this.wahlbogen.getKurseFuershalbjahr(2);
