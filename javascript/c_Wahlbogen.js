@@ -93,8 +93,19 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Sport", "SP", ['', '', '', '', '', ''], "FGSp");
         let sport = this.getFachMitKuerzel("SP");
         sport.belegungsBed.alsAbifach = false;
+        this.addFachToFachbelegungen("Sport", "SP", ['', '', '', '', '', ''], "#FEFEFE");
+        // Vertiefungsfach Englisch
+        this.addFachToFachbelegungen("Vertiefungsfach Englisch", "VF_E", ['', '', '', '', '', ''], "#BDBDBD");
+        this.getFachMitKuerzel("VF_E").belegungsBed.stundenzahlen[2,2,2,2,2,2];
+        // Vertiefungsfach Deutsch
+        this.addFachToFachbelegungen("Vertiefungsfach Deutsch", "VF_D", ['', '', '', '', '', ''], "#BDBDBD");
+        this.getFachMitKuerzel("VF_D").belegungsBed.stundenzahlen[2,2,2,2,2,2];
+        // Vertiefungsfach Mathe
+        this.addFachToFachbelegungen("Vertiefungsfach Mathematik", "VF_M", ['', '', '', '', '', ''], "#BDBDBD");
+        this.getFachMitKuerzel("VF_M").belegungsBed.stundenzahlen[2,2,2,2,2,2];
         // Projektkurs
-        this.addFachToFachbelegungen("Projekt", "PK", ['', '', '', '', '', ''], "FGPK");
+        this.addFachToFachbelegungen("Projekt", "PK", ['', '', '', '', '', ''], "#FGPK");
+        this.getFachMitKuerzel("PK").belegungsBed.stundenzahlen[2,2,2,2,2,2];
     }
 
     /**
@@ -229,4 +240,54 @@ class Wahlbogen {
     hochschreibenVon(halbjahr) {
         this.fachbelegungen.forEach((f) => { f.hochschreibenVon(halbjahr); });
     }
+
+    /**
+     * zählt  für ein bestimmtes Halbjahr die Stundenzahl aller kurse
+     * @param {*} halbjahr 0-5
+     * @returns die Stundenanzahl des übergebenen Halbjahres
+     */
+      getStundenFuershalbjahr(halbjahr){
+        // alle fachwahlen durchlaufen und Stundenzahlen summieren
+        let stundenzahlen = 0;
+        this.fachbelegungen.forEach((fach) => {
+            stundenzahlen +=fach.gibStundenzahlImHalbjahr(halbjahr);
+            });
+        return stundenzahlen; 
+    }
+                /**
+         * zählt  für ein bestimmtes Halbjahr die Anzahl an Kursen
+         * @param {*} halbjahr 0-5
+         * @returns die Kursanzahl fürs übergebene Halbjahr
+         */
+                 getKurseFuershalbjahr(halbjahr){
+                    // alle fachwahlen durchlaufen und Kurse summieren
+                    let kurszahlen = 0;
+                    this.fachbelegungen.forEach((fach) => {
+                            if (fach.belegung[halbjahr] != '')
+                                kurszahlen += 1;
+                            });
+                    return kurszahlen; 
+                }
+
+                /**
+                 *  summiert die Anzahl an Stunden der beiden Halbjahre in der E-Phase aller gewählten Kurse
+                 * @returns die gesamt Anzahl an Stunden der gewählten Kurse
+                 */
+                getStundenDurchschnittFuerEPhase(){
+                    let Stundenzahl = this.getStundenFuershalbjahr(0) + this.getStundenFuershalbjahr(1);
+                    Stundenzahl /= 2;
+                    return Stundenzahl;
+                }
+                /**
+                 *  summiert die Anzahl an Stunden der vier Halbjahre in der Q-Phase aller gewählten Kurse
+                 * @returns die gesamt Anzahl an Stunden der gewählten Kurse
+                 */
+                 getStundenDurchschnittFuerQPhase(){
+                    let Stundenzahl = 0;
+                    for ( let i = 2; i < 6; i++){
+                        Stundenzahl += this.getStundenFuershalbjahr(i);
+                    }
+                    Stundenzahl /= 4;
+                    return Stundenzahl;
+                }
 }
