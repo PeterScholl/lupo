@@ -1,0 +1,304 @@
+/* Hintergrundfarben nach Fächergruppen */
+.FG1D {
+    background-color: #fde9d9;
+}
+
+.FG1 {
+    background-color: #fdddc3;
+}
+
+.FG1KuMu {
+    background-color: #fccca5;
+}
+
+.FG2 {
+    background-color: #eaf1de;
+}
+
+.FG2Rel {
+    background-color: #d7e4bc;
+}
+
+.FG3M {
+    background-color: #c5d9f1;
+}
+
+.FG3 {
+    background-color: #8db4e3;
+}
+
+.FGSp {
+    background-color: #fefefe;
+}
+
+.FGPK {
+    background-color: #dddddd;
+}
+
+/* Ende Hintergrundfarben nach Fächergruppen */
+
+/***** Menü auf der rechten Seite ***/
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.dropdown {
+    position: sticky;
+    float: left;
+    top: 0px;
+    right: 0px;
+    z-index: 1;
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+/***** Ende Menü auf der rechten Seite ***/
+
+#kopfzeile {
+    text-align: left;
+    background-color: LightGrey;
+    font-size: 3vw;
+}
+
+.table-container {
+    display: flex;
+}
+
+
+/* Tabellengestaltung */
+table {
+    border-collapse: collapse;
+}
+
+/* table#Faecherwahl {
+ width: 100%;
+    border-right: 40px;
+    margin-right: 40px; 
+}
+*/
+
+table.stunden {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.col_fachbez {
+    width: 24%;
+}
+
+.col_fkrzl {
+    width: 8%;
+}
+
+.col_hj {
+    width: 10%;
+}
+
+.col_abi {
+    width: 8%;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 2px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+}
+
+td.disabled {
+    background-color: darkgrey;
+}
+
+/* Tabelle mit Infos und Prüfungen */
+div.infoKopf {
+    text-align: left;
+    border: 1px solid;
+    border-collapse: collapse;
+    /* Zeilenumbruch abschalten */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.infoKopf>h2,
+h1 {
+    margin: 0px 0px 5px;
+    background-color: #f2f2f2;
+    border-collapse: collapse;
+}
+
+.highlight {
+    background-color: yellow;
+}
+
+/* div - container mit Scrollbar für Bedingungsüberprüfungen */
+.div-pruef {
+    border: 1px solid;
+    overflow-y: auto;
+    overflow-x: auto;
+    text-align: left;
+    white-space: nowrap;
+    min-height: 40px;
+    /* width: max(500px, 45%); */
+}
+
+/* Darstellungseinstellungen für die Druckausgabe */
+@media print {
+    tr.Fach {
+        background-color: transparent;
+    }
+
+    tr:nth-child(even) {
+        background-color: #aaa;
+    }
+
+    div.row {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .header-container {
+        width: 750px;
+    }
+
+    div.print_show {
+        width: 750px;
+    }
+
+    .print_hide {
+        display: none;
+    }
+
+    table,
+    td,
+    th {
+        margin-top: 10px;
+        border-width: 1.4px;
+        border-style: solid;
+        font-size: medium;
+        padding: 2px;
+    }
+
+    table {
+        width: 700px;
+    }
+
+    table.stunden {
+        width: 650px;
+    }
+
+    div.infoKopf {
+        width: 750px;
+        padding: 2px;
+        height: 0px;
+    }
+
+    div.infoInhalt {
+        width: 750px;
+        padding: 2px;
+        height: 0px;
+    }
+
+}
+
+img {
+    max-width: 190px;
+    /* Maximale Breite des Bildes */
+    height: 94px;
+    /* Automatische Höhe entsprechend der Breite */
+    margin-right: 20px;
+    /* Abstand zwischen Bild und Überschrift */
+}
+
+/* Responsive Design */
+/* * {
+    box-sizing: border-box;
+}*/
+
+/* For mobile phones and small screens: */
+.col1,
+.col2 {
+    width: 100%;
+}
+
+@media only screen and (min-width: 1000px) {
+
+    /* For desktop: */
+    .col1 {
+        width: 50%;
+        min-width: 580px;
+        max-width: 700px;
+        display: block;
+    }
+
+    .col2 {
+        /*max-width: calc(100vw - 700px);*/
+        max-width: 40%;
+        display: block;
+    }
+}
+
+.col1,
+.col2 {
+    float: left;
+    padding: 5px;
+    /* border: 1px solid red; */
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.footer {
+    text-align: right;
+}
