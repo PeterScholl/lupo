@@ -174,8 +174,8 @@ class Fachbelegung {
     }
     /**
      * gibt die zu wertende Stundenzahl im angebgebenen Halbjahr (0-5)
-     * für LKs werden 5 und ZKs 2 Stunden zurück gegeben + sonder Fälle bei Fächern wie VF
-     * @param {*} halbjahr 0-5
+     * für LKs werden 5 Stunden zurück gegeben 
+     * @param {Integer} halbjahr 0-5
      * @returns Stundenzahl für dieses Halbjahr
      */
     gibStundenzahlImHalbjahr(halbjahr) {
@@ -183,9 +183,6 @@ class Fachbelegung {
             if (this.belegung[halbjahr] == 'LK') {
                 return 5;
             } else {
-            if (this.belegung[halbjahr] == 'ZK'){
-                return 2;
-            } else 
                 return this.belegungsBed.stundenzahlen[halbjahr];
             }
         }

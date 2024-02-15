@@ -85,6 +85,18 @@ class Controller {
     }
 
     /**
+     * aktualisiert die Tabelle mit den Kurssummen und Stundenzahlen
+     */
+    drawStundenzahlen() {
+        for (let h=0; h<6; h++) { //Halbjahre durchlaufen
+            document.getElementById('x'+(h+1)).innerHTML= this.wahlbogen.getKurseFuershalbjahr(h);
+            document.getElementById('y'+(h+1)).innerHTML= this.wahlbogen.getStundenFuershalbjahr(h);
+        }
+        document.getElementById('z1').innerHTML= this.wahlbogen.getStundenDurchschnittFuerEPhase();
+        document.getElementById('z2').innerHTML= this.wahlbogen.getStundenDurchschnittFuerQPhase();
+    }
+
+    /**
      * Reagiert auf Clicks auf Elemente - bekommt das event als Parameter
      * wird angelegt mit element.addEventListener("click", (obj) => this.cellClicked(obj));
      * @param {*} event - das event, das ausgelöst wird
@@ -112,20 +124,7 @@ class Controller {
                     break;
                 case 'TestButton':
                     console.log("Testbutton geklickt - heute Stundenzahlen :-)");
-                    document.getElementById('x1').innerHTML= this.wahlbogen.getKurseFuershalbjahr(0);
-                    document.getElementById('x2').innerHTML= this.wahlbogen.getKurseFuershalbjahr(1);
-                    document.getElementById('x3').innerHTML= this.wahlbogen.getKurseFuershalbjahr(2);
-                    document.getElementById('x4').innerHTML= this.wahlbogen.getKurseFuershalbjahr(3);
-                    document.getElementById('x5').innerHTML= this.wahlbogen.getKurseFuershalbjahr(4);
-                    document.getElementById('x6').innerHTML= this.wahlbogen.getKurseFuershalbjahr(5);
-                    document.getElementById('y1').innerHTML= this.wahlbogen.getStundenFuershalbjahr(0);
-                    document.getElementById('y2').innerHTML= this.wahlbogen.getStundenFuershalbjahr(1);
-                    document.getElementById('y3').innerHTML= this.wahlbogen.getStundenFuershalbjahr(2);
-                    document.getElementById('y4').innerHTML= this.wahlbogen.getStundenFuershalbjahr(3);
-                    document.getElementById('y5').innerHTML= this.wahlbogen.getStundenFuershalbjahr(4);
-                    document.getElementById('y6').innerHTML= this.wahlbogen.getStundenFuershalbjahr(5);
-                    document.getElementById('z1').innerHTML= this.wahlbogen.getStundenDurchschnittFuerEPhase();
-                    document.getElementById('z2').innerHTML= this.wahlbogen.getStundenDurchschnittFuerQPhase();
+                    this.drawStundenzahlen();                  
                     break;
                 case 'LadeDatei':
                     console.log("Lade Datei geklickt");
