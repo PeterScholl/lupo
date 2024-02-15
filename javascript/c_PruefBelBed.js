@@ -14,6 +14,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "SP"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
+        bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
         bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "GE", "GEE"));
         bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "BI", "BIE"));
         bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "EK", "EKE"));
@@ -42,12 +43,24 @@ class PruefeBelegungsBedingungen {
      * @returns String mit der Meldung falls nicht Bedingung nicht erfüllt, sonst Leerstring.
      */
     static pruefeFachDurchgehend(wahlbogen, krz1) {
-        const fach1 = wahlbogen.getFachMitKuerzel(krz1);
-        if (!fach1.belegung.every((a) => { return a != ''; })) {
+        if (!this.istFachDurchgehend(wahlbogen,krz1)) {
             return "Das Fach " + fach1.bezeichnung + " muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
         return "";
     }
+
+    /**
+     * 
+     * @param {*} wahlbogen 
+     * @param {*} krz 
+     * @returns true oder false
+     */
+    static istFachDurchgehend(wahlbogen, krz) {
+        const fach1 = wahlbogen.getFachMitKuerzel(krz);
+        if (fach1==null) return false;
+        return !fach1.belegung.every((a) => { return a != ''; })
+    }
+
 
     /**
      * prueft ob im Wahlbogen die Fächer mit den Kürzeln krz1 und krz2 gleichzeitig belegt sind
@@ -83,6 +96,16 @@ class PruefeBelegungsBedingungen {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
         if (!fach1.belegung.slice(0, 4).every(function (a) { return a != ''; }) && (fach1.belegung[4] != 'ZK' && fach1.belegung[5] != 'ZK')) {
             return "Das Fach " + fach1.bezeichnung + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
+        }
+        return "";
+    }
+
+    static pruefeFachMindEinDurchgehend(wahlbogen, krz1, krz2, krz3) {
+        const fach1d = this.istFachDurchgehend(wahlbogen,krz1); // boolean
+        const fach2d = this.istFachDurchgehend(wahlbogen,krz2);
+        const fach3d = this.istFachDurchgehend(wahlbogen,krz3);
+        if (!(fach1d || fach2d || fach3d)) {
+            return "Mind. eine klassiche NaWi (Physik, Chemie oder Biologie) muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
         return "";
     }
