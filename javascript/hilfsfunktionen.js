@@ -6,3 +6,9 @@ function getUrlParam(name) {
     var c = url.searchParams.get(name);
     return c;
 }
+
+function debug_info(out) {
+    if (debug) {
+        console.log(out);
+    }
+}

@@ -92,7 +92,7 @@ class PruefeBelegungsBedingungen {
     static pruefeVerboteneFachKombinationen(wahlbogen) {
         let result = "";
         wahlbogen.verboteneFachKombis.forEach((e) => {
-            console.log("Pruefe Kombination ",e[0],e[1]);
+            debug_info("Pruefe Kombination ",e[0],e[1]);
             result+=this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen,e[0],e[1]));
         });
         return result;

@@ -43,7 +43,7 @@ class Controller {
     */
     init() {
         let self = this;
-        console.log("Das Dokument wurde geladen. init() wird aufgerufen.");
+        debug_info("Das Dokument wurde geladen. init() wird aufgerufen.");
 
         this.drawAbijahrgang();
 
@@ -64,7 +64,7 @@ class Controller {
         //sonst Minimalbelegung erzeugen
         let dest = getUrlParam("url");
         if (dest) {
-            console.log("JSON laden von " + dest);
+            debug_info("JSON laden von " + dest);
             openJSONFromURL(dest); //Wird dann automatisch gezeichnet
         } else {
             this.wahlbogen.erzeugeMinimaleFachbelegung();
@@ -107,46 +107,45 @@ class Controller {
         event.preventDefault();
 
         // Ermittelt die ID und TAG-Name des angeklickten Elements
-        //console.log(event.target);
         let clickedObjectID = event.target.id;
         let clickedObjectTAG = event.target.tagName;
 
 
         // Je nach Item muss eine passende Reaktion progrmmiert werden
 
-        console.log("Objekt typ " + clickedObjectTAG + " geklickt: " + clickedObjectID);
+        debug_info("Objekt typ " + clickedObjectTAG + " geklickt: " + clickedObjectID);
         //Reaktion auf Clicks
         if (clickedObjectTAG === 'BUTTON' || clickedObjectTAG === 'A') {
             switch (clickedObjectID) {
                 case 'Speichern':
-                    console.log("Speichern geklickt");
+                    debug_info("Speichern geklickt");
                     downloadJSON(this.wahlbogen);
                     break;
                 case 'TestButton':
-                    console.log("Testbutton geklickt - heute Stundenzahlen :-)");
+                    debug_info("Testbutton geklickt - heute Stundenzahlen :-)");
                     this.drawStundenzahlen();
                     break;
                 case 'LadeDatei':
-                    console.log("Lade Datei geklickt");
+                    debug_info("Lade Datei geklickt");
                     openJSON();
                     break;
                 case 'HochschreibenEF1':
-                    console.log("Hochschreiben von der EF1");
+                    debug_info("Hochschreiben von der EF1");
                     this.wahlbogen.hochschreibenVon(0);
                     this.drawTable();
                     this.drawBelegungsverpflichtungen(); //inklusive Prüfung
                     break;
                 case 'HochschreibenEF2':
-                    console.log("Hochschreiben von der EF.2");
+                    debug_info("Hochschreiben von der EF.2");
                     this.wahlbogen.hochschreibenVon(1);
                     this.drawTable();
                     this.drawBelegungsverpflichtungen(); //inklusive Prüfung
                     break;
                 default:
-                    console.log("Button ID unbekannt");
+                    debug_info("Button ID unbekannt");
             }
         } else if (clickedObjectTAG === 'INPUT' && event.target.type === 'checkbox') {
-            //console.log(clickedObjectID+" wird auf "+ event.target.checked + " gesetzt");
+            //debug_info(clickedObjectID+" wird auf "+ event.target.checked + " gesetzt");
             const fach = this.wahlbogen.getFachMitKuerzel(clickedObjectID);
             fach.istFFSSekI = event.target.checked;
             if (!event.target.checked) {
@@ -158,12 +157,21 @@ class Controller {
     }
 
     /**
+     * übernimmt geänderte Basisdaten der Webseite in den Wahlbogen
+     */
+    basisdatenUebernehmen() {
+        debug_info("Update Basisdaten - Controller.basisdatenUebernehmen");
+        this.wahlbogen.name = document.getElementById('nachname').value;
+        this.wahlbogen.vorname = document.getElementById('vorname').value;
+    }
+
+    /**
      * Methode um beim anklicken eines Objekts eine Klasse zu aktivieren oder zu deaktivieren
      * @param {} target - das angeklickte Objekt 
      * @param {*} className - die zu toggelnde Klasse
      */
     objectClickedToggleClass(target, className) {
-        console.dir(target);
+        debug_info(target);
         target.classList.toggle(className);
     }
 
@@ -174,7 +182,14 @@ class Controller {
         let self = this;
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
-        // TODO Vorname, Nachname, usw.
+        // Vorname, Nachname, usw.
+        debug_info("Vorname,Nachname im Wahlbogen:",this.wahlbogen.vorname,this.wahlbogen.name);
+        if (this.wahlbogen.vorname!='') {
+            document.getElementById('vorname').value=this.wahlbogen.vorname;
+        }
+        if (this.wahlbogen.name!='') {
+            document.getElementById('nachname').value=this.wahlbogen.name;
+        }
         //fortgeführte Fremdsprachen
         let ffs = document.querySelector("FORM#ffs");
         ffs.innerHTML = "";
@@ -315,13 +330,13 @@ class Controller {
         if (obj.target.tagName == "TD" && obj.target.id.startsWith("hj")) { //Es wurde in Halbjahrszelle geklickt
             const gewKrz = obj.target.parentNode.id;  //id des Parent Node <tr> ist das FachKürzel
             const gewHj = Number.parseInt(obj.target.id.slice(2));
-            console.log("click - FachKrzl: ", gewKrz, " im Halbjahr: ", gewHj, "(start bei 0)");
+            debug_info("click - FachKrzl: ", gewKrz, " im Halbjahr: ", gewHj, "(start bei 0)");
             const fach = this.wahlbogen.getFachMitKuerzel(gewKrz);
             fach.setzeBelegungWeiter(gewHj);
             this.redrawZeile(gewKrz);
             // alle Fächer die dieses Fach als Vorgänger haben auch neu Zeichnen
             this.wahlbogen.gibFaecherMitVorgaenger(gewKrz).forEach((fach) => {
-                console.log("Neu zeichnen", fach.kuerzel);
+                debug_info("Neu zeichnen", fach.kuerzel);
                 this.redrawZeile(fach.kuerzel);
             });
             this.drawBelegungsverpflichtungen();
@@ -341,7 +356,7 @@ class Controller {
             });
             this.drawBelegungsverpflichtungen();
         } else {
-            console.log("Angeklicktes Objekt: ", obj.target)
+            debug_info("Angeklicktes Objekt: ", obj.target)
         }
     }
 
@@ -353,6 +368,7 @@ class Controller {
 
 }
 
+var debug = false;
 let c = new Controller("Hauptcontroller");
 //Funktion init soll nach dem Laden des HTML-Docs alles Initialisieren
 //Mit Arrow-Notation (=>), damit in der Funktion auf das richtige this zugegriffen wird

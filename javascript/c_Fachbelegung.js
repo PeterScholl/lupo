@@ -54,7 +54,7 @@ class Fachbelegung {
             //alle Haljahre der Q-Phase abwählen
             halbjahr = 2;
             bel_neu = '';
-            console.log("Abifach von ", this.kuerzel, "auf 0 zurückgesetzt");
+            debug_info("Abifach von ", this.kuerzel, "auf 0 zurückgesetzt");
             this.abifach = 0; //Abifach zurücksetzen
         }
         this.belegung[halbjahr] = bel_neu;
@@ -118,7 +118,7 @@ class Fachbelegung {
      */
     istWaehlbar(halbjahr) {
         // Es gibt keine Wahlart
-        //console.log("wahlarten: ",this.belegungsBed.wahlarten,"halbjahr",halbjahr);
+        //debug_info("wahlarten: ",this.belegungsBed.wahlarten,"halbjahr",halbjahr);
         if (this.belegungsBed.wahlarten[halbjahr].length === 0) return false;
         // Fortgeführte Fremdsprache, die nicht in SekI belegt wurde
         if (this.istFFS && !this.istFFSSekI) return false;
@@ -126,9 +126,9 @@ class Fachbelegung {
         if (this.belegungsBed.einsetzend[halbjahr] === true) return true;
         // war im Halbjahr davor nicht belegt (und auch kein alternatives Fach)
         if (halbjahr > 0 && this.belegung[halbjahr - 1] === '') {
-            //console.log("Vorgängerfach suchen");
+            //debug_info("Vorgängerfach suchen");
             if (this.belegungsBed.vorgaengerFaecher.some((krzl) => {
-                //console.log(" - Fach:", krzl);
+                //debug_info(" - Fach:", krzl);
                 let fach = Controller.getInstance().wahlbogen.getFachMitKuerzel(krzl);
                 return !(fach.belegung[halbjahr - 1] == '' || fach.belegung[halbjahr - 1] == 'ZK');
             })) return true; //es gibt ein belegtes Vorgängerfach
@@ -195,7 +195,7 @@ class Fachbelegung {
      * @param {Integer} halbjahr (0-5)
      */
     hochschreibenVon(halbjahr) {
-        //console.log("Hochschreiben Fach",this.bezeichnung);
+        //debug_info("Hochschreiben Fach",this.bezeichnung);
         for (let i = halbjahr + 1; i < 6; i++) {
             if (this.belegungsBed.wahlarten[i].includes(this.belegung[i - 1])) {
                 this.belegung[i] = this.belegung[i - 1];
@@ -224,7 +224,7 @@ class Fachbelegung {
         // Bezeichnung und Kürzel übernehmen
         if (typeof (jsonObj.bezeichnung) === 'string' && typeof (jsonObj.kuerzel) === 'string') {
             neueBlg = new Fachbelegung(jsonObj.bezeichnung, jsonObj.kuerzel);
-            console.log("Fach ", jsonObj.bezeichnung, " Krzl: ", jsonObj.kuerzel);
+            debug_info("Fach ", jsonObj.bezeichnung, " Krzl: ", jsonObj.kuerzel);
         } else {
             neueBlg = new Fachbelegung("Ungueltig", "--");
         }
@@ -233,7 +233,7 @@ class Fachbelegung {
         if (typeof (jsonObj.belegung) === 'object' && Array.isArray(jsonObj.belegung) && jsonObj.belegung.length == 6) {
             neueBlg.belegung = jsonObj.belegung;
         } else {
-            console.log("Belegung in JSON-File Fehlerhaft");
+            debug_info("Belegung in JSON-File Fehlerhaft");
         }
 
         //Belegungsbedingungen übernehmen
@@ -254,7 +254,7 @@ class Fachbelegung {
             neueBlg.istFFS = jsonObj.istFFS;
         }
         if (typeof (jsonObj.istFFSSekI) === 'boolean') {
-            console.log("json:", jsonObj.istFFSSekI);
+            debug_info("json:", jsonObj.istFFSSekI);
             neueBlg.istFFSSekI = jsonObj.istFFSSekI;
         }
 
