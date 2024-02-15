@@ -54,7 +54,7 @@ class Controller {
         }
 
         //alle Menuitems mit click-Eventlistener versehen
-        let anchors = document.querySelectorAll('.dropdown-content a'); 
+        let anchors = document.querySelectorAll('.dropdown-content a');
         for (let i = 0; i < anchors.length; i++) {
             anchors[i].addEventListener("click", (obj) => this.objectClicked(obj));
         }
@@ -88,12 +88,12 @@ class Controller {
      * aktualisiert die Tabelle mit den Kurssummen und Stundenzahlen
      */
     drawStundenzahlen() {
-        for (let h=0; h<6; h++) { //Halbjahre durchlaufen
-            document.getElementById('x'+(h+1)).innerHTML= this.wahlbogen.getKurseFuershalbjahr(h);
-            document.getElementById('y'+(h+1)).innerHTML= this.wahlbogen.getStundenFuershalbjahr(h);
+        for (let h = 0; h < 6; h++) { //Halbjahre durchlaufen
+            document.getElementById('x' + (h + 1)).innerHTML = this.wahlbogen.getKurseFuershalbjahr(h);
+            document.getElementById('y' + (h + 1)).innerHTML = this.wahlbogen.getStundenFuershalbjahr(h);
         }
-        document.getElementById('z1').innerHTML= this.wahlbogen.getStundenDurchschnittFuerEPhase();
-        document.getElementById('z2').innerHTML= this.wahlbogen.getStundenDurchschnittFuerQPhase();
+        document.getElementById('z1').innerHTML = this.wahlbogen.getStundenDurchschnittFuerEPhase();
+        document.getElementById('z2').innerHTML = this.wahlbogen.getStundenDurchschnittFuerQPhase();
     }
 
     /**
@@ -113,9 +113,9 @@ class Controller {
 
 
         // Je nach Item muss eine passende Reaktion progrmmiert werden
-        
+
         console.log("Objekt typ " + clickedObjectTAG + " geklickt: " + clickedObjectID);
-        //TODO: Reaktion auf Clicks
+        //Reaktion auf Clicks
         if (clickedObjectTAG === 'BUTTON' || clickedObjectTAG === 'A') {
             switch (clickedObjectID) {
                 case 'Speichern':
@@ -124,7 +124,7 @@ class Controller {
                     break;
                 case 'TestButton':
                     console.log("Testbutton geklickt - heute Stundenzahlen :-)");
-                    this.drawStundenzahlen();                  
+                    this.drawStundenzahlen();
                     break;
                 case 'LadeDatei':
                     console.log("Lade Datei geklickt");
@@ -153,6 +153,7 @@ class Controller {
                 fach.abwaehlen();
             }
             this.redrawZeile(clickedObjectID);
+            this.drawStundenzahlen();
         }
     }
 
@@ -173,24 +174,24 @@ class Controller {
         let self = this;
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
-                // TODO Vorname, Nachname, usw.
+        // TODO Vorname, Nachname, usw.
         //fortgeführte Fremdsprachen
         let ffs = document.querySelector("FORM#ffs");
-        ffs.innerHTML="";
+        ffs.innerHTML = "";
         ffs.appendChild(document.createTextNode("Fremdsprachen SekI: "));
         this.wahlbogen.gibFortgefuehrteFS().forEach(
             function (e) {
                 let input = document.createElement("input");
-                input.setAttribute('type','checkbox');
-                input.setAttribute('id',e.kuerzel);
-                input.setAttribute('name',e.kuerzel);
-                input.setAttribute('value',e.kuerzel);
+                input.setAttribute('type', 'checkbox');
+                input.setAttribute('id', e.kuerzel);
+                input.setAttribute('name', e.kuerzel);
+                input.setAttribute('value', e.kuerzel);
                 input.checked = e.istFFSSekI;
-                input.addEventListener('change',(e) => {self.objectClicked(e);});
+                input.addEventListener('change', (e) => { self.objectClicked(e); });
                 ffs.appendChild(input);
                 let label = document.createElement("label");
-                label.setAttribute('for',e.kuerzel);
-                label.innerHTML=e.kuerzel;
+                label.setAttribute('for', e.kuerzel);
+                label.innerHTML = e.kuerzel;
                 ffs.appendChild(label);
             }
         );
@@ -212,7 +213,6 @@ class Controller {
      * Der Tabellenbereich mit den Wahlen wird neu dargestellt
      */
     drawTable() {
-        //TODO 
         let table = document.getElementById('Faecherwahl');
         //table.innerHTML=""; //Tabelle löschen
         while (table.rows.length > 1) {
@@ -222,10 +222,13 @@ class Controller {
             //Tabellenzeile anlegen
             this.tabellenZeileFuerFachAnhaengen(table, value);
         })
+        // Zeilen für Stundensummen anhängen
+        this.tabellenZeilenFuerSummenAnhaengen(table);
+        this.drawStundenzahlen();
     }
 
     redrawZeile(kuerzel) {
-        const zeile = document.querySelector("TR#"+kuerzel);
+        const zeile = document.querySelector("TR#" + kuerzel);
         zeile.classList.add('Fach');
         const fach = this.wahlbogen.getFachMitKuerzel(kuerzel);
         if (fach != null && zeile != null && zeile.tagName == "TR") {
@@ -241,7 +244,7 @@ class Controller {
             for (let i = 0; i < 6; i++) { //Halbjahre durchlaufen
                 zelle = zeile.insertCell(-1); //erstes Halbjahr
                 if (!(fach.istWaehlbar(i) || fach.istAlsZKWaehlbar(i))) {
-                    zelle.classList.add("disabled");    
+                    zelle.classList.add("disabled");
                 } else {
                     zelle.addEventListener("click", (obj) => this.cellClicked(obj));
                 }
@@ -268,6 +271,43 @@ class Controller {
         this.redrawZeile(fach.kuerzel);
     }
 
+    tabellenZeilenFuerSummenAnhaengen(table) {
+        // Zeile für die Kurssummen (linke Beschreibungsspalte)
+        let zeile_kurssummen = table.insertRow(-1);
+        zeile_kurssummen.style.borderTop = "thick double";
+        let infocell = zeile_kurssummen.insertCell(-1);
+        infocell.classList.add("cell_summ_desc");
+        infocell.setAttribute("colspan", 2);
+        infocell.innerHTML = "Kurse:";
+        // Zeile für die Stundensummen (linke Beschreibungsspalte)
+        let zeile_stundensummen = table.insertRow(-1);
+        infocell = zeile_stundensummen.insertCell(-1);
+        infocell.classList.add("cell_summ_desc");
+        infocell.setAttribute("colspan", 2);
+        infocell.innerHTML = "Wochenstunden:";
+        // Zellen für die Kurssummen und Stundensummen
+        for (let h = 0; h < 6; h++) {
+            let newcell = zeile_kurssummen.insertCell(-1);
+            newcell.id = "x" + (h + 1);
+            newcell.classList.add("cell_summ_content");
+            newcell = zeile_stundensummen.insertCell(-1);
+            newcell.id = "y" + (h + 1);
+            newcell.classList.add("cell_summ_content");
+        }
+        // Zeile für den Durchschnitt in EF und Q1
+        let zeile_durchschnitt = table.insertRow(-1);
+        infocell = zeile_durchschnitt.insertCell(-1);
+        infocell.classList.add("cell_summ_desc");
+        infocell.setAttribute("colspan", 2);
+        infocell.innerHTML = "Durchschnitt:";
+        infocell = zeile_durchschnitt.insertCell(-1);
+        infocell.setAttribute("colspan", 2);
+        infocell.id = "z1";
+        infocell = zeile_durchschnitt.insertCell(-1);
+        infocell.setAttribute("colspan", 4);
+        infocell.id = "z2";
+    }
+
     //Methode die ausgeführt werden soll, wenn auf eine Zelle der Tabelle geklickt wird
     cellClicked(obj) {
         //obj is vom Type click?!
@@ -281,10 +321,11 @@ class Controller {
             this.redrawZeile(gewKrz);
             // alle Fächer die dieses Fach als Vorgänger haben auch neu Zeichnen
             this.wahlbogen.gibFaecherMitVorgaenger(gewKrz).forEach((fach) => {
-                console.log("Neu zeichnen",fach.kuerzel);
+                console.log("Neu zeichnen", fach.kuerzel);
                 this.redrawZeile(fach.kuerzel);
             });
             this.drawBelegungsverpflichtungen();
+            this.drawStundenzahlen();
         } else if (obj.target.tagName === "TD" && obj.target.id === "abifach") {
             //Es wurde in die Abifachzelle geklickt
             const gewKrz = obj.target.parentNode.id; // id des Parent Node <tr> ist das FachKürzel
@@ -292,11 +333,11 @@ class Controller {
             this.wahlbogen.aendereAbifach(gewKrz);
             this.redraw(gewKrz);
             //ggf. Abi3 und Abifach 4 neu zeichnen
-            [3,4].forEach(el => {
+            [3, 4].forEach(el => {
                 let abif = this.wahlbogen.gibAbifach(el);
-                if (abif!=null && abif.kuerzel!=gewKrz) {
+                if (abif != null && abif.kuerzel != gewKrz) {
                     this.redraw(abif.kuerzel);
-                }                    
+                }
             });
             this.drawBelegungsverpflichtungen();
         } else {

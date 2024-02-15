@@ -105,18 +105,15 @@ table {
     border-collapse: collapse;
 }
 
-/* table#Faecherwahl {
- width: 100%;
-    border-right: 40px;
-    margin-right: 40px; 
+td.cell_summ_desc {
+    text-align: right;
+    font-weight: bold;
 }
-*/
 
-table.stunden {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+td.cell_summ_content {
+    font-weight: bold;
 }
+
 
 .col_fachbez {
     width: 24%;
