@@ -77,7 +77,7 @@
         "S",
         "S",
         "S",
-        "S"
+        "M"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -130,7 +130,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG1",
-      "abifach": 0,
+      "abifach": 4,
       "istFFS": true,
       "istFFSSekI": true
     },
@@ -336,8 +336,8 @@
       "bezeichnung": "Spanisch ab EF",
       "kuerzel": "S0",
       "belegung": [
-        "",
-        "",
+        "M",
+        "M",
         "",
         "",
         "",
@@ -406,8 +406,8 @@
         "M",
         "M",
         "M",
-        "",
-        ""
+        "M",
+        "M"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -536,10 +536,10 @@
       "belegung": [
         "M",
         "M",
+        "M",
+        "M",
         "",
-        "",
-        "ZK",
-        "ZK"
+        ""
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -590,7 +590,9 @@
           false,
           false
         ],
-        "vorgaengerFaecher": [],
+        "vorgaengerFaecher": [
+          "GEE"
+        ],
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
@@ -656,7 +658,9 @@
           false,
           false
         ],
-        "vorgaengerFaecher": [],
+        "vorgaengerFaecher": [
+          "GE"
+        ],
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
@@ -668,12 +672,12 @@
       "bezeichnung": "Sozialwissenschaften",
       "kuerzel": "SW",
       "belegung": [
-        "M",
-        "M",
-        "LK",
-        "LK",
-        "LK",
-        "LK"
+        "",
+        "",
+        "",
+        "",
+        "ZK",
+        "ZK"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -698,14 +702,14 @@
           [
             "M",
             "S",
-            "ZK",
-            "LK"
+            "LK",
+            "ZK"
           ],
           [
             "M",
             "S",
-            "ZK",
-            "LK"
+            "LK",
+            "ZK"
           ]
         ],
         "stundenzahlen": [
@@ -728,7 +732,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
-      "abifach": 2,
+      "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false
     },
@@ -738,10 +742,10 @@
       "belegung": [
         "M",
         "M",
-        "",
-        "",
-        "",
-        ""
+        "S",
+        "S",
+        "S",
+        "S"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -794,73 +798,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
-      "abifach": 0,
-      "istFFS": false,
-      "istFFSSekI": false
-    },
-    {
-      "bezeichnung": "Geographie Englisch",
-      "kuerzel": "EKE",
-      "belegung": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
-      "belegungsBed": {
-        "wahlarten": [
-          [
-            "M",
-            "S"
-          ],
-          [
-            "M",
-            "S"
-          ],
-          [
-            "M",
-            "S",
-            "LK"
-          ],
-          [
-            "M",
-            "S",
-            "LK"
-          ],
-          [
-            "M",
-            "S",
-            "LK"
-          ],
-          [
-            "M",
-            "S",
-            "LK"
-          ]
-        ],
-        "stundenzahlen": [
-          3,
-          3,
-          3,
-          3,
-          3,
-          3
-        ],
-        "einsetzend": [
-          true,
-          false,
-          false,
-          false,
-          false,
-          false
-        ],
-        "vorgaengerFaecher": [],
-        "alsAbifach": true
-      },
-      "faecherGruppe": "FG2",
-      "abifach": 0,
+      "abifach": 3,
       "istFFS": false,
       "istFFSSekI": false
     },
@@ -922,7 +860,10 @@
           false,
           false
         ],
-        "vorgaengerFaecher": [],
+        "vorgaengerFaecher": [
+          "KR",
+          "ER"
+        ],
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
@@ -988,7 +929,10 @@
           false,
           false
         ],
-        "vorgaengerFaecher": [],
+        "vorgaengerFaecher": [
+          "PP",
+          "ER"
+        ],
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
@@ -1054,7 +998,10 @@
           false,
           false
         ],
-        "vorgaengerFaecher": [],
+        "vorgaengerFaecher": [
+          "KR",
+          "PP"
+        ],
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
@@ -1124,7 +1071,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG3",
-      "abifach": 4,
+      "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false
     },
@@ -1132,12 +1079,12 @@
       "bezeichnung": "Biologie",
       "kuerzel": "BI",
       "belegung": [
-        "M",
-        "M",
-        "M",
-        "M",
-        "M",
-        "M"
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -1332,10 +1279,10 @@
       "belegung": [
         "M",
         "M",
-        "S",
-        "S",
-        "S",
-        "S"
+        "LK",
+        "LK",
+        "LK",
+        "LK"
       ],
       "belegungsBed": {
         "wahlarten": [
@@ -1388,7 +1335,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG3",
-      "abifach": 3,
+      "abifach": 2,
       "istFFS": false,
       "istFFSSekI": false
     },
@@ -1525,6 +1472,162 @@
       "istFFSSekI": false
     },
     {
+      "bezeichnung": "VTF Englisch",
+      "kuerzel": "VF_E",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M"
+          ],
+          [
+            "M"
+          ],
+          [
+          ],
+          [
+          ],
+          [
+          ],
+          [
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FGVTF",
+      "abifach": 0,
+      "istFFS": false,
+      "istFFSSekI": false
+    },
+    {
+      "bezeichnung": "VTF Deutsch",
+      "kuerzel": "VF_D",
+      "belegung": [
+        "M",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M"
+          ],
+          [
+            "M"
+          ],
+          [
+          ],
+          [
+          ],
+          [
+          ],
+          [
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FGVTF",
+      "abifach": 0,
+      "istFFS": false,
+      "istFFSSekI": false
+    },
+    {
+      "bezeichnung": "VTF Mathe",
+      "kuerzel": "VF_M",
+      "belegung": [
+        "",
+        "M",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M"
+          ],
+          [
+            "M"
+          ],
+          [
+          ],
+          [
+          ],
+          [
+          ],
+          [
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FGVTF",
+      "abifach": 0,
+      "istFFS": false,
+      "istFFSSekI": false
+    },
+    {
       "bezeichnung": "Projekt",
       "kuerzel": "PK",
       "belegung": [
@@ -1538,54 +1641,40 @@
       "belegungsBed": {
         "wahlarten": [
           [
-            "M",
-            "S"
           ],
           [
-            "M",
-            "S"
           ],
           [
-            "M",
-            "S",
-            "LK"
+            "M"
           ],
           [
-            "M",
-            "S",
-            "LK"
+            "M"
           ],
           [
-            "M",
-            "S",
-            "LK"
           ],
           [
-            "M",
-            "S",
-            "LK"
           ]
         ],
         "stundenzahlen": [
-          3,
-          3,
-          3,
-          3,
-          3,
-          3
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
         ],
         "einsetzend": [
+          false,
+          false,
           true,
-          false,
-          false,
-          false,
+          true,
           false,
           false
         ],
         "vorgaengerFaecher": [],
         "alsAbifach": true
       },
-      "faecherGruppe": "FGPK",
+      "faecherGruppe": "#FGPK",
       "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false
@@ -1596,6 +1685,18 @@
     [
       "GE",
       "GEE"
+    ],
+    [
+      "BI",
+      "BIE"
+    ],
+    [
+      "KR",
+      "ER"
+    ],
+    [
+      "EK",
+      "EKE"
     ]
   ]
 }

@@ -15,10 +15,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
-        bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "GE", "GEE"));
-        bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "BI", "BIE"));
-        bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "EK", "EKE"));
-        bericht += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, "KR", "ER"));
+        bericht += this.pruefeVerboteneFachKombinationen(wahlbogen);
         return bericht;
     }
 
@@ -75,17 +72,30 @@ class PruefeBelegungsBedingungen {
     static pruefeDoppelteBelegung(wahlbogen, krz1, krz2) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
         const fach2 = wahlbogen.getFachMitKuerzel(krz2);
-        let valid = true;
+        if (fach1==null || fach2 == null) {
+            return "";
+        }
         for (let i = 0; i < 6; i++) {
             if (fach1.belegung[i] != '' && fach2.belegung[i] != '') {
-                valid = false;
-                break;
+                //eine Doppelbelegung gefunden
+                return fach1.bezeichnung + " und " + fach2.bezeichnung + " kann nicht gleichzeitig belegt werden";
             }
         }
-        if (!valid) {
-            return fach1.bezeichnung + " und " + fach2.bezeichnung + " kann nicht gleichzeitig belegt werden";
-        }
         return "";
+    }
+
+    /**
+     * prüft alle im Wahlbogen aufgelisteten verbotenen Fachkombinationen
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit den Fehlern und schon den span-Tags drum herumg aus ergaenzeBericht
+     */
+    static pruefeVerboteneFachKombinationen(wahlbogen) {
+        let result = "";
+        wahlbogen.verboteneFachKombis.forEach((e) => {
+            console.log("Pruefe Kombination ",e[0],e[1]);
+            result+=this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen,e[0],e[1]));
+        });
+        return result;
     }
 
     /**
