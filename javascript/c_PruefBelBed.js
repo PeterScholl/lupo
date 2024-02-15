@@ -43,7 +43,9 @@ class PruefeBelegungsBedingungen {
      * @returns String mit der Meldung falls nicht Bedingung nicht erfüllt, sonst Leerstring.
      */
     static pruefeFachDurchgehend(wahlbogen, krz1) {
+        const fach1 = wahlbogen.getFachMitKuerzel(krz1);
         if (!this.istFachDurchgehend(wahlbogen,krz1)) {
+            console.log("Kürzel",krz1);
             return "Das Fach " + fach1.bezeichnung + " muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
         return "";
@@ -58,7 +60,8 @@ class PruefeBelegungsBedingungen {
     static istFachDurchgehend(wahlbogen, krz) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz);
         if (fach1==null) return false;
-        return !fach1.belegung.every((a) => { return a != ''; })
+        console.log("Fach1",krz,"- Belegung",fach1.belegung);
+        return fach1.belegung.every((a) => { return a != ''; })
     }
 
 
