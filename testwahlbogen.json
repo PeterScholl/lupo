@@ -5,6 +5,7 @@
     {
       "bezeichnung": "Deutsch",
       "kuerzel": "D",
+      "statKuerzel": "D",
       "belegung": [
         "S",
         "S",
@@ -71,6 +72,7 @@
     {
       "bezeichnung": "Englisch",
       "kuerzel": "E",
+      "statKuerzel": "E",
       "belegung": [
         "S",
         "S",
@@ -136,7 +138,8 @@
     },
     {
       "bezeichnung": "Latein",
-      "kuerzel": "L6",
+      "kuerzel": "L",
+      "statKuerzel": "L6",
       "belegung": [
         "",
         "",
@@ -202,7 +205,8 @@
     },
     {
       "bezeichnung": "Französisch",
-      "kuerzel": "F6",
+      "kuerzel": "F",
+      "statKuerzel": "F6",
       "belegung": [
         "",
         "",
@@ -268,7 +272,8 @@
     },
     {
       "bezeichnung": "Spanisch",
-      "kuerzel": "S6",
+      "kuerzel": "S",
+      "statKuerzel": "S6",
       "belegung": [
         "",
         "",
@@ -335,6 +340,7 @@
     {
       "bezeichnung": "Spanisch ab EF",
       "kuerzel": "S0",
+      "statKuerzel": "S0",
       "belegung": [
         "M",
         "M",
@@ -401,6 +407,7 @@
     {
       "bezeichnung": "Kunst",
       "kuerzel": "KU",
+      "statKuerzel": "KU",
       "belegung": [
         "M",
         "M",
@@ -467,6 +474,7 @@
     {
       "bezeichnung": "Musik",
       "kuerzel": "MU",
+      "statKuerzel": "MU",
       "belegung": [
         "",
         "",
@@ -533,6 +541,7 @@
     {
       "bezeichnung": "Geschichte",
       "kuerzel": "GE",
+      "statKuerzel": "GE",
       "belegung": [
         "M",
         "M",
@@ -603,6 +612,7 @@
     {
       "bezeichnung": "Geschichte Englisch",
       "kuerzel": "GEE",
+      "statKuerzel": "GE",
       "belegung": [
         "",
         "",
@@ -671,6 +681,7 @@
     {
       "bezeichnung": "Sozialwissenschaften",
       "kuerzel": "SW",
+      "statKuerzel": "SW",
       "belegung": [
         "",
         "",
@@ -739,6 +750,7 @@
     {
       "bezeichnung": "Geographie",
       "kuerzel": "EK",
+      "statKuerzel": "EK",
       "belegung": [
         "M",
         "M",
@@ -805,6 +817,7 @@
     {
       "bezeichnung": "Philosophie",
       "kuerzel": "PP",
+      "statKuerzel": "PP",
       "belegung": [
         "",
         "",
@@ -874,6 +887,7 @@
     {
       "bezeichnung": "Kath. Religion",
       "kuerzel": "KR",
+      "statKuerzel": "KR",
       "belegung": [
         "M",
         "M",
@@ -943,6 +957,7 @@
     {
       "bezeichnung": "Ev. Religion",
       "kuerzel": "ER",
+      "statKuerzel": "ER",
       "belegung": [
         "",
         "",
@@ -1012,6 +1027,7 @@
     {
       "bezeichnung": "Mathematik",
       "kuerzel": "M",
+      "statKuerzel": "M",
       "belegung": [
         "S",
         "S",
@@ -1078,6 +1094,7 @@
     {
       "bezeichnung": "Biologie",
       "kuerzel": "BI",
+      "statKuerzel": "BI",
       "belegung": [
         "",
         "",
@@ -1144,6 +1161,7 @@
     {
       "bezeichnung": "Biologie Englisch",
       "kuerzel": "BIE",
+      "statKuerzel": "BI",
       "belegung": [
         "",
         "",
@@ -1210,6 +1228,7 @@
     {
       "bezeichnung": "Chemie",
       "kuerzel": "CH",
+      "statKuerzel": "CH",
       "belegung": [
         "",
         "",
@@ -1276,6 +1295,7 @@
     {
       "bezeichnung": "Physik",
       "kuerzel": "PH",
+      "statKuerzel": "PH",
       "belegung": [
         "M",
         "M",
@@ -1342,6 +1362,7 @@
     {
       "bezeichnung": "Informatik",
       "kuerzel": "IF",
+      "statKuerzel": "IF",
       "belegung": [
         "M",
         "M",
@@ -1408,6 +1429,7 @@
     {
       "bezeichnung": "Sport",
       "kuerzel": "SP",
+      "statKuerzel": "SP",
       "belegung": [
         "M",
         "M",
@@ -1474,6 +1496,7 @@
     {
       "bezeichnung": "VTF Englisch",
       "kuerzel": "VF_E",
+      "statKuerzel": "VX",
       "belegung": [
         "",
         "",
@@ -1490,14 +1513,10 @@
           [
             "M"
           ],
-          [
-          ],
-          [
-          ],
-          [
-          ],
-          [
-          ]
+          [],
+          [],
+          [],
+          []
         ],
         "stundenzahlen": [
           3,
@@ -1526,6 +1545,7 @@
     {
       "bezeichnung": "VTF Deutsch",
       "kuerzel": "VF_D",
+      "statKuerzel": "VX",
       "belegung": [
         "M",
         "",
@@ -1542,14 +1562,10 @@
           [
             "M"
           ],
-          [
-          ],
-          [
-          ],
-          [
-          ],
-          [
-          ]
+          [],
+          [],
+          [],
+          []
         ],
         "stundenzahlen": [
           3,
@@ -1578,6 +1594,7 @@
     {
       "bezeichnung": "VTF Mathe",
       "kuerzel": "VF_M",
+      "statKuerzel": "VX",
       "belegung": [
         "",
         "M",
@@ -1594,14 +1611,10 @@
           [
             "M"
           ],
-          [
-          ],
-          [
-          ],
-          [
-          ],
-          [
-          ]
+          [],
+          [],
+          [],
+          []
         ],
         "stundenzahlen": [
           3,
@@ -1630,6 +1643,7 @@
     {
       "bezeichnung": "Projekt",
       "kuerzel": "PK",
+      "statKuerzel": "PK",
       "belegung": [
         "",
         "",
@@ -1640,20 +1654,16 @@
       ],
       "belegungsBed": {
         "wahlarten": [
-          [
-          ],
-          [
-          ],
+          [],
+          [],
           [
             "M"
           ],
           [
             "M"
           ],
-          [
-          ],
-          [
-          ]
+          [],
+          []
         ],
         "stundenzahlen": [
           2,

@@ -49,16 +49,14 @@ class PruefeBelegungsBedingungen {
     }
 
     /**
-     * 
-     * @param {*} wahlbogen 
-     * @param {*} krz 
+     * prueft ob ein Fach mit den Statistik-kürzel durchgehend belegt ist
+     * @param {Wahlbogen} wahlbogen 
+     * @param {String} statKrz 
      * @returns true oder false
      */
-    static istFachDurchgehend(wahlbogen, krz) {
-        const fach1 = wahlbogen.getFachMitKuerzel(krz);
-        if (fach1==null) return false;
-        //console.log("Fach1",krz,"- Belegung",fach1.belegung);
-        return fach1.belegung.every((a) => { return a != ''; })
+    static istFachDurchgehend(wahlbogen, statKrz) {
+        const faecher = wahlbogen.gibFaecherMitStatKuerzel(statKrz);
+        return faecher.some((f) => {return f.belegung.every((a) => { return a != ''; });})
     }
 
 
@@ -99,16 +97,20 @@ class PruefeBelegungsBedingungen {
     }
 
     /**
-     * Prüft ob das Fach mit dem übergebenen Kürzel durchgehend von der EF.1 bis in die Q1.2 oder
+     * Prüft ob ein Fach mit dem übergebenen Statistik-Kürzel durchgehend von der EF.1 bis in die Q1.2 oder
      * als Zusatzkurs belegt wurde
      * @param {*} wahlbogen der zu prüfende Wahlbogen
-     * @param {*} krz1 das zu prüfende Fachkürzel
+     * @param {*} krz1 das zu prüfende Statistik-Fachkürzel
      * @returns Leerstring oder String mit Belegungsinformation
      */
     static pruefeFachDurchgehendoderZusatzkurs(wahlbogen, krz1) {
-        const fach1 = wahlbogen.getFachMitKuerzel(krz1);
-        if (!fach1.belegung.slice(0, 4).every(function (a) { return a != ''; }) && !(fach1.belegung[4] == 'ZK' && fach1.belegung[5] == 'ZK')) {
-            return "Das Fach " + fach1.bezeichnung + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
+        const faecher = wahlbogen.gibFaecherMitStatKuerzel(krz1);
+        if (faecher.every((f) => {return !this.pruefeFachDurchgehendBelegtVonBis(f,0,4) && !(f.belegung[4] == 'ZK' && f.belegung[5] == 'ZK');})) {
+            if (faecher.length == 0) {
+                return "Das Fach " + krz1 + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
+            } else {
+            return "Das Fach " + faecher[0].bezeichnung + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
+            }
         }
         return "";
     }
@@ -121,6 +123,17 @@ class PruefeBelegungsBedingungen {
             return "Mind. eine klassiche NaWi (Physik, Chemie oder Biologie) muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
         return "";
+    }
+
+    /**
+     * prueft ob das übergebene Fach vom Hj von_hj (inkl) bis Hj bis_hj (exkl.) belegt war
+     * @param {Fachbelegung} fach 
+     * @param {Integer} von_hj 0-5 inklusive 
+     * @param {Integer} bis_hj 1-6 exklusive
+     * @returns true
+     */
+    static pruefeFachDurchgehendBelegtVonBis(fach,von_hj,bis_hj) {
+        return fach.belegung.slice(von_hj,bis_hj).every((hj_belegung) => {return hj_belegung != '';});
     }
 
 }

@@ -3,7 +3,8 @@ diese Belegung kann auch leer sein...
 */
 class Fachbelegung {
     bezeichnung = "Deutsch";
-    kuerzel = "D"
+    kuerzel = "D";
+    statKuerzel = "D"; //Statistik-Kürzel
     belegung = ['', '', '', '', '', '']; //nicht belegt
     belegungsBed = new BelegBed(); // Stundenzahl, M,S,LK,ZK möglich
     faecherGruppe = "FG1";
@@ -227,6 +228,13 @@ class Fachbelegung {
             debug_info("Fach ", jsonObj.bezeichnung, " Krzl: ", jsonObj.kuerzel);
         } else {
             neueBlg = new Fachbelegung("Ungueltig", "--");
+        }
+
+        //statistik-Kuerzel
+        if (typeof (jsonObj.statKuerzel) === 'string') {
+            neueBlg.statKuerzel = jsonObj.statKuerzel;
+        } else {
+            neueBlg.statKuerzel = neueBlg.kuerzel;
         }
 
         //Belegung übernehmen

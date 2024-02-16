@@ -138,6 +138,15 @@ class Wahlbogen {
     }
 
     /**
+     * gibt eine Liste aller Fächer, die das angegebene Statistikkürzel haben
+     * @param {String} statKuerzel 
+     * @returns Array of Fachbelegung
+     */
+    gibFaecherMitStatKuerzel(statKuerzel) {
+        return this.fachbelegungen.filter((e) => { return e.statKuerzel === statKuerzel;});
+    }
+
+    /**
      * ändert das Abifach mit dem angegebenen Kürzel
      * wenn dieses Fach noch nicht Abifach ist 
      *   wenn Abifach3 nicht vorhanden - von 0 auf 3 (wenn 3 nicht vorhanden)
