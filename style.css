@@ -211,11 +211,11 @@ h1 {
     }
 
     .header-container {
-        width: 750px;
+        width: 700px;
     }
 
     div.print_show {
-        width: 750px;
+        width: 700px;
     }
 
     .print_hide {
@@ -241,18 +241,14 @@ h1 {
         width: 700px;
     }
 
-    table.stunden {
-        width: 650px;
-    }
-
     div.infoKopf {
-        width: 750px;
+        width: 700px;
         padding: 2px;
         height: 0px;
     }
 
     div.infoInhalt {
-        width: 750px;
+        width: 700px;
         padding: 2px;
         height: 0px;
     }
