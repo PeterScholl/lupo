@@ -36,10 +36,14 @@
       </div>
     </div>
 
-    <form>
+    <form class="print_hide">
       <input type="text" id="vorname" name="vorname" placeholder="Vorname" onchange="c.basisdatenUebernehmen()">
       <input type="text" id="nachname" name="nachname" placeholder="Nachname" onchange="c.basisdatenUebernehmen()">
     </form>
+
+    <div id="VorNachName" class="print_only">
+      Name: Nachname, Vorname
+    </div>
 
     <form class="print_hide" id="ffs">
       Fremdsprachen Sek1:

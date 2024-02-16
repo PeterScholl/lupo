@@ -96,7 +96,7 @@ class Controller {
         document.getElementById('z2').innerHTML = this.wahlbogen.getStundenDurchschnittFuerQPhase();
         //Färbung dieser Zellen
         //EF
-        for (let h = 0; h<2; h++) { // Halbjahre der EF
+        for (let h = 0; h < 2; h++) { // Halbjahre der EF
             const cellx = document.getElementById('x' + (h + 1));
             const celly = document.getElementById('y' + (h + 1));
             const x_value = Number.parseInt(cellx.innerHTML);
@@ -127,7 +127,7 @@ class Controller {
             cellz.style.backgroundColor = "lightgreen";
         }
         //Q1
-        for (let h = 2; h<6; h++) { // Halbjahre der Q1
+        for (let h = 2; h < 6; h++) { // Halbjahre der Q1
             const cellx = document.getElementById('x' + (h + 1));
             const celly = document.getElementById('y' + (h + 1));
             const x_value = Number.parseInt(cellx.innerHTML);
@@ -220,12 +220,22 @@ class Controller {
     }
 
     /**
-     * übernimmt geänderte Basisdaten der Webseite in den Wahlbogen
+     * übernimmt geänderte Basisdaten der Webseite in den Wahlbogen und Printbereich
      */
     basisdatenUebernehmen() {
         debug_info("Update Basisdaten - Controller.basisdatenUebernehmen");
         this.wahlbogen.name = document.getElementById('nachname').value;
         this.wahlbogen.vorname = document.getElementById('vorname').value;
+        this.nameInPrintBereichSchreiben(this.wahlbogen.vorname, this.wahlbogen.name);
+    }
+
+    /**
+     * Schreibt den Vornamen und Nachnamen in den Bereich, der nur bei der Printausgabe angezeigt wird
+     * @param {String} vorname 
+     * @param {String} nachname 
+     */
+    nameInPrintBereichSchreiben(vorname, nachname) {
+        document.getElementById('VorNachName').innerHTML = "Name: " + nachname + ", " + vorname;
     }
 
     /**
@@ -246,13 +256,15 @@ class Controller {
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
         // Vorname, Nachname, usw.
-        debug_info("Vorname,Nachname im Wahlbogen:",this.wahlbogen.vorname,this.wahlbogen.name);
-        if (this.wahlbogen.vorname!='') {
-            document.getElementById('vorname').value=this.wahlbogen.vorname;
+        debug_info("Vorname,Nachname im Wahlbogen:", this.wahlbogen.vorname, this.wahlbogen.name);
+        if (this.wahlbogen.vorname != '') {
+            document.getElementById('vorname').value = this.wahlbogen.vorname;
         }
-        if (this.wahlbogen.name!='') {
-            document.getElementById('nachname').value=this.wahlbogen.name;
+        if (this.wahlbogen.name != '') {
+            document.getElementById('nachname').value = this.wahlbogen.name;
         }
+        this.nameInPrintBereichSchreiben(this.wahlbogen.vorname,this.wahlbogen.name);
+        
         //fortgeführte Fremdsprachen
         let ffs = document.querySelector("FORM#ffs");
         ffs.innerHTML = "";

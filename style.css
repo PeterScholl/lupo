@@ -41,6 +41,10 @@
 
 /* Ende Hintergrundfarben nach Fächergruppen */
 
+.print_only {
+    display: none;
+}
+
 /***** Menü auf der rechten Seite ***/
 
 .dropbtn {
@@ -216,6 +220,11 @@ h1 {
 
     .print_hide {
         display: none;
+    }
+
+    .print_only {
+        font-family: Arial, Helvetica, sans-serif;
+        display: block;
     }
 
     table,
