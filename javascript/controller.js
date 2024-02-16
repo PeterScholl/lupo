@@ -94,6 +94,69 @@ class Controller {
         }
         document.getElementById('z1').innerHTML = this.wahlbogen.getStundenDurchschnittFuerEPhase();
         document.getElementById('z2').innerHTML = this.wahlbogen.getStundenDurchschnittFuerQPhase();
+        //Färbung dieser Zellen
+        //EF
+        for (let h = 0; h<2; h++) { // Halbjahre der EF
+            const cellx = document.getElementById('x' + (h + 1));
+            const celly = document.getElementById('y' + (h + 1));
+            const x_value = Number.parseInt(cellx.innerHTML);
+            const y_value = Number.parseInt(celly.innerHTML);
+            if (x_value <= 9) {
+                cellx.style.backgroundColor = "red";
+            } else if (x_value <= 10) {
+                cellx.style.backgroundColor = "yellow";
+            } else {
+                cellx.style.backgroundColor = "lightgreen";
+            }
+            if (y_value <= 31) {
+                celly.style.backgroundColor = "red";
+            } else if (y_value <= 32) {
+                celly.style.backgroundColor = "yellow";
+            } else if (y_value <= 36) {
+                celly.style.backgroundColor = "lightgreen";
+            } else {
+                celly.style.backgroundColor = "green";
+            }
+        }
+        //Summe EF
+        let cellz = document.getElementById('z1');
+        let z_value = Number.parseFloat(cellz.innerHTML);
+        if (z_value <= 33.5) {
+            cellz.style.backgroundColor = "red";
+        } else {
+            cellz.style.backgroundColor = "lightgreen";
+        }
+        //Q1
+        for (let h = 2; h<6; h++) { // Halbjahre der Q1
+            const cellx = document.getElementById('x' + (h + 1));
+            const celly = document.getElementById('y' + (h + 1));
+            const x_value = Number.parseInt(cellx.innerHTML);
+            const y_value = Number.parseInt(celly.innerHTML);
+            if (x_value <= 8) {
+                cellx.style.backgroundColor = "red";
+            } else if (x_value <= 9) {
+                cellx.style.backgroundColor = "yellow";
+            } else {
+                cellx.style.backgroundColor = "lightgreen";
+            }
+            if (y_value <= 30) {
+                celly.style.backgroundColor = "red";
+            } else if (y_value <= 32) {
+                celly.style.backgroundColor = "yellow";
+            } else if (y_value <= 36) {
+                celly.style.backgroundColor = "lightgreen";
+            } else {
+                celly.style.backgroundColor = "green";
+            }
+        }
+        //Summe Q1
+        cellz = document.getElementById('z2');
+        z_value = Number.parseFloat(cellz.innerHTML);
+        if (z_value <= 33.75) {
+            cellz.style.backgroundColor = "red";
+        } else {
+            cellz.style.backgroundColor = "lightgreen";
+        }
     }
 
     /**
