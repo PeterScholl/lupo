@@ -131,7 +131,7 @@
         "vorgaengerFaecher": [],
         "alsAbifach": true
       },
-      "faecherGruppe": "FG1",
+      "faecherGruppe": "FG1FS",
       "abifach": 4,
       "istFFS": true,
       "istFFSSekI": true
@@ -198,7 +198,7 @@
         "vorgaengerFaecher": [],
         "alsAbifach": true
       },
-      "faecherGruppe": "FG1",
+      "faecherGruppe": "FG1FS",
       "abifach": 0,
       "istFFS": true,
       "istFFSSekI": false
@@ -265,7 +265,7 @@
         "vorgaengerFaecher": [],
         "alsAbifach": true
       },
-      "faecherGruppe": "FG1",
+      "faecherGruppe": "FG1FS",
       "abifach": 0,
       "istFFS": true,
       "istFFSSekI": false
@@ -332,7 +332,7 @@
         "vorgaengerFaecher": [],
         "alsAbifach": true
       },
-      "faecherGruppe": "FG1",
+      "faecherGruppe": "FG1FS",
       "abifach": 0,
       "istFFS": true,
       "istFFSSekI": false
@@ -399,7 +399,7 @@
         "vorgaengerFaecher": [],
         "alsAbifach": true
       },
-      "faecherGruppe": "FG1",
+      "faecherGruppe": "FG1FS",
       "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false
@@ -466,7 +466,7 @@
         "vorgaengerFaecher": [],
         "alsAbifach": true
       },
-      "faecherGruppe": "FG1",
+      "faecherGruppe": "FG1KuMu",
       "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false
@@ -533,7 +533,7 @@
         "vorgaengerFaecher": [],
         "alsAbifach": true
       },
-      "faecherGruppe": "FG1",
+      "faecherGruppe": "FG1KuMu",
       "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false
@@ -582,7 +582,7 @@
         "vorgaengerFaecher": [],
         "alsAbifach": false
       },
-      "faecherGruppe": "FG1",
+      "faecherGruppe": "FG1KuMu",
       "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false

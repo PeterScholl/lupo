@@ -20,6 +20,17 @@ class PruefeBelegungsBedingungen {
     }
 
     /**
+     * ruft alle prgrammierten Klausurbelegprüfungen auf erstellt einen Gesamtbericht
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Bericht
+     */
+    static pruefeAlleKlausurBed(wahlbogen) {
+        let bericht = "";
+        bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeFSschriftlich(wahlbogen));
+        return bericht;
+    }
+
+    /**
      * funktion die beim Ergänzen des Berichts mittels den einzelnen Prüfmethoden ein
      * HTML-Span-Tag drum herum setzt - dies ermöglicht ggf. auch, dass man die
      * Ergebnisse anklicken kann
@@ -41,7 +52,7 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeFachDurchgehend(wahlbogen, krz1) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
-        if (!this.istFachDurchgehend(wahlbogen,krz1)) {
+        if (!this.istFachDurchgehend(wahlbogen, krz1)) {
             //console.log("Kürzel",krz1);
             return "Das Fach " + fach1.bezeichnung + " muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
@@ -56,7 +67,7 @@ class PruefeBelegungsBedingungen {
      */
     static istFachDurchgehend(wahlbogen, statKrz) {
         const faecher = wahlbogen.gibFaecherMitStatKuerzel(statKrz);
-        return faecher.some((f) => {return f.belegung.every((a) => { return a != ''; });})
+        return faecher.some((f) => { return f.belegung.every((a) => { return a != ''; }); })
     }
 
 
@@ -70,7 +81,7 @@ class PruefeBelegungsBedingungen {
     static pruefeDoppelteBelegung(wahlbogen, krz1, krz2) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
         const fach2 = wahlbogen.getFachMitKuerzel(krz2);
-        if (fach1==null || fach2 == null) {
+        if (fach1 == null || fach2 == null) {
             return "";
         }
         for (let i = 0; i < 6; i++) {
@@ -90,8 +101,8 @@ class PruefeBelegungsBedingungen {
     static pruefeVerboteneFachKombinationen(wahlbogen) {
         let result = "";
         wahlbogen.verboteneFachKombis.forEach((e) => {
-            debug_info("Pruefe Kombination ",e[0],e[1]);
-            result+=this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen,e[0],e[1]));
+            debug_info("Pruefe Kombination ", e[0], e[1]);
+            result += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, e[0], e[1]));
         });
         return result;
     }
@@ -105,20 +116,20 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeFachDurchgehendoderZusatzkurs(wahlbogen, krz1) {
         const faecher = wahlbogen.gibFaecherMitStatKuerzel(krz1);
-        if (faecher.every((f) => {return !this.pruefeFachDurchgehendBelegtVonBis(f,0,4) && !(f.belegung[4] == 'ZK' && f.belegung[5] == 'ZK');})) {
+        if (faecher.every((f) => { return !this.pruefeFachDurchgehendBelegtVonBis(f, 0, 4) && !(f.belegung[4] == 'ZK' && f.belegung[5] == 'ZK'); })) {
             if (faecher.length == 0) {
                 return "Das Fach " + krz1 + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
             } else {
-            return "Das Fach " + faecher[0].bezeichnung + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
+                return "Das Fach " + faecher[0].bezeichnung + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
             }
         }
         return "";
     }
 
     static pruefeFachMindEinDurchgehend(wahlbogen, krz1, krz2, krz3) {
-        const fach1d = this.istFachDurchgehend(wahlbogen,krz1); // boolean
-        const fach2d = this.istFachDurchgehend(wahlbogen,krz2);
-        const fach3d = this.istFachDurchgehend(wahlbogen,krz3);
+        const fach1d = this.istFachDurchgehend(wahlbogen, krz1); // boolean
+        const fach2d = this.istFachDurchgehend(wahlbogen, krz2);
+        const fach3d = this.istFachDurchgehend(wahlbogen, krz3);
         if (!(fach1d || fach2d || fach3d)) {
             return "Mind. eine klassiche NaWi (Physik, Chemie oder Biologie) muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
@@ -132,8 +143,33 @@ class PruefeBelegungsBedingungen {
      * @param {Integer} bis_hj 1-6 exklusive
      * @returns true
      */
-    static pruefeFachDurchgehendBelegtVonBis(fach,von_hj,bis_hj) {
-        return fach.belegung.slice(von_hj,bis_hj).every((hj_belegung) => {return hj_belegung != '';});
+    static pruefeFachDurchgehendBelegtVonBis(fach, von_hj, bis_hj) {
+        return fach.belegung.slice(von_hj, bis_hj).every((hj_belegung) => { return hj_belegung != ''; });
     }
 
+    /**
+     * prueft ob das übergebene Fach vom Hj von_hj (inkl) bis Hj bis_hj (exkl.) schriftl belegt war
+     * @param {Fachbelegung} fach 
+     * @param {Integer} von_hj 0-5 inklusive 
+     * @param {Integer} bis_hj 1-6 exklusive
+     * @returns true
+     */
+    static pruefeFachDurchgehendSchriftlichBelegtVonBis(fach, von_hj, bis_hj) {
+        return fach.belegung.slice(von_hj, bis_hj).every((hj_belegung) => { return hj_belegung == 'S' || hj_belegung == 'LK'; });
+    }
+
+    /**
+     * prueft ob eine durchgehend belegte Fremdsprache von EF.1 bis Q2.1 schriftlich belegt ist
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Fehlertext oder Leertext
+     */
+    static pruefeEineDurchgehendeFSschriftlich(wahlbogen) {
+        let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe === "FG1FS"; })
+            .filter((e) => { return this.pruefeFachDurchgehendBelegtVonBis(e, 0, 5); })
+            .filter((e) => { return this.pruefeFachDurchgehendSchriftlichBelegtVonBis(e, 0, 4) });
+        if (fs.length == 0) {
+            return "Mindestens eine durchgehend belegte Fremdsprache muss von EF.1 bis Q2.1 schriftlich belegt sein.";
+        }
+        return "";
+    }
 }

@@ -22,29 +22,29 @@ class Wahlbogen {
         // Deutsch(D)
         this.addFachToFachbelegungen("Deutsch", "D", ['S', 'S', '', '', '', ''], "FG1D");
         // Englisch
-        this.addFachToFachbelegungen("Englisch", "E", ['S', 'S', '', '', '', ''], "FG1");
+        this.addFachToFachbelegungen("Englisch", "E", ['S', 'S', '', '', '', ''], "FG1FS");
         const e = this.getFachMitKuerzel('E');
         e.istFFS = true; //Englisch ist fortgeführte Fremdsprache
         e.istFFSSekI = true;
         // Latein
-        this.addFachToFachbelegungen("Latein", "L6", ['', '', '', '', '', ''], "FG1");
+        this.addFachToFachbelegungen("Latein", "L6", ['', '', '', '', '', ''], "FG1FS");
         const l6 = this.getFachMitKuerzel('L6');
         l6.istFFS = true; //Latein ist fortgeführte Fremdsprache
         // Französisch
-        this.addFachToFachbelegungen("Französisch", "F6", ['', '', '', '', '', ''], "FG1");
+        this.addFachToFachbelegungen("Französisch", "F6", ['', '', '', '', '', ''], "FG1FS");
         const f6 = this.getFachMitKuerzel('F6');
         f6.istFFS = true; //Französisch ist fortgeführte Fremdsprache
         f6.istFFSSekI = true;
         // Spanisch
-        this.addFachToFachbelegungen("Spanisch", "S6", ['', '', '', '', '', ''], "FG1");
+        this.addFachToFachbelegungen("Spanisch", "S6", ['', '', '', '', '', ''], "FG1FS");
         const s6 = this.getFachMitKuerzel('S6');
         s6.istFFS = true; //Spanisch ist fortgeführte Fremdsprache
         // Spanisch neu
-        this.addFachToFachbelegungen("Spanisch ab EF", "S0", ['', '', '', '', '', ''], "FG1");
+        this.addFachToFachbelegungen("Spanisch ab EF", "S0", ['', '', '', '', '', ''], "FG1FS");
         // Kunst
-        this.addFachToFachbelegungen("Kunst", "KU", ['', '', '', '', '', ''], "FG1");
+        this.addFachToFachbelegungen("Kunst", "KU", ['', '', '', '', '', ''], "FG1KuMu");
         // Musik
-        this.addFachToFachbelegungen("Musik", "MU", ['', '', '', '', '', ''], "FG1");
+        this.addFachToFachbelegungen("Musik", "MU", ['', '', '', '', '', ''], "FG1KuMu");
         // Geschichte
         this.addFachToFachbelegungen("Geschichte", "GE", ['', '', '', '', '', ''], "FG2");
         let ge = this.getFachMitKuerzel('GE');

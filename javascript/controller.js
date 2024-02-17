@@ -82,6 +82,10 @@ class Controller {
         //newdiv.style.overflowY="scroll";
         newdiv.classList.add('div-pruef');
         newdiv.innerHTML = bericht;
+        bericht = PruefeBelegungsBedingungen.pruefeAlleKlausurBed(this.wahlbogen);
+        newdiv = document.getElementById('Klausurverpflichtungen');
+        newdiv.classList.add('div-pruef');
+        newdiv.innerHTML = bericht;
     }
 
     /**
