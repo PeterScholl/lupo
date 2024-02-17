@@ -93,18 +93,17 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Sport", "SP", ['', '', '', '', '', ''], "FGSp");
         let sport = this.getFachMitKuerzel("SP");
         sport.belegungsBed.alsAbifach = false;
-        this.addFachToFachbelegungen("Sport", "SP", ['', '', '', '', '', ''], "#FEFEFE");
         // Vertiefungsfach Englisch
-        this.addFachToFachbelegungen("VTF Englisch", "VF_E", ['', '', '', '', '', ''], "#BDBDBD");
+        this.addFachToFachbelegungen("VTF Englisch", "VF_E", ['', '', '', '', '', ''], "FGVTF");
         this.getFachMitKuerzel("VF_E").belegungsBed.stundenzahlen[2,2,2,2,2,2];
         // Vertiefungsfach Deutsch
-        this.addFachToFachbelegungen("VTF Deutsch", "VF_D", ['', '', '', '', '', ''], "#BDBDBD");
+        this.addFachToFachbelegungen("VTF Deutsch", "VF_D", ['', '', '', '', '', ''], "FGVTF");
         this.getFachMitKuerzel("VF_D").belegungsBed.stundenzahlen[2,2,2,2,2,2];
         // Vertiefungsfach Mathe
-        this.addFachToFachbelegungen("VTF Mathematik", "VF_M", ['', '', '', '', '', ''], "#BDBDBD");
+        this.addFachToFachbelegungen("VTF Mathematik", "VF_M", ['', '', '', '', '', ''], "FGVTF");
         this.getFachMitKuerzel("VF_M").belegungsBed.stundenzahlen[2,2,2,2,2,2];
         // Projektkurs
-        this.addFachToFachbelegungen("Projekt", "PK", ['', '', '', '', '', ''], "#FGPK");
+        this.addFachToFachbelegungen("Projekt", "PK", ['', '', '', '', '', ''], "FGPK");
         this.getFachMitKuerzel("PK").belegungsBed.stundenzahlen[2,2,2,2,2,2];
     }
 
