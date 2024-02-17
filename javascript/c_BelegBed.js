@@ -1,5 +1,5 @@
 /** In dieser Klasse werden Belegunsbedingungen für Fächer verwaltet
-   Stundenzahlen in jedem Halbjahr (LK zählt immer 5)
+   Stundenzahlen in jedem Halbjahr (LK zählt immer 5, ZK immer 2)
    als M,S,LK,ZK
 */
 class BelegBed {
@@ -42,6 +42,7 @@ class BelegBed {
          * @type boolean
          */
         this.alsAbifach = true;
+
     }
 
     /**

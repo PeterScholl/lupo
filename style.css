@@ -35,7 +35,15 @@
     background-color: #dddddd;
 }
 
+.FGVTF {
+    background-color: #dddddd;
+}
+
 /* Ende Hintergrundfarben nach Fächergruppen */
+
+.print_only {
+    display: none;
+}
 
 /***** Menü auf der rechten Seite ***/
 
@@ -105,18 +113,15 @@ table {
     border-collapse: collapse;
 }
 
-/* table#Faecherwahl {
- width: 100%;
-    border-right: 40px;
-    margin-right: 40px; 
+td.cell_summ_desc {
+    text-align: right;
+    font-weight: bold;
 }
-*/
 
-table.stunden {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+td.cell_summ_content {
+    font-weight: bold;
 }
+
 
 .col_fachbez {
     width: 24%;
@@ -206,15 +211,20 @@ h1 {
     }
 
     .header-container {
-        width: 750px;
+        width: 640px;
     }
 
     div.print_show {
-        width: 750px;
+        width: 640px;
     }
 
     .print_hide {
         display: none;
+    }
+
+    .print_only {
+        font-family: Arial, Helvetica, sans-serif;
+        display: block;
     }
 
     table,
@@ -228,21 +238,17 @@ h1 {
     }
 
     table {
-        width: 700px;
-    }
-
-    table.stunden {
-        width: 650px;
+        width: 100%;
     }
 
     div.infoKopf {
-        width: 750px;
+        width: 640px;
         padding: 2px;
         height: 0px;
     }
 
     div.infoInhalt {
-        width: 750px;
+        width: 640px;
         padding: 2px;
         height: 0px;
     }

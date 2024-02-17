@@ -10,7 +10,7 @@ function downloadJSON(wahlbogen) {
         alert("Es wird kein Wahlbogen gespeichert");
         return;
     } else {
-        console.log("JSONFILE.js: downloadJSON - prüfung auf richtige Klasse erfolgreich");
+        debug_info("JSONFILE.js: downloadJSON - prüfung auf richtige Klasse erfolgreich");
     }
 
 
@@ -109,7 +109,7 @@ function openJSONFromURL(dest) {
         .then(response => { Controller.getInstance().wahlbogen=response; Controller.getInstance().redraw(); })
         .catch(error => {
             // Hier wird der Fehler behandelt
-            console.log('Fehler bei der Fetch-Anfrage:' + error);
+            debug_info('Fehler bei der Fetch-Anfrage:' + error);
             // Füge hier weitere Fehlerbehandlung hinzu, falls erforderlich
             alert("Wahlbogen fehlerhaft - kann nicht gelesen werden");
             Controller.getInstance().wahlbogen.erzeugeMinimaleFachbelegung();
@@ -129,7 +129,7 @@ function parseJSONObjToWahlbogen(jsonObj) {
     // einen sauberen Wahlbogen erstellen
     let wahlbogen = new Wahlbogen();
     // 1. Namen aus der Datei übernehmen
-    if (jsonObj.name instanceof String) {
+    if (typeof(jsonObj.name) === 'string') {
         wahlbogen.name = jsonObj.name;
     }
     wahlbogen.vorname = jsonObj.vorname;
@@ -143,7 +143,7 @@ function parseJSONObjToWahlbogen(jsonObj) {
     wahlbogen.fachbelegungen = fachbelegungen;
 
     if (Array.isArray(jsonObj.verboteneFachKombis)) {
-        console.log("Verbotene Fachkombis:", JSON.stringify(jsonObj.verboteneFachKombis));
+        debug_info("Verbotene Fachkombis:", JSON.stringify(jsonObj.verboteneFachKombis));
         wahlbogen.verboteneFachKombis = jsonObj.verboteneFachKombis;
     }
     return wahlbogen;
