@@ -211,11 +211,11 @@ h1 {
     }
 
     .header-container {
-        width: 700px;
+        width: 640px;
     }
 
     div.print_show {
-        width: 700px;
+        width: 640px;
     }
 
     .print_hide {
@@ -238,17 +238,17 @@ h1 {
     }
 
     table {
-        width: 700px;
+        width: 100%;
     }
 
     div.infoKopf {
-        width: 700px;
+        width: 640px;
         padding: 2px;
         height: 0px;
     }
 
     div.infoInhalt {
-        width: 700px;
+        width: 640px;
         padding: 2px;
         height: 0px;
     }
