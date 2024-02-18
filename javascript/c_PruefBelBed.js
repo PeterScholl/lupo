@@ -134,7 +134,7 @@ class PruefeBelegungsBedingungen {
         const fach2d = this.istFachDurchgehend(wahlbogen, krz2);
         const fach3d = this.istFachDurchgehend(wahlbogen, krz3);
         if (!(fach1d || fach2d || fach3d)) {
-            return "Mind. eine klassiche NaWi (Physik, Chemie oder Biologie) muss durchgehend von der EF.1 bis Q2.2 belegt werden";
+            return "Mindestens eine klassiche Naturwissenschaft (Physik, Chemie oder Biologie) muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
         return "";
     }
