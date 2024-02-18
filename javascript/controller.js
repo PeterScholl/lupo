@@ -257,6 +257,11 @@ class Controller {
      */
     redraw() {
         let self = this;
+        //Logo
+        if (typeof(this.wahlbogen.logo_url) === 'string' && this.wahlbogen.logo_url != "") {
+            debug_info("input",this.wahlbogen.logo_url);
+            document.getElementsByTagName("img")[0].setAttribute("src",this.wahlbogen.logo_url);
+        }
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
         // Vorname, Nachname, usw.

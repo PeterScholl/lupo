@@ -135,6 +135,11 @@ function parseJSONObjToWahlbogen(jsonObj) {
     wahlbogen.vorname = jsonObj.vorname;
     wahlbogen.abiJahrgang = jsonObj.abiJahrgang;
 
+    // Logo :-)
+    if (typeof(jsonObj.logo_url) === 'string') {
+        wahlbogen.logo_url = jsonObj.logo_url;
+    }
+
     // 2. fachbelegung übernehmen
     let fachbelegungen = [];
     if (Array.isArray(jsonObj.fachbelegungen)) {

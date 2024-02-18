@@ -295,7 +295,7 @@ h1 {
 }
 
 img {
-    max-width: 190px;
+    max-width: 350px;
     /* Maximale Breite des Bildes */
     height: 94px;
     /* Automatische Höhe entsprechend der Breite */
