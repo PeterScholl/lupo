@@ -15,6 +15,7 @@ class Fachbelegung {
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
         this.kuerzel = kuerzel;
+        this.statKuerzel = kuerzel;
     }
 
     /**

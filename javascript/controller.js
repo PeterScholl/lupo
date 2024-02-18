@@ -430,12 +430,12 @@ class Controller {
             const gewKrz = obj.target.parentNode.id; // id des Parent Node <tr> ist das FachKürzel
             //console.log("Angeklicktes Abifach: ", gewKrz);
             this.wahlbogen.aendereAbifach(gewKrz);
-            this.redraw(gewKrz);
+            this.redrawZeile(gewKrz);
             //ggf. Abi3 und Abifach 4 neu zeichnen
             [3, 4].forEach(el => {
                 let abif = this.wahlbogen.gibAbifach(el);
                 if (abif != null && abif.kuerzel != gewKrz) {
-                    this.redraw(abif.kuerzel);
+                    this.redrawZeile(abif.kuerzel);
                 }
             });
             this.drawBelegungsverpflichtungen();
