@@ -9,6 +9,7 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeAlle(wahlbogen) {
         let bericht = "";
+        bericht += this.ergaenzeBericht(this.pruefeEF10KurseImHalbjahr(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "D"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "M"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "SP"));
@@ -235,5 +236,17 @@ class PruefeBelegungsBedingungen {
         let a4 = wahlbogen.gibAbifach(4);
         if (a4 != null) abifaecher.push(a4);
         return abifaecher;
+    }
+
+    /**
+     * prüft ob in der Einführungsphase in jedem Halbjahr mindestens 10 Kurse belegt werden
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Fehler wenn nötig
+     */
+    static pruefeEF10KurseImHalbjahr(wahlbogen) {
+        if (wahlbogen.getKurseFuershalbjahr(0) < 10 || wahlbogen.getKurseFuershalbjahr(1) < 10) {
+            return "In der Einführungsphase müssen in jedem Halbjahr mindestens 10 Kurse belegt werden. Vertiefungskurse werden nicht mitgezählt";
+        }
+        return "";
     }
 }
