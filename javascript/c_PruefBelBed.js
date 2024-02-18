@@ -39,7 +39,10 @@ class PruefeBelegungsBedingungen {
      */
     static ergaenzeBericht(erg) {
         if (erg != '') {
-            return "<span class='belegmeldung' onclick='Controller.getInstance().objectClickedToggleClass(this,\"highlight\")'>" + erg + "</span><br>";
+            // alte Version - highlight bei onclick
+            // return "<span class='belegmeldung' onclick='Controller.getInstance().objectClickedToggleClass(this,\"highlight\")'>" + erg + "</span><br>";
+            // tooltip by hover
+            return "<span class='tooltip'>"+erg+"<div class='tooltiptext'>"+erg+"</div></span><br>";
         } else {
             return "";
         }

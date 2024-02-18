@@ -3,7 +3,8 @@
     background-color: #fde9d9;
 }
 
-.FG1, .FG1FS {
+.FG1,
+.FG1FS {
     background-color: #fdddc3;
 }
 
@@ -195,6 +196,44 @@ h1 {
     min-height: 40px;
     /* width: max(500px, 45%); */
 }
+
+/* Tooltipps für die Belegprüfngsangelegenheiten 
+   nach w3schools https://www.w3schools.com/css/css_tooltip.asp */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    /*border-bottom: 1px dotted black;*/
+}
+
+.tooltip .tooltiptext {
+    overflow: visible;
+    visibility: hidden;
+    width: 80%;
+    background-color: black;
+    opacity: 0.8;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    white-space: normal;
+
+    /* Position the tooltip */
+    position: fixed;
+    z-index: 1;
+    top: 80px;
+    left: 20px;
+    /*margin-left: -60px;*/
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltiptext:hover {
+    visibility: hidden;
+}
+
+/* Ende Tooltips für Belegprüfungsangelegenheiten */
 
 /* Darstellungseinstellungen für die Druckausgabe */
 @media print {
