@@ -30,6 +30,7 @@ class PruefeBelegungsBedingungen {
     static pruefeAlleKlausurBed(wahlbogen) {
         let bericht = "";
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeFSschriftlich(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen));
         return bericht;
     }
 
@@ -184,7 +185,7 @@ class PruefeBelegungsBedingungen {
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehlertext oder Leertext
      */
-     static pruefeEineDurchgehendeGesellschaftswissenschaft(wahlbogen) {
+     static pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen) {
         let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith( "FG2"); })
             .filter((e) => { return this.istFachDurchgehendBelegtVonBis(e, 0, 5); })
             .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 0, 4) });
