@@ -188,9 +188,9 @@ class PruefeBelegungsBedingungen {
      static pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen) {
         let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith( "FG2"); })
             .filter((e) => { return this.istFachDurchgehendBelegtVonBis(e, 0, 5); })
-            .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 0, 4) });
+            .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 2, 4) });
         if (fs.length == 0) {
-            return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft muss von EF.1 bis Q2.1 schriftlich belegt sein.";
+            return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft muss von Q1.1 bis Q2.1 schriftlich belegt sein.";
         }
         return "";
     }
