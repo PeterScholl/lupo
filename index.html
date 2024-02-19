@@ -16,6 +16,44 @@
 
 <body>
 
+  <!-- Das Info Modal -->
+  <div id="infoModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content" onclick="event.stopPropagation();" style="border-radius: 15px;">
+      <span class="close">&times;</span>
+      <h1>&Uuml;ber unser LuPO-online</h1>
+      <p>Diese Website entstand im Rahmen eines Projekts aus dem Q2 Informatikkurs Jahrgang 2024 des  Albert-Einstein Gymnasiums.</p>
+      <p><i>Wichtige Informationen: </i>Ihre Daten werden nicht im Internet, sondern nur auf ihrem lokalen Gerät gespeichert<br>
+        In Bezug auf die Funktionalität der Website geben wir keine Gewährleistung.</p>
+      
+      <h4>Tipps zur Vorgehensweise:</h4>
+      <ul>
+        <li> 12 Fächer in der EF durch anklicken wählen - gegebenenfalls vorher Fremdsprachen oberhalb der Tabelle auswählen, Namen eingeben</li>
+        <li> im Menü auf hochschreiben klicken</li>
+        <li> Die restliche Wahl anpassen - LKs durch anklicken in der Q1.1 wählen - Abifächer wählen - <b>SPEICHERN</b> und ggf. ausdrucken </li>
+      </ul>
+         
+      <h4>Folgende Elemente unserer Website sind (unseres wissens) noch nicht funktional:</h4>
+      <ul style="font-size: small;">
+        <li>Prüfung auf: Bei fehlender Zweitbelegung der Fremdsprache muss eine Neueinsetzung der Fremdsprache durchgehend schriftlich belegt werden</li> 
+        <li>Prüfung auf: In der Q-Phase sind mindestens sieben Fächer im Grundkurs pro Halbjahr zu wählen</li>
+        <li>Prüfung auf: In der Q-Phase müssen zwei Fächer durchgehend in LKs belegt werden</li> 
+        <li>Prüfung auf: Es müssen durchgehend zwei NaWi oder zwei Fremdsprachen belegt werden, hierbei ist eine NaWi oder zwei Fremdsprachen schriftlich zu belegen (zu den Fremdsprachen zählen auch in einer weiteren Fremdsprache unterrichtete Sachfächer)</li> 
+        <li>Prüfung auf: Religion muss wenigstens von EF.1-Q1.2 durchgehend belegt werden. Als Ersatz kann Philosophie dienen, sofern diese nicht die einzige von EF.1 bis Q2.2 durchgehend belegte GeWi ist. In diesem Fall muss ein weiteres Fach der GeWi als Religionsersatz dienen.</li> 
+        <li>Prüfung auf: Mindestens eines der Fächer Kunst oder Musik muss von EF.1 bis wenigstens Q1.2 durchgehend belegt werden. In der Q-Phase kann auch alternativ Literatur, VP oder IP belegt werden</li> 
+        <li>Prüfung auf: Mindestens eine Fremdsprache muss von EF.1 bis Q2.2 durchgehend belegt werden. Handelt es sich um eine neu ensetzende Fremdsprache, so muss zusätzich mindestens aus der Sekundarstufe I fortgeführte Fremdsprache von EF.1 bis EF.2 belegt werden</li> 
+      </ul>
+      <p>Bei Fragen, Fehlermeldungen oder anderen Anfragen erreichen Sie uns unter der email lupo (at) unterrichtsportal.org</p>
+      <div style="text-align: right;"><br>
+        <input type="checkbox" id="modalGelesen" name="modalGelesen" value="modalGelesen">
+        <label for="modalGelesen">Infotext nicht mehr anzeigen</label>
+      </div>
+    </div>
+
+  </div>
+  <!-- ENDE Info-Modal-->
+
   <div class="header-container">
 
     <img src="Bilder/aeglogo.png" alt="Logo">
@@ -31,8 +69,8 @@
         <a id="Speichern" href="#">Speichern</a>
         <a id="LadeDatei" href="#" style="border-bottom: 1px solid black;">Laden</a>
         <a id="HochschreibenEF1">Hochschreiben von EF.1</a>
-        <a id="HochschreibenEF2">Hochschreiben von EF.2</a>
-        <a id="TestButton">Testbutton</a>
+        <a id="HochschreibenEF2" style="border-bottom: 1px solid black;">Hochschreiben von EF.2</a>
+        <a id="InfosAbout">Infos / About</a>
       </div>
     </div>
 
@@ -48,8 +86,6 @@
     <form class="print_hide" id="ffs">
       Fremdsprachen Sek1:
       <!-- wird von Javascript ersetzt -->
-      <input type="checkbox" id="F6" name="F6" value="F6">
-      <label for="F6">F6</label>
       <input type="checkbox" id="L6" name="L6" value="L6">
       <label for="L6">L6</label>
       </label>
@@ -101,7 +137,7 @@
       - sie soll lediglich bei der Planung der Oberstufenlaufbahn unterstützen.<br>
       Projekt des IF-Grundkurses im Abiturjahrgang 2024 -
       Lizenz <CC-BY-SA>CC-BY-SA</CC-BY-SA> -
-      Quelltext auf <a href="https://github.com/PeterScholl/lupo">Github</a>
+      Quelltext auf <a href="https://github.com/PeterScholl/lupo">Github</a> - Kontakt/Support: lupo@unterrichtsportal.org
     </small>
   </div>
 
