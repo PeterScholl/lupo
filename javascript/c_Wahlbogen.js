@@ -82,9 +82,9 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Mathematik", "M", ['S', 'S', 'S', '', '', ''], "FG3");
         // Biologie
         this.addFachToFachbelegungen("Biologie", "BI", ['', '', '', '', '', ''], "FG3");
-        let bie= this.getFachMitKuerzel ('BI');
         // Biologie Englisch
         this.addFachToFachbelegungen("Biologie Englisch", "BIE", ['', '', '', '', '', ''], "FG3");
+        let bie= this.getFachMitKuerzel ('BIE');
         bie.statKuerzel= "BI";
         // Chemie
         this.addFachToFachbelegungen("Chemie", "CH", ['', '', '', '', '', ''], "FG3");
