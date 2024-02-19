@@ -180,6 +180,21 @@ class PruefeBelegungsBedingungen {
     }
 
     /**
+     * prueft ob eine durchgehend belegte Gesellschaftswissensvchaft von EF.1 bis Q2.1 schriftlich belegt ist
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Fehlertext oder Leertext
+     */
+     static pruefeEineDurchgehendeGesellschaftswissenschaft(wahlbogen) {
+        let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith( "FG2"); })
+            .filter((e) => { return this.istFachDurchgehendBelegtVonBis(e, 0, 5); })
+            .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 0, 4) });
+        if (fs.length == 0) {
+            return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft muss von EF.1 bis Q2.1 schriftlich belegt sein.";
+        }
+        return "";
+    }
+
+    /**
      * prüft ob unter den vier Abifächern zwei der Fächer D,M, FS (2x FS geht nicht)
      * @param {Wahlbogen} wahlbogen
      * @returns String mit dem Fehlertext 
