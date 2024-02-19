@@ -923,6 +923,73 @@
       "istFFSSekI": false
     },
     {
+      "bezeichnung": "Erziehungswiss.",
+      "kuerzel": "PA",
+      "statKuerzel": "PA",
+      "belegung": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "belegungsBed": {
+        "wahlarten": [
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ],
+          [
+            "M",
+            "S",
+            "LK"
+          ]
+        ],
+        "stundenzahlen": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "einsetzend": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vorgaengerFaecher": [],
+        "alsAbifach": true
+      },
+      "faecherGruppe": "FG2",
+      "abifach": 0,
+      "istFFS": false,
+      "istFFSSekI": false
+    },
+    {
       "bezeichnung": "Philosophie",
       "kuerzel": "PP",
       "statKuerzel": "PP",

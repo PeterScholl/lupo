@@ -71,6 +71,8 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Geographie Englisch", "EKE", ['', '', '', '', '', ''], "FG2");
         let eke= this.getFachMitKuerzel ('EKE');
         eke.statKuerzel= "EK";
+        // Pädagogik
+        this.addFachToFachbelegungen("Erziehungswiss.", "PA", ['', '', '', '', '', ''], "FG2");
         // Philosophie
         this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "FG2");
         let pp = this.getFachMitKuerzel('PP');
