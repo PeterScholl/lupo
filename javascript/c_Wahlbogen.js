@@ -2,8 +2,8 @@
     z.B. die Fächer/Belegungen, Name der Person, Abiturjahrgang....
 */
 class Wahlbogen {
-    name = "Nachname";
-    vorname = "Vorname";
+    name = "";
+    vorname = "";
     fachbelegungen = [];
     abiJahrgang = 2027;
     verboteneFachKombis = []; //enthält verbotene Fächerkombinationen als Array von zwei Kürzeln, z.B. ['GE','GEE']
@@ -20,25 +20,28 @@ class Wahlbogen {
      */
     erzeugeMinimaleFachbelegung() {
         // Deutsch(D)
-        this.addFachToFachbelegungen("Deutsch", "D", ['S', 'S', '', '', '', ''], "FG1D");
+        this.addFachToFachbelegungen("Deutsch", "D", ['S', '', '', '', '', ''], "FG1D");
         // Englisch
-        this.addFachToFachbelegungen("Englisch", "E", ['S', 'S', '', '', '', ''], "FG1FS");
+        this.addFachToFachbelegungen("Englisch", "E", ['S', '', '', '', '', ''], "FG1FS");
         const e = this.getFachMitKuerzel('E');
         e.istFFS = true; //Englisch ist fortgeführte Fremdsprache
         e.istFFSSekI = true;
         // Latein
-        this.addFachToFachbelegungen("Latein", "L6", ['', '', '', '', '', ''], "FG1FS");
-        const l6 = this.getFachMitKuerzel('L6');
+        this.addFachToFachbelegungen("Latein", "L", ['', '', '', '', '', ''], "FG1FS");
+        const l6 = this.getFachMitKuerzel('L');
         l6.istFFS = true; //Latein ist fortgeführte Fremdsprache
+        l6.statKuerzel = "L6";
         // Französisch
-        this.addFachToFachbelegungen("Französisch", "F6", ['', '', '', '', '', ''], "FG1FS");
-        const f6 = this.getFachMitKuerzel('F6');
+        this.addFachToFachbelegungen("Französisch", "F", ['', '', '', '', '', ''], "FG1FS");
+        const f6 = this.getFachMitKuerzel('F');
         f6.istFFS = true; //Französisch ist fortgeführte Fremdsprache
         f6.istFFSSekI = true;
+        f6.statKuerzel = "F6";
         // Spanisch
-        this.addFachToFachbelegungen("Spanisch", "S6", ['', '', '', '', '', ''], "FG1FS");
-        const s6 = this.getFachMitKuerzel('S6');
+        this.addFachToFachbelegungen("Spanisch", "S", ['', '', '', '', '', ''], "FG1FS");
+        const s6 = this.getFachMitKuerzel('S');
         s6.istFFS = true; //Spanisch ist fortgeführte Fremdsprache
+        s6.statKuerzel = "S6";
         // Spanisch neu
         this.addFachToFachbelegungen("Spanisch ab EF", "S0", ['', '', '', '', '', ''], "FG1FS");
         // Kunst
@@ -66,6 +69,8 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Geographie", "EK", ['', '', '', '', '', ''], "FG2");
         // Geographie Englisch
         this.addFachToFachbelegungen("Geographie Englisch", "EKE", ['', '', '', '', '', ''], "FG2");
+        let eke= this.getFachMitKuerzel ('EKE');
+        eke.statKuerzel= "EK";
         // Philosophie
         this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "FG2");
         let pp = this.getFachMitKuerzel('PP');
@@ -79,7 +84,7 @@ class Wahlbogen {
         let er = this.getFachMitKuerzel('ER');
         er.belegungsBed.vorgaengerFaecher = ['KR', 'PP'];
         // Mathematik #8db4e3
-        this.addFachToFachbelegungen("Mathematik", "M", ['S', 'S', 'S', '', '', ''], "FG3");
+        this.addFachToFachbelegungen("Mathematik", "M", ['S', '', '', '', '', ''], "FG3");
         // Biologie
         this.addFachToFachbelegungen("Biologie", "BI", ['', '', '', '', '', ''], "FG3");
         // Biologie Englisch

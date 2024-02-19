@@ -16,6 +16,27 @@
 
 <body>
 
+  <!-- Das Info Modal -->
+  <div id="infoModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content" onclick="event.stopPropagation();" style="border-radius: 15px;">
+      <span class="close">&times;</span>
+      <p>Some text in the Modal..</p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+      tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+      dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
+      ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+      magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+      gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      <div style="text-align: right;"><br>
+        <input type="checkbox" id="modalGelesen" name="modalGelesen" value="modalGelesen">
+        <label for="modalGelesen">Infotext nicht mehr anzeigen</label>
+      </div>
+    </div>
+
+  </div>
+  <!-- ENDE Info-Modal-->
+
   <div class="header-container">
 
     <img src="Bilder/aeglogo.png" alt="Logo">
@@ -31,8 +52,8 @@
         <a id="Speichern" href="#">Speichern</a>
         <a id="LadeDatei" href="#" style="border-bottom: 1px solid black;">Laden</a>
         <a id="HochschreibenEF1">Hochschreiben von EF.1</a>
-        <a id="HochschreibenEF2">Hochschreiben von EF.2</a>
-        <a id="TestButton">Testbutton</a>
+        <a id="HochschreibenEF2" style="border-bottom: 1px solid black;">Hochschreiben von EF.2</a>
+        <a id="InfosAbout">Infos / About</a>
       </div>
     </div>
 
@@ -48,8 +69,6 @@
     <form class="print_hide" id="ffs">
       Fremdsprachen Sek1:
       <!-- wird von Javascript ersetzt -->
-      <input type="checkbox" id="F6" name="F6" value="F6">
-      <label for="F6">F6</label>
       <input type="checkbox" id="L6" name="L6" value="L6">
       <label for="L6">L6</label>
       </label>

@@ -45,6 +45,35 @@ class Controller {
         let self = this;
         debug_info("Das Dokument wurde geladen. init() wird aufgerufen.");
 
+        // Info-Modal einrichten
+        const infoModalCheckbox = document.getElementById("modalGelesen");
+        debug_info("Cookie?: ",getCookie("lupo-info-read"));
+        if (getCookie("lupo-info-read") === "true") {
+            this.modalGesehen = true;
+            infoModalCheckbox.checked = true;
+        } else {
+            this.modalGesehen = false; // soll gezeichnet werden
+            infoModalCheckbox.checked = false;
+        }
+        const modal = document.getElementById("infoModal"); //Das Modal - der Hintergrund!
+        document.querySelector("span.close").onclick = function () {
+            //dies ist nur der Close-Button (X oben rechts)
+            modal.style.display = "none";
+        }
+        modal.onclick = function () { // Wenn man auf den Hintergrund klickt - ausblenden
+            modal.style.display = "none";
+        }
+        infoModalCheckbox.onchange = function (event) { //Änderung der Gesehen-Checkbox
+            if (event.target.checked) {
+                debug_info("Cookie setzen!");
+                setCookie("lupo-info-read", "true", 365);
+            } else {
+                //cookie löschen
+                debug_info("Cookie löschen!");
+                setCookie("lupo-info-read", "true", 0);
+            }
+        }
+
         this.drawAbijahrgang();
 
         //alle Buttons mit click-Eventlistener versehen
@@ -208,6 +237,10 @@ class Controller {
                     this.drawTable();
                     this.drawBelegungsverpflichtungen(); //inklusive Prüfung
                     break;
+                case 'InfosAbout':
+                    debug_info("Infos / About geklickt");
+                    this.showModal();
+                    break;
                 default:
                     debug_info("Button ID unbekannt");
             }
@@ -257,10 +290,15 @@ class Controller {
      */
     redraw() {
         let self = this;
+
+        // Info - modal
+        if (!this.modalGesehen) {
+            this.showModal();
+        }
         //Logo
-        if (typeof(this.wahlbogen.logo_url) === 'string' && this.wahlbogen.logo_url != "") {
-            debug_info("input",this.wahlbogen.logo_url);
-            document.getElementsByTagName("img")[0].setAttribute("src",this.wahlbogen.logo_url);
+        if (typeof (this.wahlbogen.logo_url) === 'string' && this.wahlbogen.logo_url != "") {
+            debug_info("input", this.wahlbogen.logo_url);
+            document.getElementsByTagName("img")[0].setAttribute("src", this.wahlbogen.logo_url);
         }
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
@@ -272,8 +310,8 @@ class Controller {
         if (this.wahlbogen.name != '') {
             document.getElementById('nachname').value = this.wahlbogen.name;
         }
-        this.nameInPrintBereichSchreiben(this.wahlbogen.vorname,this.wahlbogen.name);
-        
+        this.nameInPrintBereichSchreiben(this.wahlbogen.vorname, this.wahlbogen.name);
+
         //fortgeführte Fremdsprachen
         let ffs = document.querySelector("FORM#ffs");
         ffs.innerHTML = "";
@@ -326,6 +364,10 @@ class Controller {
         this.drawStundenzahlen();
     }
 
+    /**
+     * aktualisiert die Tabellenzeile mit dem angegebenen Kürzel
+     * @param {String} kuerzel 
+     */
     redrawZeile(kuerzel) {
         const zeile = document.querySelector("TR#" + kuerzel);
         zeile.classList.add('Fach');
@@ -362,6 +404,13 @@ class Controller {
             }
         }
 
+    }
+
+    /** setzt die display-Variable des Infomodals auf block */
+    showModal() {
+        const modal = document.getElementById("infoModal");
+        modal.style.display = "block";
+        this.modalGesehen = true;
     }
 
     tabellenZeileFuerFachAnhaengen(tabelle, fach) {
