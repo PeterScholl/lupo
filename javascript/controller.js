@@ -82,6 +82,10 @@ class Controller {
         //newdiv.style.overflowY="scroll";
         newdiv.classList.add('div-pruef');
         newdiv.innerHTML = bericht;
+        bericht = PruefeBelegungsBedingungen.pruefeAlleKlausurBed(this.wahlbogen);
+        newdiv = document.getElementById('Klausurverpflichtungen');
+        newdiv.classList.add('div-pruef');
+        newdiv.innerHTML = bericht;
     }
 
     /**
@@ -253,6 +257,11 @@ class Controller {
      */
     redraw() {
         let self = this;
+        //Logo
+        if (typeof(this.wahlbogen.logo_url) === 'string' && this.wahlbogen.logo_url != "") {
+            debug_info("input",this.wahlbogen.logo_url);
+            document.getElementsByTagName("img")[0].setAttribute("src",this.wahlbogen.logo_url);
+        }
         //Kopfzeilen
         document.getElementById('kopfzeile').innerHTML = "Oberstufenwahl Abijahrgang " + this.wahlbogen.abiJahrgang;
         // Vorname, Nachname, usw.
@@ -421,12 +430,12 @@ class Controller {
             const gewKrz = obj.target.parentNode.id; // id des Parent Node <tr> ist das FachKürzel
             //console.log("Angeklicktes Abifach: ", gewKrz);
             this.wahlbogen.aendereAbifach(gewKrz);
-            this.redraw(gewKrz);
+            this.redrawZeile(gewKrz);
             //ggf. Abi3 und Abifach 4 neu zeichnen
             [3, 4].forEach(el => {
                 let abif = this.wahlbogen.gibAbifach(el);
                 if (abif != null && abif.kuerzel != gewKrz) {
-                    this.redraw(abif.kuerzel);
+                    this.redrawZeile(abif.kuerzel);
                 }
             });
             this.drawBelegungsverpflichtungen();

@@ -9,13 +9,27 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeAlle(wahlbogen) {
         let bericht = "";
+        bericht += this.ergaenzeBericht(this.pruefeEF10KurseImHalbjahr(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "D"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "M"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "SP"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
+        bericht += this.ergaenzeBericht(this.pruefeZweiMalDMFSunterAbifaechern(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeVierAbiturfaecherIn3Aufgabenfeldern(wahlbogen));
         bericht += this.pruefeVerboteneFachKombinationen(wahlbogen);
+        return bericht;
+    }
+
+    /**
+     * ruft alle prgrammierten Klausurbelegprüfungen auf erstellt einen Gesamtbericht
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Bericht
+     */
+    static pruefeAlleKlausurBed(wahlbogen) {
+        let bericht = "";
+        bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeFSschriftlich(wahlbogen));
         return bericht;
     }
 
@@ -28,7 +42,10 @@ class PruefeBelegungsBedingungen {
      */
     static ergaenzeBericht(erg) {
         if (erg != '') {
-            return "<span class='belegmeldung' onclick='Controller.getInstance().objectClickedToggleClass(this,\"highlight\")'>" + erg + "</span><br>";
+            // alte Version - highlight bei onclick
+            // return "<span class='belegmeldung' onclick='Controller.getInstance().objectClickedToggleClass(this,\"highlight\")'>" + erg + "</span><br>";
+            // tooltip by hover
+            return "<span class='tooltip'>" + erg + "<div class='tooltiptext'>" + erg + "</div></span><br>";
         } else {
             return "";
         }
@@ -41,7 +58,7 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeFachDurchgehend(wahlbogen, krz1) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
-        if (!this.istFachDurchgehend(wahlbogen,krz1)) {
+        if (!this.istFachDurchgehend(wahlbogen, krz1)) {
             //console.log("Kürzel",krz1);
             return "Das Fach " + fach1.bezeichnung + " muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
@@ -56,7 +73,7 @@ class PruefeBelegungsBedingungen {
      */
     static istFachDurchgehend(wahlbogen, statKrz) {
         const faecher = wahlbogen.gibFaecherMitStatKuerzel(statKrz);
-        return faecher.some((f) => {return f.belegung.every((a) => { return a != ''; });})
+        return faecher.some((f) => { return f.belegung.every((a) => { return a != ''; }); })
     }
 
 
@@ -70,7 +87,7 @@ class PruefeBelegungsBedingungen {
     static pruefeDoppelteBelegung(wahlbogen, krz1, krz2) {
         const fach1 = wahlbogen.getFachMitKuerzel(krz1);
         const fach2 = wahlbogen.getFachMitKuerzel(krz2);
-        if (fach1==null || fach2 == null) {
+        if (fach1 == null || fach2 == null) {
             return "";
         }
         for (let i = 0; i < 6; i++) {
@@ -90,8 +107,8 @@ class PruefeBelegungsBedingungen {
     static pruefeVerboteneFachKombinationen(wahlbogen) {
         let result = "";
         wahlbogen.verboteneFachKombis.forEach((e) => {
-            debug_info("Pruefe Kombination ",e[0],e[1]);
-            result+=this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen,e[0],e[1]));
+            debug_info("Pruefe Kombination ", e[0], e[1]);
+            result += this.ergaenzeBericht(this.pruefeDoppelteBelegung(wahlbogen, e[0], e[1]));
         });
         return result;
     }
@@ -105,22 +122,22 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeFachDurchgehendoderZusatzkurs(wahlbogen, krz1) {
         const faecher = wahlbogen.gibFaecherMitStatKuerzel(krz1);
-        if (faecher.every((f) => {return !this.pruefeFachDurchgehendBelegtVonBis(f,0,4) && !(f.belegung[4] == 'ZK' && f.belegung[5] == 'ZK');})) {
+        if (faecher.every((f) => { return !this.istFachDurchgehendBelegtVonBis(f, 0, 4) && !(f.belegung[4] == 'ZK' && f.belegung[5] == 'ZK'); })) {
             if (faecher.length == 0) {
                 return "Das Fach " + krz1 + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
             } else {
-            return "Das Fach " + faecher[0].bezeichnung + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
+                return "Das Fach " + faecher[0].bezeichnung + " muss durchgehend von der EF.1 bis Q1.2 oder als Zusatzkurs (in der Regel Q2.1 bis Q2.2) belegt werden";
             }
         }
         return "";
     }
 
     static pruefeFachMindEinDurchgehend(wahlbogen, krz1, krz2, krz3) {
-        const fach1d = this.istFachDurchgehend(wahlbogen,krz1); // boolean
-        const fach2d = this.istFachDurchgehend(wahlbogen,krz2);
-        const fach3d = this.istFachDurchgehend(wahlbogen,krz3);
+        const fach1d = this.istFachDurchgehend(wahlbogen, krz1); // boolean
+        const fach2d = this.istFachDurchgehend(wahlbogen, krz2);
+        const fach3d = this.istFachDurchgehend(wahlbogen, krz3);
         if (!(fach1d || fach2d || fach3d)) {
-            return "Mind. eine klassiche NaWi (Physik, Chemie oder Biologie) muss durchgehend von der EF.1 bis Q2.2 belegt werden";
+            return "Mindestens eine klassische Naturwissenschaft (Physik, Chemie oder Biologie) muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
         return "";
     }
@@ -132,8 +149,119 @@ class PruefeBelegungsBedingungen {
      * @param {Integer} bis_hj 1-6 exklusive
      * @returns true
      */
-    static pruefeFachDurchgehendBelegtVonBis(fach,von_hj,bis_hj) {
-        return fach.belegung.slice(von_hj,bis_hj).every((hj_belegung) => {return hj_belegung != '';});
+    static istFachDurchgehendBelegtVonBis(fach, von_hj, bis_hj) {
+        return fach.belegung.slice(von_hj, bis_hj).every((hj_belegung) => { return hj_belegung != ''; });
     }
 
+    /**
+     * prueft ob das übergebene Fach vom Hj von_hj (inkl) bis Hj bis_hj (exkl.) schriftl belegt war
+     * @param {Fachbelegung} fach 
+     * @param {Integer} von_hj 0-5 inklusive 
+     * @param {Integer} bis_hj 1-6 exklusive
+     * @returns true
+     */
+    static istFachDurchgehendSchriftlichBelegtVonBis(fach, von_hj, bis_hj) {
+        return fach.belegung.slice(von_hj, bis_hj).every((hj_belegung) => { return hj_belegung == 'S' || hj_belegung == 'LK'; });
+    }
+
+    /**
+     * prueft ob eine durchgehend belegte Fremdsprache von EF.1 bis Q2.1 schriftlich belegt ist
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Fehlertext oder Leertext
+     */
+    static pruefeEineDurchgehendeFSschriftlich(wahlbogen) {
+        let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe === "FG1FS"; })
+            .filter((e) => { return this.istFachDurchgehendBelegtVonBis(e, 0, 5); })
+            .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 0, 4) });
+        if (fs.length == 0) {
+            return "Mindestens eine durchgehend belegte Fremdsprache muss von EF.1 bis Q2.1 schriftlich belegt sein.";
+        }
+        return "";
+    }
+
+    /**
+     * prueft ob eine durchgehend belegte Gesellschaftswissensvchaft von EF.1 bis Q2.1 schriftlich belegt ist
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Fehlertext oder Leertext
+     */
+     static pruefeEineDurchgehendeGesellschaftswissenschaft(wahlbogen) {
+        let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith( "FG2"); })
+            .filter((e) => { return this.istFachDurchgehendBelegtVonBis(e, 0, 5); })
+            .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 0, 4) });
+        if (fs.length == 0) {
+            return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft muss von EF.1 bis Q2.1 schriftlich belegt sein.";
+        }
+        return "";
+    }
+
+    /**
+     * prüft ob unter den vier Abifächern zwei der Fächer D,M, FS (2x FS geht nicht)
+     * @param {Wahlbogen} wahlbogen
+     * @returns String mit dem Fehlertext 
+     */
+    static pruefeZweiMalDMFSunterAbifaechern(wahlbogen) {
+        const abifaecher = this.gibAbifaecher(wahlbogen);
+        let erfolge = 0;
+        //prüfe auf D,M,FS
+        if (abifaecher.some((e) => { return e.statKuerzel === 'D'; })) erfolge++;
+        if (abifaecher.some((e) => { return e.statKuerzel === 'M'; })) erfolge++;
+        if (abifaecher.some((e) => { return e.faecherGruppe == "FG1FS"; })) erfolge++;
+        if (erfolge < 2) {
+            return "Unter den vier Abiturfächern müssen zwei Fächer D, M oder Fremdsprache sein";
+        }
+        return "";
+    }
+
+    /**
+     * Prüft ob vier Abifächer gewählt wurden und alle drei Aufgabenfelder abgedeckt sind
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit der Fehlberbeschreibung (falls notwendig)
+     */
+    static pruefeVierAbiturfaecherIn3Aufgabenfeldern(wahlbogen) {
+        const abifaecher = this.gibAbifaecher(wahlbogen);
+        if (abifaecher.length == 4) { // es gibt schonmal 4
+            debug_info("abifächer", abifaecher);
+            //Pruefe Aufgabenfeld 1
+            debug_info("Pruefe Abifächer auf Aufabenfeld 1");
+            if (abifaecher.some((e) => { return e.faecherGruppe === 'FG1D' || e.faecherGruppe === 'FG1FS'; })) {
+                //Pruefe Aufgabenfeld 2
+                debug_info("Pruefe Abifächer auf Aufabenfeld 2");
+                if (abifaecher.some((e) => { return e.faecherGruppe.startsWith('FG2') })) {
+                    //Prufe Aufgabenfeld 3
+                    debug_info("Pruefe Abifächer auf Aufabenfeld 3");
+                    if (abifaecher.some((e) => { return e.faecherGruppe.startsWith('FG3'); })) {
+                        return "";
+                    }
+                }
+            }
+        }
+        return "Die Abifächer müssen alle drei Aufgabenfelder abdecken. Insgesamt sind vier Abifächer zu belegen";
+    }
+
+
+    /**
+     * gibt ein Array der aktuell gewählten Abifächer zurück
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Array der derziet gewählten Fächer
+     */
+    static gibAbifaecher(wahlbogen) {
+        let abifaecher = wahlbogen.gibLKFaecher();
+        let a3 = wahlbogen.gibAbifach(3);
+        if (a3 != null) abifaecher.push(a3);
+        let a4 = wahlbogen.gibAbifach(4);
+        if (a4 != null) abifaecher.push(a4);
+        return abifaecher;
+    }
+
+    /**
+     * prüft ob in der Einführungsphase in jedem Halbjahr mindestens 10 Kurse belegt werden
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Fehler wenn nötig
+     */
+    static pruefeEF10KurseImHalbjahr(wahlbogen) {
+        if (wahlbogen.getKurseFuershalbjahr(0) < 10 || wahlbogen.getKurseFuershalbjahr(1) < 10) {
+            return "In der Einführungsphase müssen in jedem Halbjahr mindestens 10 Kurse belegt werden. Vertiefungskurse werden nicht mitgezählt";
+        }
+        return "";
+    }
 }
