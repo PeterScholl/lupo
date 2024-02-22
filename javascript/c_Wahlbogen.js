@@ -114,7 +114,7 @@ class Wahlbogen {
         this.setzeStandardwerteFuerVertiefungskurs(this.getFachMitKuerzel("VF_M"));
         // Projektkurs
         this.addFachToFachbelegungen("Projekt", "PK", ['', '', '', '', '', ''], "FGPK");
-        this.getFachMitKuerzel("PK").belegungsBed.stundenzahlen[2, 2, 2, 2, 2, 2];
+        this.getFachMitKuerzel("PK").belegungsBed.stundenzahlen = [2, 2, 2, 2, 2, 2];
     }
 
     /**
@@ -318,6 +318,6 @@ class Wahlbogen {
     setzeStandardwerteFuerVertiefungskurs(fach) {
         fach.statKuerzel = "VX";
         fach.belegungsBed.wahlarten = [["M"], ["M"], [], [], [], []];
-        fach.stundenzahlen = [2, 2, 2, 2, 2, 2];
+        fach.belegungsBed.stundenzahlen = [2, 2, 2, 2, 2, 2];
     }
 }
