@@ -13,6 +13,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "D"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "M"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "SP"));
+        bericht += this.ergaenzeBericht(this.pruefeReligionOderErsatzfach(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
@@ -64,6 +65,47 @@ class PruefeBelegungsBedingungen {
             return "Das Fach " + fach1.bezeichnung + " muss durchgehend von der EF.1 bis Q2.2 belegt werden";
         }
         return "";
+    }
+
+    static pruefeReligionOderErsatzfach(wahlbogen) {
+        // Religionsfächer bestimmen KR,ER,PP
+        // Strategie 1-3
+        // 1. Prüfe ob Religion belegt -> Alles gut
+        // TODO: gibt es noch weitere Religionen?
+        const religionsKuerzel = ["KR", "ER"];
+        let relFaecher = religionsKuerzel.map((k) => { return wahlbogen.getFachMitKuerzel(k); });
+        relFaecher.filter((f) => { return f != null; });
+        console.dir("relFaecher", relFaecher);
+        let relBelegungen = relFaecher.map((f) => { return f.belegung; });
+        console.dir("relBelegungen", relBelegungen);
+        let gesamtbelegung = this.mergeBelegungen(relBelegungen);
+
+        if (gesamtbelegung.slice(0, 4).every((b) => { return b != ''; })) return ""; //Reli ist normal belegt
+        // 2. Ist Philosophie der Ersatz?
+        const pp = wahlbogen.getFachMitKuerzel("PP");
+        if (pp != null) {
+            gesamtbelegung = this.mergeBelegungen([gesamtbelegung, pp.belegung]);
+            if (gesamtbelegung.slice(0, 4).every((b) => { return b != ''; })) {
+                //PP ist Ersatzfach
+                // 3. Ist Philosophie die einzig durchgehende Gesellschaftswissenschaft
+                if (pp.istBelegt(0,6)) { // könnte einzige GeWi sein
+                    let gewis = wahlbogen.fachbelegungen.filter((f) => {return f.faecherGruppe.startsWith("FG2");});
+                    //Alle durchgehend belegte Gesellschaftswissenschaften außer PP 
+                    gewis = gewis.filter((f) => {return f.statKuerzel != "PP";})
+                    .filter((e) => {return e.istBelegt(0,6);});
+                    if (gewis.length > 0) {
+                        return ""; // es gibt noch eine andere
+                    }
+                } else {
+                    return "";
+                }
+            }
+        }
+        return "Religion muss wenigstens von EF.1-Q1.2 durchgehend belegt werden. " +
+            "Als Ersatz kann Philosophie dienen, sofern diese nicht die einzige von " +
+            "EF.1 bis Q2.2 durchgehend belegte Gesellschaftswissenschaft ist. " +
+            "In diesem Fall muss ein weiteres Fach der Gesellschaftswissenschaften " +
+            "als Religionsersatz dienen.";
     }
 
     /**
@@ -185,8 +227,8 @@ class PruefeBelegungsBedingungen {
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehlertext oder Leertext
      */
-     static pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen) {
-        let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith( "FG2"); })
+    static pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen) {
+        let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith("FG2"); })
             .filter((e) => { return this.istFachDurchgehendBelegtVonBis(e, 0, 5); })
             .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 2, 4) });
         if (fs.length == 0) {
@@ -264,5 +306,23 @@ class PruefeBelegungsBedingungen {
             return "In der Einführungsphase müssen in jedem Halbjahr mindestens 10 Kurse belegt werden. Vertiefungskurse werden nicht mitgezählt";
         }
         return "";
+    }
+
+    /**
+     * fügt mehrere Belegungen (Array mit 6 einträgen zusammen)
+     * @param {*} belegungenArray 
+     * @returns Array of Strings mit 'M' wenn dieses Halbjahr belegt 
+     */
+    static mergeBelegungen(belegungenArray) {
+        if (belegungenArray === null || belegungenArray.length === 0) return new Array(6).fill('');
+        let gesamtbelegung = new Array(6).fill("");
+        belegungenArray.forEach((b) => {
+            b.forEach((v, i) => {
+                if (v != "") {
+                    gesamtbelegung[i] = 'M'; //halbjahr belegt
+                }
+            });
+        });
+        return gesamtbelegung;
     }
 }

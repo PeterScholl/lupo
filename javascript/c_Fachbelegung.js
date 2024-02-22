@@ -151,6 +151,16 @@ class Fachbelegung {
     }
 
     /**
+     * Prüft ob das Fach vom Starthalbjahr (incl) bis Endhalbjahr (excl) belegt war
+     * @param {Integer} starthj (inklusive)
+     * @param {Integer} endhj (exklusive)
+     * @returns true wenn das Fach in der Zeit belegt ist
+     */
+    istBelegt(starthj,endhj) {
+        return this.belegung.slice(starthj,endhj).every((e) => {return e!="";});
+    }
+
+    /**
      * Prüft ob Belegungen in Halbjahren vorliegen, die nicht belegt werden
      * dürfen und korrigiert dies
      * @returns true - wenn eine korrektur stattgefunden hat
