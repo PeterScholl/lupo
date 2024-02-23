@@ -65,7 +65,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG1D",
-      "abifach": 1,
+      "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false,
       "istBili": false
@@ -133,7 +133,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG1FS",
-      "abifach": 4,
+      "abifach": 0,
       "istFFS": true,
       "istFFSSekI": true,
       "istBili": false
@@ -869,7 +869,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
-      "abifach": 3,
+      "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false,
       "istBili": false
@@ -935,7 +935,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
-      "abifach": 3,
+      "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false,
       "istBili": true
@@ -1552,7 +1552,7 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG3",
-      "abifach": 2,
+      "abifach": 0,
       "istFFS": false,
       "istFFSSekI": false,
       "istBili": false
