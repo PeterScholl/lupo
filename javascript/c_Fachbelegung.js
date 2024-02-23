@@ -11,6 +11,7 @@ class Fachbelegung {
     abifach = 0; // ist dieses Fach ein gewähltes Abifach 1-4 sonst 0
     istFFS = false; // ist fortgeführte Fremdsprache
     istFFSSekI = false; // wurde als FFS in der Sek I belegt
+    istBili = false; //Bilinguales Sachfach
 
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
@@ -46,7 +47,7 @@ class Fachbelegung {
                 continue;
             }
             // M oder S ohne dass hier wählbar ist
-            if (['M','S'].includes(bel_neu) && !this.istWaehlbar(halbjahr)) {
+            if (['M', 'S'].includes(bel_neu) && !this.istWaehlbar(halbjahr)) {
                 bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
@@ -152,12 +153,22 @@ class Fachbelegung {
 
     /**
      * Prüft ob das Fach vom Starthalbjahr (incl) bis Endhalbjahr (excl) belegt war
-     * @param {Integer} starthj (inklusive)
-     * @param {Integer} endhj (exklusive)
+     * @param {Integer} starthj Starthalbjahr (inklusive)
+     * @param {Integer} endhj Endhalbjahr (exklusive)
      * @returns true wenn das Fach in der Zeit belegt ist
      */
-    istBelegt(starthj,endhj) {
-        return this.belegung.slice(starthj,endhj).every((e) => {return e!="";});
+    istBelegt(starthj, endhj) {
+        return this.belegung.slice(starthj, endhj).every((e) => { return e != ""; });
+    }
+
+    /**
+     * Prüft ob das Fach vom Starthalbjahr (incl) bis Endhalbjahr (excl) SCHRIFTLICH belegt ist
+     * @param {Integer} starthj Starthalbjahr (inklusive)
+     * @param {Integer} endhj Endhalbjahr (exklusive)
+     * @returns true wenn das Fach in der Zeit SCHRIFTLICH (S oder LK) belegt ist
+     */
+    istSchriftlichBelegt(starthj, endhj) {
+        return this.belegung.slice(starthj, endhj).every((e) => { return e == "S" || e == "LK"; });
     }
 
     /**
@@ -275,6 +286,15 @@ class Fachbelegung {
         if (typeof (jsonObj.istFFSSekI) === 'boolean') {
             debug_info("json:", jsonObj.istFFSSekI);
             neueBlg.istFFSSekI = jsonObj.istFFSSekI;
+        }
+
+        //ist BiliSachfach
+        if (typeof (jsonObj.istBili) === 'boolean') {
+            neueBlg.istBili = jsonObj.istBili;
+        } else { //Konvertierung von alten JSON-Files, die diesen Boolean noch nicht hatten
+            if (["GEE", "EKE", "BIE"].includes(jsonObj.kuerzel)) {
+                neueBlg.istBili = true;
+            }
         }
 
         return neueBlg;

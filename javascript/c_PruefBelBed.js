@@ -14,9 +14,13 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "M"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "SP"));
         bericht += this.ergaenzeBericht(this.pruefeReligionOderErsatzfach(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeEineFS(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeFSSekI(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
+        bericht += this.ergaenzeBericht(this.pruefeZweiNaWiOderZweiFS(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeKuMu(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeZweiMalDMFSunterAbifaechern(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeVierAbiturfaecherIn3Aufgabenfeldern(wahlbogen));
         bericht += this.pruefeVerboteneFachKombinationen(wahlbogen);
@@ -75,9 +79,9 @@ class PruefeBelegungsBedingungen {
         const religionsKuerzel = ["KR", "ER"];
         let relFaecher = religionsKuerzel.map((k) => { return wahlbogen.getFachMitKuerzel(k); });
         relFaecher.filter((f) => { return f != null; });
-        console.dir("relFaecher", relFaecher);
+        //console.dir("relFaecher", relFaecher);
         let relBelegungen = relFaecher.map((f) => { return f.belegung; });
-        console.dir("relBelegungen", relBelegungen);
+        //console.dir("relBelegungen", relBelegungen);
         let gesamtbelegung = this.mergeBelegungen(relBelegungen);
 
         if (gesamtbelegung.slice(0, 4).every((b) => { return b != ''; })) return ""; //Reli ist normal belegt
@@ -88,11 +92,11 @@ class PruefeBelegungsBedingungen {
             if (gesamtbelegung.slice(0, 4).every((b) => { return b != ''; })) {
                 //PP ist Ersatzfach
                 // 3. Ist Philosophie die einzig durchgehende Gesellschaftswissenschaft
-                if (pp.istBelegt(0,6)) { // könnte einzige GeWi sein
-                    let gewis = wahlbogen.fachbelegungen.filter((f) => {return f.faecherGruppe.startsWith("FG2");});
+                if (pp.istBelegt(0, 6)) { // könnte einzige GeWi sein
+                    let gewis = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe.startsWith("FG2"); });
                     //Alle durchgehend belegte Gesellschaftswissenschaften außer PP 
-                    gewis = gewis.filter((f) => {return f.statKuerzel != "PP";})
-                    .filter((e) => {return e.istBelegt(0,6);});
+                    gewis = gewis.filter((f) => { return f.statKuerzel != "PP"; })
+                        .filter((e) => { return e.istBelegt(0, 6); });
                     if (gewis.length > 0) {
                         return ""; // es gibt noch eine andere
                     }
@@ -106,6 +110,107 @@ class PruefeBelegungsBedingungen {
             "EF.1 bis Q2.2 durchgehend belegte Gesellschaftswissenschaft ist. " +
             "In diesem Fall muss ein weiteres Fach der Gesellschaftswissenschaften " +
             "als Religionsersatz dienen.";
+    }
+
+    /**
+     * prueft ob zwei Naturwissenschaften oder zwei Fremdsprachen durchgehend belegt wurden
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder String mit Fehlerbeschreibung
+     */
+    static pruefeZweiNaWiOderZweiFS(wahlbogen) {
+        //Alle Fremdsprachen, die durchgehend belegt sind
+        let fs = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe === "FG1FS" || f.istBili; })
+            .filter((e) => { return e.istBelegt(0, 6); });
+        //Alle NaWis außer Mathe, die durchgehend belegt sind
+        let nawi = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe.startsWith("FG3"); })
+            .filter((f) => { return f.statKuerzel != "M"; })
+            .filter((e) => { return e.istBelegt(0, 6); });
+        if (fs.length >= 2 || nawi.length >= 2) {
+            //Schriftlichkeit  prüfen
+            if (fs.filter((f) => { return f.istSchriftlichBelegt(0, 5); }).length >= 2 ||
+                nawi.filter((f) => { return f.istSchriftlichBelegt(0, 5); }).length >= 1) {
+                return "";
+            }
+        }
+        return "Es müssen durchgehend zwei Naturwissenschaften oder zwei "
+            + "Fremdsprachen belegt werden, hierbei ist eine Naturwissenschaft "
+            + "oder zwei Fremdsprachen schriftlich zu belegen "
+            + "(zu den Fremdsprachen zählen auch in einer weiteren Fremdsprache "
+            + "unterrichtete Sachfächer)";
+    }
+
+    /**
+     * Prüfung auf: Mindestens eines der Fächer Kunst oder Musik muss von EF.1 bis 
+     * wenigstens Q1.2 durchgehend belegt werden. In der Q-Phase kann auch alternativ
+     * Literatur, VP oder IP belegt werden
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder Fehlertext
+     */
+    static pruefeKuMu(wahlbogen) {
+        //Prüfe Ku oder Mu in der EF
+        let kumu = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe === "FG1KuMu" && e.istBelegt(0, 1); })
+        if (kumu.length > 0) {
+            //Q1 prüfen
+            kumu = wahlbogen.fachbelegungen.filter((e) => { return ["KU", "MU", "LI", "VP", "IP"].includes(e.statKuerzel); })
+                .filter((e) => { return e.istBelegt(2, 4); });
+            if (kumu.length > 0) return ""; //alles gut
+        }
+
+        return "Mindestens eines der Fächer Kunst oder Musik muss von EF.1 "
+            + "bis wenigstens Q1.2 durchgehend belegt werden. In der Q-Phase "
+            + "kann auch alternativ Literatur, Vokalpraxis oder "
+            + "Instrumentalpraxis belegt werden";
+    }
+
+    /**
+     * Prüfung auf: Mindestens eine Fremdsprache muss von EF.1 bis Q2.2 
+     * durchgehend belegt werden. Handelt es sich um eine neu ensetzende 
+     * Fremdsprache, so muss zusätzich mindestens aus der Sekundarstufe I
+     * fortgeführte Fremdsprache von EF.1 bis EF.2 belegt werden 
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder String mit Fehlermeldung
+     */
+    static pruefeEineFS(wahlbogen) {
+        // belegte Fremdsprachen
+        let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith("FG1FS"); })
+            .filter((e) => { return e.istBelegt(0, 1); });
+        if (fs.filter((e) => { return e.istBelegt(0, 6); }).length > 0) {
+            //es gibt mind. eine durchgehend belegte Fremdsprache
+            // prüfung: in EF gibt es eine fortgeführte Fremdsprache
+            if (fs.filter((e) => { return e.istFFS && e.istBelegt(0, 2); }).length > 0) {
+                return ""; // alles gut
+            }
+        }
+
+        return "Mindestens eine Fremdsprache muss von EF.1 bis Q2.2 durchgehend "
+            + "belegt werden. Handelt es sich um eine neu ensetzende Fremdsprache, "
+            + "so muss zusätzich mindestens aus der Sekundarstufe I fortgeführte "
+            + "Fremdsprache von EF.1 bis EF.2 belegt werden";
+    }
+
+    /**
+     * Prüfung auf Bei fehlender zweiter Fremdsprache muss eine neueinsetzende 
+     * Fremdsprache durchgehend schriftlich belegt werden
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder Fehlerbeschreibung
+     */
+    static pruefeFSSekI(wahlbogen) {
+        let ffs = wahlbogen.fachbelegungen.filter((e) => { return e.istFFSSekI; });
+        if (ffs.length >= 2) {
+            return ""; // zwei Fremdsprachen in der Sek I belegt - alles gut
+        }
+        if (ffs.length == 1) {
+            //nur eine fortgeführte FS aus der Sek I - prüfe ob neue durchgehend belegt
+            let neuefs = wahlbogen.fachbelegungen
+                .filter((e) => { return e.faecherGruppe.startsWith("FG1FS") && !e.istFFSSekI; })
+                .filter((e) => { return e.istSchriftlichBelegt(0,5);})
+                .filter((e) => { return e.istBelegt(5,6);});
+            if (neuefs.length > 0) {
+                return "";
+            }
+        }
+        return "Bei fehlender zweiter Fremdsprache muss eine neueinsetzende "
+            + "Fremdsprache durchgehend schriftlich belegt werden";
     }
 
     /**

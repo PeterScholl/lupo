@@ -65,9 +65,10 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG1D",
-      "abifach": 1,
+      "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Englisch",
@@ -132,9 +133,10 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG1FS",
-      "abifach": 4,
+      "abifach": 0,
       "istFFS": true,
-      "istFFSSekI": true
+      "istFFSSekI": true,
+      "istBili": false
     },
     {
       "bezeichnung": "Latein",
@@ -201,7 +203,8 @@
       "faecherGruppe": "FG1FS",
       "abifach": 0,
       "istFFS": true,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Französisch",
@@ -268,7 +271,8 @@
       "faecherGruppe": "FG1FS",
       "abifach": 0,
       "istFFS": true,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Spanisch",
@@ -335,7 +339,8 @@
       "faecherGruppe": "FG1FS",
       "abifach": 0,
       "istFFS": true,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Spanisch ab EF",
@@ -402,7 +407,8 @@
       "faecherGruppe": "FG1FS",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Kunst",
@@ -469,7 +475,8 @@
       "faecherGruppe": "FG1KuMu",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Musik",
@@ -536,7 +543,8 @@
       "faecherGruppe": "FG1KuMu",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Literatur",
@@ -585,7 +593,8 @@
       "faecherGruppe": "FG1KuMu",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Geschichte",
@@ -656,7 +665,8 @@
       "faecherGruppe": "FG2",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Geschichte Englisch",
@@ -721,7 +731,8 @@
       "faecherGruppe": "FG2",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": true
     },
     {
       "bezeichnung": "Sozialwissenschaften",
@@ -790,7 +801,8 @@
       "faecherGruppe": "FG2",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Geographie",
@@ -851,13 +863,16 @@
           false,
           false
         ],
-        "vorgaengerFaecher": ["EKE"],
+        "vorgaengerFaecher": [
+          "EKE"
+        ],
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
-      "abifach": 3,
+      "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Geographie Englisch",
@@ -914,13 +929,16 @@
           false,
           false
         ],
-        "vorgaengerFaecher": ["EK"],
+        "vorgaengerFaecher": [
+          "EK"
+        ],
         "alsAbifach": true
       },
       "faecherGruppe": "FG2",
-      "abifach": 3,
+      "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": true
     },
     {
       "bezeichnung": "Erziehungswiss.",
@@ -987,7 +1005,8 @@
       "faecherGruppe": "FG2",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Philosophie",
@@ -1057,7 +1076,8 @@
       "faecherGruppe": "FG2",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Kath. Religion",
@@ -1127,7 +1147,8 @@
       "faecherGruppe": "FG2",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Ev. Religion",
@@ -1197,7 +1218,8 @@
       "faecherGruppe": "FG2",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Mathematik",
@@ -1264,7 +1286,8 @@
       "faecherGruppe": "FG3",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Biologie",
@@ -1331,7 +1354,8 @@
       "faecherGruppe": "FG3",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Biologie Englisch",
@@ -1394,7 +1418,8 @@
       "faecherGruppe": "FG3",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": true
     },
     {
       "bezeichnung": "Chemie",
@@ -1461,7 +1486,8 @@
       "faecherGruppe": "FG3",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Physik",
@@ -1526,9 +1552,10 @@
         "alsAbifach": true
       },
       "faecherGruppe": "FG3",
-      "abifach": 2,
+      "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Informatik",
@@ -1595,7 +1622,8 @@
       "faecherGruppe": "FG3",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Sport",
@@ -1662,7 +1690,8 @@
       "faecherGruppe": "FGSp",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     },
     {
       "bezeichnung": "Projektkurs",
@@ -1711,7 +1740,8 @@
       "faecherGruppe": "FGPK",
       "abifach": 0,
       "istFFS": false,
-      "istFFSSekI": false
+      "istFFSSekI": false,
+      "istBili": false
     }
   ],
   "abiJahrgang": 2027,
