@@ -17,6 +17,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
+        bericht += this.ergaenzeBericht(this.pruefeZweiNaWiOderZweiFS(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeZweiMalDMFSunterAbifaechern(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeVierAbiturfaecherIn3Aufgabenfeldern(wahlbogen));
         bericht += this.pruefeVerboteneFachKombinationen(wahlbogen);
@@ -88,11 +89,11 @@ class PruefeBelegungsBedingungen {
             if (gesamtbelegung.slice(0, 4).every((b) => { return b != ''; })) {
                 //PP ist Ersatzfach
                 // 3. Ist Philosophie die einzig durchgehende Gesellschaftswissenschaft
-                if (pp.istBelegt(0,6)) { // könnte einzige GeWi sein
-                    let gewis = wahlbogen.fachbelegungen.filter((f) => {return f.faecherGruppe.startsWith("FG2");});
+                if (pp.istBelegt(0, 6)) { // könnte einzige GeWi sein
+                    let gewis = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe.startsWith("FG2"); });
                     //Alle durchgehend belegte Gesellschaftswissenschaften außer PP 
-                    gewis = gewis.filter((f) => {return f.statKuerzel != "PP";})
-                    .filter((e) => {return e.istBelegt(0,6);});
+                    gewis = gewis.filter((f) => { return f.statKuerzel != "PP"; })
+                        .filter((e) => { return e.istBelegt(0, 6); });
                     if (gewis.length > 0) {
                         return ""; // es gibt noch eine andere
                     }
@@ -106,6 +107,33 @@ class PruefeBelegungsBedingungen {
             "EF.1 bis Q2.2 durchgehend belegte Gesellschaftswissenschaft ist. " +
             "In diesem Fall muss ein weiteres Fach der Gesellschaftswissenschaften " +
             "als Religionsersatz dienen.";
+    }
+
+    /**
+     * prueft ob zwei Naturwissenschaften oder zwei Fremdsprachen durchgehend belegt wurden
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder String mit Fehlerbeschreibung
+     */
+    static pruefeZweiNaWiOderZweiFS(wahlbogen) {
+        //Alle Fremdsprachen, die durchgehend belegt sind
+        let fs = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe === "FG1FS" || f.istBili; })
+            .filter((e) => { return e.istBelegt(0, 6); });
+        //Alle NaWis außer Mathe, die durchgehend belegt sind
+        let nawi = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe.startsWith("FG3"); })
+            .filter((f) => { return f.statKuerzel != "M"; })
+            .filter((e) => { return e.istBelegt(0, 6); });
+        if (fs.length >= 2 || nawi.length >= 2) {
+            //Schriftlichkeit  prüfen
+            if (fs.filter((f) => { return f.istSchriftlichBelegt(0, 5); }).length >= 2 ||
+                nawi.filter((f) => { return f.istSchriftlichBelegt(0, 5); }).length >= 1) {
+                return "";
+            }
+        }
+        return "Es müssen durchgehend zwei Naturwissenschaften oder zwei "
+            + "Fremdsprachen belegt werden, hierbei ist eine Naturwissenschaft "
+            + "oder zwei Fremdsprachen schriftlich zu belegen "
+            + "(zu den Fremdsprachen zählen auch in einer weiteren Fremdsprache "
+            + "unterrichtete Sachfächer)";
     }
 
     /**

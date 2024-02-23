@@ -60,6 +60,7 @@ class Wahlbogen {
         let gee = this.getFachMitKuerzel('GEE');
         gee.statKuerzel = "GE";
         gee.belegungsBed.vorgaengerFaecher.push('GE');
+        gee.istBili = true;
         // Sozialwissenschaften
         this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "FG2");
         let sw = this.getFachMitKuerzel('SW');
@@ -71,6 +72,7 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Geographie Englisch", "EKE", ['', '', '', '', '', ''], "FG2");
         let eke= this.getFachMitKuerzel ('EKE');
         eke.statKuerzel= "EK";
+        eke.istBili = true;
         // Pädagogik
         this.addFachToFachbelegungen("Erziehungswiss.", "PA", ['', '', '', '', '', ''], "FG2");
         // Philosophie
@@ -93,6 +95,7 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Biologie Englisch", "BIE", ['', '', '', '', '', ''], "FG3");
         let bie= this.getFachMitKuerzel ('BIE');
         bie.statKuerzel= "BI";
+        bie.istBili = true;
         // Chemie
         this.addFachToFachbelegungen("Chemie", "CH", ['', '', '', '', '', ''], "FG3");
         // Physik
