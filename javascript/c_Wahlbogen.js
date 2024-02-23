@@ -318,6 +318,6 @@ class Wahlbogen {
     setzeStandardwerteFuerVertiefungskurs(fach) {
         fach.statKuerzel = "VX";
         fach.belegungsBed.wahlarten = [["M"], ["M"], [], [], [], []];
-        fach.stundenzahlen = [2, 2, 2, 2, 2, 2];
+        fach.belegungsBed.stundenzahlen = [2, 2, 2, 2, 2, 2];
     }
 }
