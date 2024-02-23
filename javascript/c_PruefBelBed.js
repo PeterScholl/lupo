@@ -14,6 +14,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "M"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "SP"));
         bericht += this.ergaenzeBericht(this.pruefeReligionOderErsatzfach(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeEineFS(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
@@ -158,6 +159,32 @@ class PruefeBelegungsBedingungen {
         + "bis wenigstens Q1.2 durchgehend belegt werden. In der Q-Phase "
         + "kann auch alternativ Literatur, Vokalpraxis oder "
         + "Instrumentalpraxis belegt werden";
+    }
+
+    /**
+     * Prüfung auf: Mindestens eine Fremdsprache muss von EF.1 bis Q2.2 
+     * durchgehend belegt werden. Handelt es sich um eine neu ensetzende 
+     * Fremdsprache, so muss zusätzich mindestens aus der Sekundarstufe I
+     * fortgeführte Fremdsprache von EF.1 bis EF.2 belegt werden 
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder String mit Fehlermeldung
+     */
+    static pruefeEineFS(wahlbogen) {
+        // belegte Fremdsprachen
+        let fs = wahlbogen.fachbelegungen.filter((e) => {return e.faecherGruppe.startsWith("FG1FS");})
+        .filter((e) => {return e.istBelegt(0,1);});
+        if (fs.filter((e) => {return e.istBelegt(0,6);}).length>0) {
+            //es gibt mind. eine durchgehend belegte Fremdsprache
+            // prüfung: in EF gibt es eine fortgeführte Fremdsprache
+            if (fs.filter((e) => {return e.istFFS && e.istBelegt(0,2);}).length > 0) {
+                return ""; // alles gut
+            }
+        }
+
+        return "Mindestens eine Fremdsprache muss von EF.1 bis Q2.2 durchgehend "
+        + "belegt werden. Handelt es sich um eine neu ensetzende Fremdsprache, "
+        + "so muss zusätzich mindestens aus der Sekundarstufe I fortgeführte "
+        + "Fremdsprache von EF.1 bis EF.2 belegt werden";
     }
 
     /**
