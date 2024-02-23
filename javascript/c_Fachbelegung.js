@@ -153,8 +153,8 @@ class Fachbelegung {
 
     /**
      * Prüft ob das Fach vom Starthalbjahr (incl) bis Endhalbjahr (excl) belegt war
-     * @param {Integer} starthj (inklusive)
-     * @param {Integer} endhj (exklusive)
+     * @param {Integer} starthj Starthalbjahr (inklusive)
+     * @param {Integer} endhj Endhalbjahr (exklusive)
      * @returns true wenn das Fach in der Zeit belegt ist
      */
     istBelegt(starthj, endhj) {
@@ -163,8 +163,8 @@ class Fachbelegung {
 
     /**
      * Prüft ob das Fach vom Starthalbjahr (incl) bis Endhalbjahr (excl) SCHRIFTLICH belegt ist
-     * @param {Integer} starthj (inklusive)
-     * @param {Integer} endhj (exklusive)
+     * @param {Integer} starthj Starthalbjahr (inklusive)
+     * @param {Integer} endhj Endhalbjahr (exklusive)
      * @returns true wenn das Fach in der Zeit SCHRIFTLICH (S oder LK) belegt ist
      */
     istSchriftlichBelegt(starthj, endhj) {

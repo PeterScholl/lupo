@@ -18,6 +18,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
         bericht += this.ergaenzeBericht(this.pruefeZweiNaWiOderZweiFS(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeKuMu(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeZweiMalDMFSunterAbifaechern(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeVierAbiturfaecherIn3Aufgabenfeldern(wahlbogen));
         bericht += this.pruefeVerboteneFachKombinationen(wahlbogen);
@@ -76,9 +77,9 @@ class PruefeBelegungsBedingungen {
         const religionsKuerzel = ["KR", "ER"];
         let relFaecher = religionsKuerzel.map((k) => { return wahlbogen.getFachMitKuerzel(k); });
         relFaecher.filter((f) => { return f != null; });
-        console.dir("relFaecher", relFaecher);
+        //console.dir("relFaecher", relFaecher);
         let relBelegungen = relFaecher.map((f) => { return f.belegung; });
-        console.dir("relBelegungen", relBelegungen);
+        //console.dir("relBelegungen", relBelegungen);
         let gesamtbelegung = this.mergeBelegungen(relBelegungen);
 
         if (gesamtbelegung.slice(0, 4).every((b) => { return b != ''; })) return ""; //Reli ist normal belegt
@@ -134,6 +135,29 @@ class PruefeBelegungsBedingungen {
             + "oder zwei Fremdsprachen schriftlich zu belegen "
             + "(zu den Fremdsprachen zählen auch in einer weiteren Fremdsprache "
             + "unterrichtete Sachfächer)";
+    }
+
+    /**
+     * Prüfung auf: Mindestens eines der Fächer Kunst oder Musik muss von EF.1 bis 
+     * wenigstens Q1.2 durchgehend belegt werden. In der Q-Phase kann auch alternativ
+     * Literatur, VP oder IP belegt werden
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder Fehlertext
+     */
+    static pruefeKuMu(wahlbogen) {
+        //Prüfe Ku oder Mu in der EF
+        let kumu = wahlbogen.fachbelegungen.filter((e) => {return e.faecherGruppe === "FG1KuMu" && e.istBelegt(0,1);})
+        if (kumu.length > 0) {
+            //Q1 prüfen
+            kumu = wahlbogen.fachbelegungen.filter((e) => {return ["KU","MU","LI","VP","IP"].includes(e.statKuerzel);})
+            .filter((e) => {return e.istBelegt(2,4);});
+            if (kumu.length > 0) return ""; //alles gut
+        }
+
+        return "Mindestens eines der Fächer Kunst oder Musik muss von EF.1 "
+        + "bis wenigstens Q1.2 durchgehend belegt werden. In der Q-Phase "
+        + "kann auch alternativ Literatur, Vokalpraxis oder "
+        + "Instrumentalpraxis belegt werden";
     }
 
     /**
