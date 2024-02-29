@@ -449,4 +449,31 @@ class PruefeBelegungsBedingungen {
         });
         return gesamtbelegung;
     }
+
+    /**
+     * setzt die S,M-Belegung in Q2.2 entsprechend des Abifaches
+     * @param {*} wahlbogen 
+     */
+    static setzeQ2_2SMEntsprAbifach(wahlbogen) {
+        wahlbogen.fachbelegungen.forEach((e) =>
+        {
+            PruefeBelegungsBedingungen.pruefeFachbelQ2_2_SOderM(e);
+        })
+    }
+
+    /**
+     * prueft fuer dieses Fach ob die Belegung in Q2.2 nur
+     * im dritten Abifach schriftlich ist.
+     * @param {Fachbelegung} fach 
+     */
+    static pruefeFachbelQ2_2_SOderM(fach) {
+        if (fach != null && fach.belegung[5] != '' && ["S", "M"].includes(fach.belegung[5])) {
+            //Fach ist in Q2.2 belegt und entweder S oder M
+            if (fach.abifach === 3) { //drittes Abifach
+                fach.belegung[5] = 'S';
+            } else {
+                fach.belegung[5] = 'M';
+            }
+        }
+    }
 }

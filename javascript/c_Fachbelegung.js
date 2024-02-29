@@ -77,6 +77,7 @@ class Fachbelegung {
                 this.belegung[folgeHalbjahr] = bel_neu;
                 folgeHalbjahr++;
             }
+            PruefeBelegungsBedingungen.pruefeFachbelQ2_2_SOderM(this);
         }
         if (this.istLK()) { // Dieses Fach ist jetzt LK
             Controller.getInstance().wahlbogen.setzeLKAbifachNr();

@@ -194,6 +194,9 @@ class Wahlbogen {
                 diesesFach.abifach = 3;
             }
         }
+        [abi3,abi4,diesesFach].forEach(element => {
+            PruefeBelegungsBedingungen.pruefeFachbelQ2_2_SOderM(element);
+        });
     }
 
     /**
@@ -260,6 +263,7 @@ class Wahlbogen {
      */
     hochschreibenVon(halbjahr) {
         this.fachbelegungen.forEach((f) => { f.hochschreibenVon(halbjahr); });
+        PruefeBelegungsBedingungen.setzeQ2_2SMEntsprAbifach(this)
     }
 
     /**
