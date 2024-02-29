@@ -40,6 +40,17 @@ class PruefeBelegungsBedingungen {
     }
 
     /**
+     * ruft alle prgrammierten Informationen auf erstellt einen Gesamtbericht
+     * @param {*} wahlbogen 
+     */
+    static pruefeAlleInfoBed(wahlbogen) {
+        let bericht = "";
+        bericht += this.ergaenzeBericht(this.pruefeStundenbandbreite(wahlbogen));
+        return bericht;
+
+    }
+
+    /**
      * funktion die beim Ergänzen des Berichts mittels den einzelnen Prüfmethoden ein
      * HTML-Span-Tag drum herum setzt - dies ermöglicht ggf. auch, dass man die
      * Ergebnisse anklicken kann
@@ -203,8 +214,8 @@ class PruefeBelegungsBedingungen {
             //nur eine fortgeführte FS aus der Sek I - prüfe ob neue durchgehend belegt
             let neuefs = wahlbogen.fachbelegungen
                 .filter((e) => { return e.faecherGruppe.startsWith("FG1FS") && !e.istFFSSekI; })
-                .filter((e) => { return e.istSchriftlichBelegt(0,5);})
-                .filter((e) => { return e.istBelegt(5,6);});
+                .filter((e) => { return e.istSchriftlichBelegt(0, 5); })
+                .filter((e) => { return e.istBelegt(5, 6); });
             if (neuefs.length > 0) {
                 return "";
             }
@@ -429,5 +440,18 @@ class PruefeBelegungsBedingungen {
             });
         });
         return gesamtbelegung;
+    }
+    /**
+     * prüft für jedes Halbjahr ob die Stundenbandbreite zwischen 32 und 36 liegt
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder String mit Fehlerinfo
+     */
+    static pruefeStundenbandbreite(wahlbogen) {
+        if ([0, 1, 2, 3, 4, 5].some((hj) => {
+            return (wahlbogen.getStundenFuershalbjahr(hj) < 32 || wahlbogen.getStundenFuershalbjahr(hj) > 36);
+        })) {
+            return "Die Stundenbandbreite sollte pro Halbjahr 32 bis 36 Stunden betragen, um eine gleichmäßige Stundenbelastung zu gewährleisten";
+        }
+        return "";
     }
 }
