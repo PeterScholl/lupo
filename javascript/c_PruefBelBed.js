@@ -35,7 +35,7 @@ class PruefeBelegungsBedingungen {
     static pruefeAlleKlausurBed(wahlbogen) {
         let bericht = "";
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeFSschriftlich(wahlbogen));
-        bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftoderReligionSchriftlich(wahlbogen));
         return bericht;
     }
 
@@ -328,16 +328,16 @@ class PruefeBelegungsBedingungen {
     }
 
     /**
-     * prueft ob eine durchgehend belegte Gesellschaftswissensvchaft von EF.1 bis Q2.1 schriftlich belegt ist
+     * prueft ob eine durchgehend belegte Gesellschaftswissenschaft oder Religionslehre von EF.1 bis Q2.1 schriftlich belegt ist
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehlertext oder Leertext
      */
-    static pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen) {
+    static pruefeEineDurchgehendeGesellschaftswissenschaftoderReligionSchriftlich(wahlbogen) {
         let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith("FG2"); })
             .filter((e) => { return this.istFachDurchgehendBelegtVonBis(e, 0, 5); })
             .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 2, 4) });
         if (fs.length == 0) {
-            return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft muss von Q1.1 bis Q2.1 schriftlich belegt sein.";
+            return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft oder Religionslehre muss von Q1.1 bis Q2.1 schriftlich belegt sein.";
         }
         return "";
     }
