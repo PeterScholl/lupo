@@ -9,7 +9,8 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeAlle(wahlbogen) {
         let bericht = "";
-        //bericht += this.ergaenzeBericht(this.pruefeQ7KurseImHalbjahr(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeQPhasezweiLKS(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeQ7KurseImHalbjahr(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeStundenanzahlunter102(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeQDurschnittWstunden34(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeEFDurschnittWstunden34(wahlbogen));
@@ -308,7 +309,7 @@ class PruefeBelegungsBedingungen {
     /**
      * prüft ob die Anzahl aller Stunden mindestens 102 beträgt
      * @param {Wahlbogen} wahlbogen 
-     * @returns STring mit dem Fehler wenn nötig
+     * @returns String mit dem Fehler wenn nötig
      */
     static pruefeStundenanzahlunter102(wahlbogen){
         let Stundenzahl = 0;
@@ -316,8 +317,9 @@ class PruefeBelegungsBedingungen {
         Stundenzahl += wahlbogen.getStundenFuershalbjahr(i);
         }
         if (Stundenzahl < 102){
-            return "Der Pflichtunterricht darf 102 Stunden nicht unterschreiten"
-        }        
+            return "Der Pflichtunterricht darf 102 Stunden nicht unterschreiten";
+        }   else
+        return "";       
     }
     /**
      * prüft ob in der Qualifikationsphase in jedem Halbjahr mindestens 7 Grundkurse belegt werden
@@ -358,4 +360,21 @@ class PruefeBelegungsBedingungen {
         }
         return "";
     }
+    /**
+     * prüft ob in der Qualifikationsphase zwei Fächer durchgehend als LKs belegt sind
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Fehler wenn nötig
+     */
+    static pruefeQPhasezweiLKS(wahlbogen) {
+        let LKS = 0;
+        wahlbogen.fachbelegungen.forEach((fach) => {
+            if (fach.belegung[2] == 'LK' && fach.belegung[3] == 'LK' && fach.belegung[4] == 'LK' && fach.belegung[5] == 'LK')
+                LKS += 1;
+        });
+        if (LKS != 2){
+            return "In der Q-Phase müssen zwei Fächer durchgehend in LKs belegt werden"
+        } else
+        return "";
+    }
+    
 }
