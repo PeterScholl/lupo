@@ -36,6 +36,7 @@ class PruefeBelegungsBedingungen {
         let bericht = "";
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeFSschriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftoderReligionSchriftlich(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeKlassischeNawiInEFschriftlich(wahlbogen));
         return bericht;
     }
 
@@ -139,7 +140,7 @@ class PruefeBelegungsBedingungen {
         if (fs.length >= 2 || nawi.length >= 2) {
             //Schriftlichkeit  prüfen
             if (fs.filter((f) => { return f.istSchriftlichBelegt(0, 5); }).length >= 2 ||
-                nawi.filter((f) => { return f.istSchriftlichBelegt(0, 5); }).length >= 1) {
+                nawi.filter((f) => { return f.istSchriftlichBelegt(2, 5); }).length >= 1) {
                 return "";
             }
         }
@@ -339,6 +340,24 @@ class PruefeBelegungsBedingungen {
     }
 
     /**
+     * prueft ob in EF.1 und EF.2 eine klassische Naturwissenschaft (FG3 nicht M oder IF)
+     * schriftlich belegt ist   
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder Fehlertext
+     */
+    static pruefeKlassischeNawiInEFschriftlich(wahlbogen) {
+        let kNaWi = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe === "FG3"; })
+        .filter((e) => { return e.statKuerzel != 'M' && e.statKuerzel != 'IF';});
+        if (kNaWi.some((e) => {return e.belegung[0] === 'S';})) { //in EF.1 eine schriftlich
+            if (kNaWi.some((e) => {return e.belegung[1] === 'S';})) { // in EF.2 auch eine S
+                return ""; //alles gut
+            }
+        }
+        return "In EF.1 und EF.2 muss mindestens eine klassische Naturwissenschaft schriftlich belegt sein."
+
+    }
+
+    /**
      * prueft ob eine durchgehend belegte Gesellschaftswissenschaft oder Religionslehre von EF.1 bis Q2.1 schriftlich belegt ist
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehlertext oder Leertext
@@ -441,6 +460,7 @@ class PruefeBelegungsBedingungen {
         });
         return gesamtbelegung;
     }
+  
     /**
      * prüft für jedes Halbjahr ob die Stundenbandbreite zwischen 32 und 36 liegt
      * @param {Wahlbogen} wahlbogen 
@@ -453,5 +473,32 @@ class PruefeBelegungsBedingungen {
             return "Die Stundenbandbreite sollte pro Halbjahr 32 bis 36 Stunden betragen, um eine gleichmäßige Stundenbelastung zu gewährleisten";
         }
         return "";
+    }
+
+    /**
+     * setzt die S,M-Belegung in Q2.2 entsprechend des Abifaches
+     * @param {*} wahlbogen 
+     */
+    static setzeQ2_2SMEntsprAbifach(wahlbogen) {
+        wahlbogen.fachbelegungen.forEach((e) =>
+        {
+            PruefeBelegungsBedingungen.pruefeFachbelQ2_2_SOderM(e);
+        })
+    }
+
+    /**
+     * prueft fuer dieses Fach ob die Belegung in Q2.2 nur
+     * im dritten Abifach schriftlich ist.
+     * @param {Fachbelegung} fach 
+     */
+    static pruefeFachbelQ2_2_SOderM(fach) {
+        if (fach != null && fach.belegung[5] != '' && ["S", "M"].includes(fach.belegung[5])) {
+            //Fach ist in Q2.2 belegt und entweder S oder M
+            if (fach.abifach === 3) { //drittes Abifach
+                fach.belegung[5] = 'S';
+            } else {
+                fach.belegung[5] = 'M';
+            }
+        }
     }
 }
