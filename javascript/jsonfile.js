@@ -24,8 +24,13 @@ function downloadJSON(wahlbogen) {
     let url = URL.createObjectURL(blob);
     let a = document.createElement('a');
     a.href = url;
-    a.download = 'wahlbogen.json';
+    if (typeof(wahlbogen.name) === 'string' && wahlbogen.name != "") {
 
+        a.download = 'wb_'+(wahlbogen.name.substring(0,20)+"_"+wahlbogen.vorname).substring(0,20)+'.json';
+    } else {
+        a.download = 'wahlbogen.json';
+    }
+    
     // Klicken Sie auf den Link, um das Herunterladen zu initiieren
     // NOTE: Alternativ Modal anzeigen und den Benutzer auf den Link klicken lassen mit
     //       dem Vorteil, dass man den Dateinamen auswählen/ändern kann
