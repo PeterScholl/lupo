@@ -252,6 +252,7 @@ class Controller {
                 fach.abwaehlen();
             }
             this.redrawZeile(clickedObjectID);
+            this.drawBelegungsverpflichtungen();
             this.drawStundenzahlen();
         }
     }
@@ -478,15 +479,12 @@ class Controller {
             //Es wurde in die Abifachzelle geklickt
             const gewKrz = obj.target.parentNode.id; // id des Parent Node <tr> ist das FachKürzel
             //console.log("Angeklicktes Abifach: ", gewKrz);
+            //alte Abifaecher fuer neu zeichnen speichern
+            let aktAbifaecher = this.wahlbogen.fachbelegungen.filter((f) => {return f.abifach > 2;});
             this.wahlbogen.aendereAbifach(gewKrz);
             this.redrawZeile(gewKrz);
-            //ggf. Abi3 und Abifach 4 neu zeichnen
-            [3, 4].forEach(el => {
-                let abif = this.wahlbogen.gibAbifach(el);
-                if (abif != null && abif.kuerzel != gewKrz) {
-                    this.redrawZeile(abif.kuerzel);
-                }
-            });
+            //ggf. alte Abifächer neu zeichnen
+            aktAbifaecher.forEach((f) => {return this.redrawZeile(f.kuerzel);});
             this.drawBelegungsverpflichtungen();
         } else {
             debug_info("Angeklicktes Objekt: ", obj.target)
