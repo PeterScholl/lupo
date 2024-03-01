@@ -184,7 +184,7 @@ class Fachbelegung {
                 found = true;
             }
         }
-        if (this.belegung[5] == '') {
+        if (this.belegung[5] == '' && this.abifach != 0) {
             this.abifach = 0;
             found = true;
         }
