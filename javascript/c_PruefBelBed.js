@@ -35,9 +35,20 @@ class PruefeBelegungsBedingungen {
     static pruefeAlleKlausurBed(wahlbogen) {
         let bericht = "";
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeFSschriftlich(wahlbogen));
-        bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftoderReligionSchriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeKlassischeNawiInEFschriftlich(wahlbogen));
         return bericht;
+    }
+
+    /**
+     * ruft alle prgrammierten Informationen auf erstellt einen Gesamtbericht
+     * @param {*} wahlbogen 
+     */
+    static pruefeAlleInfoBed(wahlbogen) {
+        let bericht = "";
+        bericht += this.ergaenzeBericht(this.pruefeStundenbandbreite(wahlbogen));
+        return bericht;
+
     }
 
     /**
@@ -204,8 +215,8 @@ class PruefeBelegungsBedingungen {
             //nur eine fortgeführte FS aus der Sek I - prüfe ob neue durchgehend belegt
             let neuefs = wahlbogen.fachbelegungen
                 .filter((e) => { return e.faecherGruppe.startsWith("FG1FS") && !e.istFFSSekI; })
-                .filter((e) => { return e.istSchriftlichBelegt(0,5);})
-                .filter((e) => { return e.istBelegt(5,6);});
+                .filter((e) => { return e.istSchriftlichBelegt(0, 5); })
+                .filter((e) => { return e.istBelegt(5, 6); });
             if (neuefs.length > 0) {
                 return "";
             }
@@ -347,16 +358,16 @@ class PruefeBelegungsBedingungen {
     }
 
     /**
-     * prueft ob eine durchgehend belegte Gesellschaftswissensvchaft von EF.1 bis Q2.1 schriftlich belegt ist
+     * prueft ob eine durchgehend belegte Gesellschaftswissenschaft oder Religionslehre von EF.1 bis Q2.1 schriftlich belegt ist
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehlertext oder Leertext
      */
-    static pruefeEineDurchgehendeGesellschaftswissenschaftSchriftlich(wahlbogen) {
+    static pruefeEineDurchgehendeGesellschaftswissenschaftoderReligionSchriftlich(wahlbogen) {
         let fs = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe.startsWith("FG2"); })
             .filter((e) => { return this.istFachDurchgehendBelegtVonBis(e, 0, 5); })
             .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 2, 4) });
         if (fs.length == 0) {
-            return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft muss von Q1.1 bis Q2.1 schriftlich belegt sein.";
+            return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft oder Religionslehre muss von Q1.1 bis Q2.1 schriftlich belegt sein.";
         }
         return "";
     }
@@ -448,6 +459,20 @@ class PruefeBelegungsBedingungen {
             });
         });
         return gesamtbelegung;
+    }
+  
+    /**
+     * prüft für jedes Halbjahr ob die Stundenbandbreite zwischen 32 und 36 liegt
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder String mit Fehlerinfo
+     */
+    static pruefeStundenbandbreite(wahlbogen) {
+        if ([0, 1, 2, 3, 4, 5].some((hj) => {
+            return (wahlbogen.getStundenFuershalbjahr(hj) < 32 || wahlbogen.getStundenFuershalbjahr(hj) > 36);
+        })) {
+            return "Die Stundenbandbreite sollte pro Halbjahr 32 bis 36 Stunden betragen, um eine gleichmäßige Stundenbelastung zu gewährleisten";
+        }
+        return "";
     }
 
     /**

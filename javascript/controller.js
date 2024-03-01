@@ -106,13 +106,20 @@ class Controller {
      * nachdem eine neue Überprüfung gestartet wurde
      */
     drawBelegungsverpflichtungen() {
+        //Standardbelegungsfehler
         let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
         let newdiv = document.getElementById('Belegverpflichtungen');
         //newdiv.style.overflowY="scroll";
         newdiv.classList.add('div-pruef');
         newdiv.innerHTML = bericht;
+        //Klausurbelegungen
         bericht = PruefeBelegungsBedingungen.pruefeAlleKlausurBed(this.wahlbogen);
         newdiv = document.getElementById('Klausurverpflichtungen');
+        newdiv.classList.add('div-pruef');
+        newdiv.innerHTML = bericht;
+        //Info box
+        bericht = PruefeBelegungsBedingungen.pruefeAlleInfoBed(this.wahlbogen);
+        newdiv = document.getElementById('Infos');
         newdiv.classList.add('div-pruef');
         newdiv.innerHTML = bericht;
     }
