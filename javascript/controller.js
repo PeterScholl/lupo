@@ -252,6 +252,7 @@ class Controller {
                 fach.abwaehlen();
             }
             this.redrawZeile(clickedObjectID);
+            this.drawBelegungsverpflichtungen();
             this.drawStundenzahlen();
         }
     }
