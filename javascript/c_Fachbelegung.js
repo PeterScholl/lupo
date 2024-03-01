@@ -46,8 +46,8 @@ class Fachbelegung {
                 validFound = false;
                 continue;
             }
-            // M oder S ohne dass hier wählbar ist
-            if (['M', 'S'].includes(bel_neu) && !this.istWaehlbar(halbjahr)) {
+            // M oder S ohne dass dies wählbar ist oder S in Q2.2 obwohl nicht drittes Abifach
+            if (['M', 'S'].includes(bel_neu) && (!this.istWaehlbar(halbjahr) || (halbjahr==5 && bel_neu=='S' && this.abifach != 3))) {
                 bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
@@ -122,7 +122,6 @@ class Fachbelegung {
      */
     istWaehlbar(halbjahr) {
         // Es gibt keine Wahlart
-        //debug_info("wahlarten: ",this.belegungsBed.wahlarten,"halbjahr",halbjahr);
         if (this.belegungsBed.wahlarten[halbjahr].length === 0) return false;
         // Fortgeführte Fremdsprache, die nicht in SekI belegt wurde
         if (this.istFFS && !this.istFFSSekI) return false;
