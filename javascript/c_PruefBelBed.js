@@ -37,6 +37,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeFSschriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftoderReligionSchriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeKlassischeNawiInEFschriftlich(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeObAbifaecherSchriftlich(wahlbogen));
         return bericht;
     }
 
@@ -335,6 +336,20 @@ class PruefeBelegungsBedingungen {
             .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 0, 4) });
         if (fs.length == 0) {
             return "Mindestens eine durchgehend belegte Fremdsprache muss von EF.1 bis Q2.1 schriftlich belegt sein.";
+        }
+        return "";
+    }
+
+    /**
+     * prueft ob das dritte und vierte Abifach in der Q-Phase schriftlich belegt sind
+     * @param {Wahlbogen} wahlbogen 
+     * @returns String mit dem Fehlertext oder Leertext
+     */
+    static pruefeObAbifaecherSchriftlich(wahlbogen) {
+        let fs = wahlbogen.fachbelegungen.filter((e) => { return e.abifach > 2; })
+            .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 2, 5) });
+        if (fs.length != 2) {
+            return "Das dritte und vierte Abifach müssen von der Q1.1 bis Q2.1 schrifltich belegt sein.";
         }
         return "";
     }
