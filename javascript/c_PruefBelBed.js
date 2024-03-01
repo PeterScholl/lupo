@@ -98,7 +98,7 @@ class PruefeBelegungsBedingungen {
 
         if (gesamtbelegung.slice(0, 4).every((b) => { return b != ''; })) return ""; //Reli ist normal belegt
         // 2. Ist Philosophie der Ersatz?
-        const pp = wahlbogen.getFachMitKuerzel("PP");
+        const pp = wahlbogen.getFachMitKuerzel("PL");
         if (pp != null) {
             gesamtbelegung = this.mergeBelegungen([gesamtbelegung, pp.belegung]);
             if (gesamtbelegung.slice(0, 4).every((b) => { return b != ''; })) {
@@ -107,7 +107,7 @@ class PruefeBelegungsBedingungen {
                 if (pp.istBelegt(0, 6)) { // könnte einzige GeWi sein
                     let gewis = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe.startsWith("FG2"); });
                     //Alle durchgehend belegte Gesellschaftswissenschaften außer PP 
-                    gewis = gewis.filter((f) => { return f.statKuerzel != "PP"; })
+                    gewis = gewis.filter((f) => { return f.statKuerzel != "PL"; })
                         .filter((e) => { return e.istBelegt(0, 6); });
                     if (gewis.length > 0) {
                         return ""; // es gibt noch eine andere

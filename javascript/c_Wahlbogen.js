@@ -76,17 +76,17 @@ class Wahlbogen {
         // Pädagogik
         this.addFachToFachbelegungen("Erziehungswiss.", "PA", ['', '', '', '', '', ''], "FG2");
         // Philosophie
-        this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "FG2");
-        let pp = this.getFachMitKuerzel('PP');
+        this.addFachToFachbelegungen("Philosophie", "PL", ['', '', '', '', '', ''], "FG2");
+        let pp = this.getFachMitKuerzel('PL');
         pp.belegungsBed.vorgaengerFaecher = ['KR', 'ER'];
         // Katholische Religion
         this.addFachToFachbelegungen("Kath. Religion", "KR", ['', '', '', '', '', ''], "FG2");
         let kr = this.getFachMitKuerzel('KR');
-        kr.belegungsBed.vorgaengerFaecher = ['PP', 'ER'];
+        kr.belegungsBed.vorgaengerFaecher = ['PL', 'ER'];
         // Evangelische Religion
         this.addFachToFachbelegungen("Ev. Religion", "ER", ['', '', '', '', '', ''], "FG2");
         let er = this.getFachMitKuerzel('ER');
-        er.belegungsBed.vorgaengerFaecher = ['KR', 'PP'];
+        er.belegungsBed.vorgaengerFaecher = ['KR', 'PL'];
         // Mathematik #8db4e3
         this.addFachToFachbelegungen("Mathematik", "M", ['S', '', '', '', '', ''], "FG3");
         // Biologie

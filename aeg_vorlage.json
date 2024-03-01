@@ -1010,8 +1010,8 @@
     },
     {
       "bezeichnung": "Philosophie",
-      "kuerzel": "PP",
-      "statKuerzel": "PP",
+      "kuerzel": "PL",
+      "statKuerzel": "PL",
       "belegung": [
         "",
         "",
@@ -1139,7 +1139,7 @@
           false
         ],
         "vorgaengerFaecher": [
-          "PP",
+          "PL",
           "ER"
         ],
         "alsAbifach": true
@@ -1211,7 +1211,7 @@
         ],
         "vorgaengerFaecher": [
           "KR",
-          "PP"
+          "PL"
         ],
         "alsAbifach": true
       },
