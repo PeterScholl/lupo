@@ -14,7 +14,6 @@ class Controller {
             //erster und einziger Aufruf der Initialisierung
             this.name = name;
             Controller.instance = this;
-            //TODO: Logik initialisieren
             /**
              * der "einzige" Wahlbogen
              * @type Wahlbogen
@@ -37,9 +36,10 @@ class Controller {
 
     /** init initialisiert:
         * Den Abijahrgang
-
-        * Die Tabelle...
-        TODO füllen
+        * das Modal
+        * Die Tabelle
+        * Menü und/oder Buttons
+        * die per get übergebene URL
     */
     init() {
         let self = this;
@@ -102,8 +102,8 @@ class Controller {
     }
 
     /**
-     * zeichnet das Feld Belegungsverpflichtungen neu 
-     * nachdem eine neue Überprüfung gestartet wurde
+     * zeichnet das Feld Belegungsverpflichtungen, Klausur und Infos neu 
+     * startet zuvor eine neue Überprüfung
      */
     drawBelegungsverpflichtungen() {
         //Standardbelegungsfehler
@@ -341,10 +341,8 @@ class Controller {
             }
         );
 
-        this.drawTable(); //Wahlen
-        // TODO Summen...
+        this.drawTable(); //Wahlen und Summen
         this.drawBelegungsverpflichtungen(); //Belegungsverpflichtungen
-        // TODO Infos
     }
 
     /**

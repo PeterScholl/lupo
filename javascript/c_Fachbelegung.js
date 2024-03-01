@@ -47,7 +47,7 @@ class Fachbelegung {
                 continue;
             }
             // M oder S ohne dass dies wählbar ist oder S in Q2.2 obwohl nicht drittes Abifach
-            if (['M', 'S'].includes(bel_neu) && (!this.istWaehlbar(halbjahr) || (halbjahr==5 && bel_neu=='S' && this.abifach != 3))) {
+            if (['M', 'S'].includes(bel_neu) && (!this.istWaehlbar(halbjahr) || (halbjahr == 5 && bel_neu == 'S' && this.abifach != 3))) {
                 bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
@@ -247,6 +247,9 @@ class Fachbelegung {
      * @return neue Fachbelegung
      */
     static generateFromJSONObj(jsonObj) {
+        //TODO: wegen Änderung statKuerzel und Fachkürzel - gegebenenfalls später herausnehmen
+        Fachbelegung.aendereFachUndStatKuerzelInJSONObj(jsonObj, "PP", "PL");
+
         let neueBlg = null;
         // Bezeichnung und Kürzel übernehmen
         if (typeof (jsonObj.bezeichnung) === 'string' && typeof (jsonObj.kuerzel) === 'string') {
@@ -293,6 +296,7 @@ class Fachbelegung {
         }
 
         //ist BiliSachfach
+        //TODO: gegebenenfalls später mal herausnehmen, weil nur für alte Dateien nötig
         if (typeof (jsonObj.istBili) === 'boolean') {
             neueBlg.istBili = jsonObj.istBili;
         } else { //Konvertierung von alten JSON-Files, die diesen Boolean noch nicht hatten
@@ -302,5 +306,36 @@ class Fachbelegung {
         }
 
         return neueBlg;
+    }
+
+    /**
+     * änert ein Fächerkürzel in einem jsonObj, das einer Fachbelegung! entspricht
+     * Vorkommnisse sind in vorgaengerfaecher und kuerzel, statkuerzel möglich
+     * @param {*} jsonObj welches das Fach
+     * @param {*} von String des zu ersetzenden Kürzels
+     * @param {*} nach String des Ersatzkürzels
+     * @returns das geänderte JSONObj - ändert aber auch das Original
+     */
+    static aendereFachUndStatKuerzelInJSONObj(jsonObj, von, nach) {
+        if (typeof (von) != 'string' || typeof (nach) != 'string') return jsonObj;
+        //mögliche Vorkommnisse in fachbelegungen
+        console.dir(jsonObj);
+        if (jsonObj.kuerzel === von) {
+            jsonObj.kuerzel = nach;
+        }
+        if (jsonObj.statKuerzel === von) {
+            jsonObj.statKuerzel = nach;
+        }
+
+        //mögliche Vorkommnisse in vorgaengerfächer
+        if (typeof (jsonObj.belegungsBed.vorgaengerFaecher) === 'object') {
+            jsonObj.belegungsBed.vorgaengerFaecher = jsonObj.belegungsBed.vorgaengerFaecher.map((e) => {
+                if (e === von) {
+                    return nach;
+                }
+                return e;
+            })
+        }
+        return jsonObj;
     }
 }
