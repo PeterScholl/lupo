@@ -47,7 +47,7 @@ class Controller {
 
         // Info-Modal einrichten
         const infoModalCheckbox = document.getElementById("modalGelesen");
-        debug_info("Cookie?: ",getCookie("lupo-info-read"));
+        debug_info("Cookie?: ", getCookie("lupo-info-read"));
         if (getCookie("lupo-info-read") === "true") {
             this.modalGesehen = true;
             infoModalCheckbox.checked = true;
@@ -86,6 +86,14 @@ class Controller {
         let anchors = document.querySelectorAll('.dropdown-content a');
         for (let i = 0; i < anchors.length; i++) {
             anchors[i].addEventListener("click", (obj) => this.objectClicked(obj));
+        }
+
+        //Menu anzeigen bei Click
+        let menubtn = document.querySelector('button.dropbtn');
+        let menucontent = document.querySelector('div.dropdown-content');
+        if (menubtn != null && menucontent != null) {
+            //menubtn.addEventListener("click", () => document.getElementById("dropdownMenu").classList.toggle("show"));
+            menubtn.addEventListener("click", () => menucontent.classList.toggle("show"));
         }
 
         //Prüfen ob eine Datei mit einem get-Parmeter übergeben wurde
@@ -485,11 +493,11 @@ class Controller {
             const gewKrz = obj.target.parentNode.id; // id des Parent Node <tr> ist das FachKürzel
             //console.log("Angeklicktes Abifach: ", gewKrz);
             //alte Abifaecher fuer neu zeichnen speichern
-            let aktAbifaecher = this.wahlbogen.fachbelegungen.filter((f) => {return f.abifach > 2;});
+            let aktAbifaecher = this.wahlbogen.fachbelegungen.filter((f) => { return f.abifach > 2; });
             this.wahlbogen.aendereAbifach(gewKrz);
             this.redrawZeile(gewKrz);
             //ggf. alte Abifächer neu zeichnen
-            aktAbifaecher.forEach((f) => {return this.redrawZeile(f.kuerzel);});
+            aktAbifaecher.forEach((f) => { return this.redrawZeile(f.kuerzel); });
             this.drawBelegungsverpflichtungen();
         } else {
             debug_info("Angeklicktes Objekt: ", obj.target)
@@ -497,11 +505,18 @@ class Controller {
     }
 
 
-
-
-
-
-
+    /**
+     * Funktion wechselt die Sichtbarkeit eines HTML-Elements
+     * @param {HTMLElement} element 
+     */
+    toggleDisplayBlockNone(element) {
+        console.log("toggle display of element",element);
+        if (element.style.display === "block") {
+            element.style.display = "none";
+        } else {
+            element.style.display = "block";
+        }
+    }
 }
 
 var debug = false;
@@ -509,5 +524,21 @@ let c = new Controller("Hauptcontroller");
 //Funktion init soll nach dem Laden des HTML-Docs alles Initialisieren
 //Mit Arrow-Notation (=>), damit in der Funktion auf das richtige this zugegriffen wird
 document.addEventListener("DOMContentLoaded", (event) => c.init(event));
+
+//Window onclick-Event um das Menu zu schliessen, wenn irgendwo hin geclickt wird
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        //wenn nicht auf den dropbtn geclickt wurde - menu schliessen
+        console.log("Window onclick event - target:",event.target);
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+}
 
 
