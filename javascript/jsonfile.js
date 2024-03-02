@@ -100,18 +100,7 @@ function openJSON() {
  * @param {*} dest URL des Dokuments 
  */
 function openJSONFromURL(dest) {
-    fetch(dest, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-        },
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Netzwerkantwort war nicht OK');
-            }
-            return response.json();
-        }).then(response => parseJSONObjToWahlbogen(response))
+    wahlbogenFromJSONURL(dest)
         .then(response => { Controller.getInstance().wahlbogen=response; Controller.getInstance().redraw(); })
         .catch(error => {
             // Hier wird der Fehler behandelt
@@ -123,6 +112,20 @@ function openJSONFromURL(dest) {
         });
 
         //Hier Controller.getInstance().wahlbogen = response
+}
+
+async function wahlbogenFromJSONURL(dest) {
+    const response = await fetch(dest, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error('Netzwerkantwort war nicht OK');
+    }
+    const response_1 = await response.json();
+    return parseJSONObjToWahlbogen(response_1);
 }
 
 /**

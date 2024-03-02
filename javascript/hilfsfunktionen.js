@@ -8,7 +8,7 @@ function getUrlParam(name) {
 }
 
 function debug_info(out) {
-    if (debug) {
+    if (typeof (debug) === 'bolean' && debug) {
         console.log(out);
     }
 }
@@ -46,3 +46,39 @@ function getCookie(cname) {
     }
     return "";
 }
+
+// ****** Funktionen zum Vergleich ******
+const isDeepEqual = (object1, object2) => {
+
+    const objKeys1 = Object.keys(object1);
+    const objKeys2 = Object.keys(object2);
+  
+    if (objKeys1.length !== objKeys2.length) {
+        console.log("Lenght of Objekt differs",JSON.stringify(object1));
+        return false;
+    }
+  
+    for (var key of objKeys1) {
+      const value1 = object1[key];
+      const value2 = object2[key];
+  
+      const isObjects = isObject(value1) && isObject(value2);
+  
+      if ((isObjects && !isDeepEqual(value1, value2)) ||
+        (!isObjects && value1 !== value2)
+      ) {
+        if (!isObjects) {
+            console.log("Values differ:",value1,value2);
+        } else {
+            console.log("objects differ:", JSON.stringify(value1), JSON.stringify(value2));
+        }
+        return false;
+      }
+    }
+    return true;
+  };
+  
+  const isObject = (object) => {
+    return object != null && typeof object === "object";
+  };
+ 

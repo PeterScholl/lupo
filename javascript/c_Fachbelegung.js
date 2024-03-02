@@ -25,7 +25,7 @@ class Fachbelegung {
      * 
      * @param {*} halbjahr 0-5 in dem die Belegung hochgesetzt werden soll
      */
-    setzeBelegungWeiter(halbjahr) {
+    setzeBelegungWeiter(halbjahr, wahlbogen = Controller.getInstance().wahlbogen) {
         let bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, this.belegung[halbjahr]);
         let validFound = false;
         do {
@@ -41,13 +41,13 @@ class Fachbelegung {
                 continue;
             }
             // LK nur wenn zulässig
-            if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
+            if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr, wahlbogen)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
                 bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
             }
             // M oder S ohne dass dies wählbar ist oder S in Q2.2 obwohl nicht drittes Abifach
-            if (['M', 'S'].includes(bel_neu) && (!this.istWaehlbar(halbjahr) || (halbjahr == 5 && bel_neu == 'S' && this.abifach != 3))) {
+            if (['M', 'S'].includes(bel_neu) && (!this.istWaehlbar(halbjahr, wahlbogen) || (halbjahr == 5 && bel_neu == 'S' && this.abifach != 3))) {
                 bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
@@ -65,9 +65,9 @@ class Fachbelegung {
             //Bei Abwahl müssen auch die Folgefächer geprüft werden
             //Liste aller Fächer, die dieses Fach als Vorgänger haben
             //Belegung prüfen
-            this.pruefeBelegung();
-            while (Controller.getInstance().wahlbogen.gibFaecherMitVorgaenger(this.kuerzel).some((e) => e.pruefeBelegung())) {
-                this.pruefeBelegung();
+            this.pruefeBelegung(wahlbogen);
+            while (wahlbogen.gibFaecherMitVorgaenger(this.kuerzel).some((e) => e.pruefeBelegung(wahlbogen))) {
+                this.pruefeBelegung(wahlbogen);
             }
         }
         // Bei Q1 auch die Folgebelegungen entsprechend setzen 
@@ -80,7 +80,7 @@ class Fachbelegung {
             PruefeBelegungsBedingungen.pruefeFachbelQ2_2_SOderM(this);
         }
         if (this.istLK()) { // Dieses Fach ist jetzt LK
-            Controller.getInstance().wahlbogen.setzeLKAbifachNr();
+            wahlbogen.setzeLKAbifachNr();
         }
     }
 
@@ -97,9 +97,8 @@ class Fachbelegung {
      * @param {int} halbjahr 0-5 
      * @returns true wenn zulässig
      */
-    istLKWahlZulaessig(halbjahr) {
+    istLKWahlZulaessig(halbjahr, wb = Controller.getInstance().wahlbogen) {
         let valid = true;
-        const wb = Controller.getInstance().wahlbogen;
         valid &= this.istLK() || wb.gibLKFaecher().length < 2; // es gibt schon zwei andere LKs
         //valid &= (halbjahr == 2) || (halbjahr > 2 && this.belegung[halbjahr - 1] == 'LK'); // Änderung auf LK nur in Q1.1
         valid &= (halbjahr == 2); // Änderung auf LK nur in Q1.1
@@ -120,7 +119,7 @@ class Fachbelegung {
      * ermittelt ob das Fach in dem angegebenen Halbjahr regulär (nicht als ZK) gewählt werden kann
      * @param {Integer} halbjahr 
      */
-    istWaehlbar(halbjahr) {
+    istWaehlbar(halbjahr, wahlbogen = Controller.getInstance().wahlbogen) {
         // Es gibt keine Wahlart
         if (this.belegungsBed.wahlarten[halbjahr].length === 0) return false;
         // Fortgeführte Fremdsprache, die nicht in SekI belegt wurde
@@ -132,7 +131,7 @@ class Fachbelegung {
             //debug_info("Vorgängerfach suchen");
             if (this.belegungsBed.vorgaengerFaecher.some((krzl) => {
                 //debug_info(" - Fach:", krzl);
-                let fach = Controller.getInstance().wahlbogen.getFachMitKuerzel(krzl);
+                let fach = wahlbogen.getFachMitKuerzel(krzl);
                 return !(fach.belegung[halbjahr - 1] == '' || fach.belegung[halbjahr - 1] == 'ZK');
             })) return true; //es gibt ein belegtes Vorgängerfach
             return false;
@@ -176,10 +175,10 @@ class Fachbelegung {
      * dürfen und korrigiert dies
      * @returns true - wenn eine korrektur stattgefunden hat
      */
-    pruefeBelegung() {
+    pruefeBelegung(wahlbogen = Controller.getInstance().wahlbogen) {
         let found = false;
         for (let h = 0; h < 6; h++) {
-            if (this.belegung[h] != '' && !this.istWaehlbar(h)) {
+            if (this.belegung[h] != '' && !this.istWaehlbar(h, wahlbogen)) {
                 this.belegung[h] = '';
                 found = true;
             }
@@ -319,7 +318,7 @@ class Fachbelegung {
     static aendereFachUndStatKuerzelInJSONObj(jsonObj, von, nach) {
         if (typeof (von) != 'string' || typeof (nach) != 'string') return jsonObj;
         //mögliche Vorkommnisse in fachbelegungen
-        console.dir(jsonObj);
+        //console.dir(jsonObj);
         if (jsonObj.kuerzel === von) {
             jsonObj.kuerzel = nach;
         }
