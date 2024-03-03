@@ -69,6 +69,7 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    max-height: calc(100vh - 120px);
     overflow: auto;
   }
   
