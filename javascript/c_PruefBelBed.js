@@ -9,12 +9,6 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeAlle(wahlbogen) {
         let bericht = "";
-        bericht += this.ergaenzeBericht(this.pruefeQPhasezweiLKS(wahlbogen));
-        bericht += this.ergaenzeBericht(this.pruefeQ7KurseImHalbjahr(wahlbogen));
-        bericht += this.ergaenzeBericht(this.pruefeStundenanzahlunter102(wahlbogen));
-        bericht += this.ergaenzeBericht(this.pruefeQDurschnittWstunden34(wahlbogen));
-        bericht += this.ergaenzeBericht(this.pruefeEFDurschnittWstunden34(wahlbogen));
-        bericht += this.ergaenzeBericht(this.pruefeQPhase38Kurse(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeEF10KurseImHalbjahr(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "D"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehend(wahlbogen, "M"));
@@ -22,6 +16,14 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeReligionOderErsatzfach(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeEineFS(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeFSSekI(wahlbogen));
+        // Teil von Philipp und Björn
+        bericht += this.ergaenzeBericht(this.pruefeQPhasezweiLKS(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeQ7KurseImHalbjahr(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeStundenanzahlunter102(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeQDurschnittWstunden34(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeEFDurschnittWstunden34(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeQPhase38Kurse(wahlbogen));
+        // Ende Teil PuB
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "SW"));
         bericht += this.ergaenzeBericht(this.pruefeFachDurchgehendoderZusatzkurs(wahlbogen, "GE"));
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
@@ -30,7 +32,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeZweiMalDMFSunterAbifaechern(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeVierAbiturfaecherIn3Aufgabenfeldern(wahlbogen));
         bericht += this.pruefeVerboteneFachKombinationen(wahlbogen);
-        
+
         return bericht;
     }
 
@@ -369,9 +371,9 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeKlassischeNawiInEFschriftlich(wahlbogen) {
         let kNaWi = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe === "FG3"; })
-        .filter((e) => { return e.statKuerzel != 'M' && e.statKuerzel != 'IF';});
-        if (kNaWi.some((e) => {return e.belegung[0] === 'S';})) { //in EF.1 eine schriftlich
-            if (kNaWi.some((e) => {return e.belegung[1] === 'S';})) { // in EF.2 auch eine S
+            .filter((e) => { return e.statKuerzel != 'M' && e.statKuerzel != 'IF'; });
+        if (kNaWi.some((e) => { return e.belegung[0] === 'S'; })) { //in EF.1 eine schriftlich
+            if (kNaWi.some((e) => { return e.belegung[1] === 'S'; })) { // in EF.2 auch eine S
                 return ""; //alles gut
             }
         }
@@ -464,14 +466,14 @@ class PruefeBelegungsBedingungen {
         }
         return "";
     }
-    
+
     /**
      * prüft ob in der Qualifikationsphase mindestens 38 anrechenbare Kurse belegt werden
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehler wenn nötig
      */
-     static pruefeQPhase38Kurse(wahlbogen) {
-        if ( wahlbogen.getKurseFuershalbjahr(2) + wahlbogen.getKurseFuershalbjahr(3) + wahlbogen.getKurseFuershalbjahr(4) + wahlbogen.getKurseFuershalbjahr(5) < 38) {
+    static pruefeQPhase38Kurse(wahlbogen) {
+        if (wahlbogen.getKurseFuershalbjahr(2) + wahlbogen.getKurseFuershalbjahr(3) + wahlbogen.getKurseFuershalbjahr(4) + wahlbogen.getKurseFuershalbjahr(5) < 38) {
             return "In der Qualifikationsphase müssen mindestens 38 anrechenbare Kurse belegt werden";
         }
         return "";
@@ -481,9 +483,9 @@ class PruefeBelegungsBedingungen {
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehler wenn nötig
      */
-    static pruefeEFDurschnittWstunden34(wahlbogen){
-        if ( wahlbogen.getStundenDurchschnittFuerEPhase() < 34) {
-        return "Die durschnittliche Wochenstundenzahl muss in der Einführungsphase mindestens 34 Stunden betragen";
+    static pruefeEFDurschnittWstunden34(wahlbogen) {
+        if (wahlbogen.getStundenDurchschnittFuerEPhase() < 34) {
+            return "Die durschnittliche Wochenstundenzahl muss in der Einführungsphase mindestens 34 Stunden betragen";
         }
         return "";
     }
@@ -492,63 +494,46 @@ class PruefeBelegungsBedingungen {
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehler wenn nötig
      */
-    static pruefeQDurschnittWstunden34(wahlbogen){
-            if ( wahlbogen.getStundenDurchschnittFuerQPhase() < 34) {
+    static pruefeQDurschnittWstunden34(wahlbogen) {
+        if (wahlbogen.getStundenDurchschnittFuerQPhase() < 34) {
             return "Die durschnittliche Wochenstundenzahl muss in der Qualifikationsphase mindestens 34 Stunden betragen";
-            }
-            return "";
         }
+        return "";
+    }
+    
     /**
      * prüft ob die Anzahl aller Stunden mindestens 102 beträgt
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehler wenn nötig
      */
-    static pruefeStundenanzahlunter102(wahlbogen){
-        let Stundenzahl = 0;
-        for (let i = 0; i < 6; i++){
-        Stundenzahl += wahlbogen.getStundenFuershalbjahr(i);
+    static pruefeStundenanzahlunter102(wahlbogen) {
+        let stundenzahl = 0;
+        for (let i = 0; i < 6; i++) {
+            stundenzahl += wahlbogen.getStundenFuershalbjahr(i);
         }
-        if (Stundenzahl < 102){
+        if (stundenzahl/2 < 102) {
             return "Der Pflichtunterricht darf 102 Stunden nicht unterschreiten";
-        }   else
-        return "";       
+        } else
+            return "";
     }
     /**
      * prüft ob in der Qualifikationsphase in jedem Halbjahr mindestens 7 Grundkurse belegt werden
      * @param {Wahlbogen} wahlbogen 
      * @returns String mit dem Fehler wenn nötig
      */
-     static pruefeQ7KurseImHalbjahr(wahlbogen) { 
-          // TODO alle fachwahlen durchlaufen und GKurse summieren
-        let Gkurszahlen2 = 0;
+    static pruefeQ7KurseImHalbjahr(wahlbogen) {
+        let gkurszahlen = [0, 0, 0, 0, 0, 0];
         wahlbogen.fachbelegungen.forEach((fach) => {
-            if (fach.belegung[2] != '' && fach.belegung[2] != 'LK') {
-                Gkurszahlen2 += 1;
+            for (let hj = 2; hj < 6; hj++) {
+                if (fach.belegung[hj] != '' && fach.belegung[hj] != 'LK') {
+                    gkurszahlen[hj] += 1;
+                }
             }
         });
-          // alle fachwahlen durchlaufen und GKurse summieren
-          let Gkurszahlen3 = 0;
-          wahlbogen.fachbelegungen.forEach((fach) => {
-              if (fach.belegung[3] != '' && fach.belegung[3] != 'LK') {
-                  Gkurszahlen3+= 1;
-              }
-          });
-            // alle fachwahlen durchlaufen und GKurse summieren
-        let Gkurszahlen4 = 0;
-        wahlbogen.fachbelegungen.forEach((fach) => {
-            if (fach.belegung[4] != '' && fach.belegung[4] != 'LK') {
-                Gkurszahlen4 += 1;
+        for (let hj = 2; hj < 6; hj++) {
+            if (gkurszahlen[hj] < 7) {
+                return "In der Qualifikationsphase müssen in jedem Halbjahr mindestens 7 Grundkurse belegt werden";
             }
-        });
-          // alle fachwahlen durchlaufen und GKurse summieren
-          let Gkurszahlen5 = 0;
-          wahlbogen.fachbelegungen.forEach((fach) => {
-              if (fach.belegung[5] != '' && fach.belegung[5] != 'LK') {
-                  Gkurszahlen5 += 1;
-              }
-          });
-        if( Gkurszahlen2 < 7 || Gkurszahlen3 < 7 || Gkurszahlen4 < 7 || Gkurszahlen5 < 7){
-            return "In der Qualifikationsphase müssen in jedem Halbjahr mindestens 7 Grundkurse belegt werden";
         }
         return "";
     }
@@ -563,10 +548,10 @@ class PruefeBelegungsBedingungen {
             if (fach.belegung[2] == 'LK' && fach.belegung[3] == 'LK' && fach.belegung[4] == 'LK' && fach.belegung[5] == 'LK')
                 LKS += 1;
         });
-        if (LKS != 2){
+        if (LKS != 2) {
             return "In der Q-Phase müssen zwei Fächer durchgehend in LKs belegt werden"
         } else
-        return "";
+            return "";
     }
 
     /**
@@ -586,7 +571,7 @@ class PruefeBelegungsBedingungen {
         });
         return gesamtbelegung;
     }
-  
+
     /**
      * prüft für jedes Halbjahr ob die Stundenbandbreite zwischen 32 und 36 liegt
      * @param {Wahlbogen} wahlbogen 
@@ -606,8 +591,7 @@ class PruefeBelegungsBedingungen {
      * @param {*} wahlbogen 
      */
     static setzeQ2_2SMEntsprAbifach(wahlbogen) {
-        wahlbogen.fachbelegungen.forEach((e) =>
-        {
+        wahlbogen.fachbelegungen.forEach((e) => {
             PruefeBelegungsBedingungen.pruefeFachbelQ2_2_SOderM(e);
         })
     }
