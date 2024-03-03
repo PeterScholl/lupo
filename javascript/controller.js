@@ -14,7 +14,6 @@ class Controller {
             //erster und einziger Aufruf der Initialisierung
             this.name = name;
             Controller.instance = this;
-            //TODO: Logik initialisieren
             /**
              * der "einzige" Wahlbogen
              * @type Wahlbogen
@@ -37,9 +36,10 @@ class Controller {
 
     /** init initialisiert:
         * Den Abijahrgang
-
-        * Die Tabelle...
-        TODO füllen
+        * das Modal
+        * Die Tabelle
+        * Menü und/oder Buttons
+        * die per get übergebene URL
     */
     init() {
         let self = this;
@@ -102,17 +102,24 @@ class Controller {
     }
 
     /**
-     * zeichnet das Feld Belegungsverpflichtungen neu 
-     * nachdem eine neue Überprüfung gestartet wurde
+     * zeichnet das Feld Belegungsverpflichtungen, Klausur und Infos neu 
+     * startet zuvor eine neue Überprüfung
      */
     drawBelegungsverpflichtungen() {
+        //Standardbelegungsfehler
         let bericht = PruefeBelegungsBedingungen.pruefeAlle(this.wahlbogen);
         let newdiv = document.getElementById('Belegverpflichtungen');
         //newdiv.style.overflowY="scroll";
         newdiv.classList.add('div-pruef');
         newdiv.innerHTML = bericht;
+        //Klausurbelegungen
         bericht = PruefeBelegungsBedingungen.pruefeAlleKlausurBed(this.wahlbogen);
         newdiv = document.getElementById('Klausurverpflichtungen');
+        newdiv.classList.add('div-pruef');
+        newdiv.innerHTML = bericht;
+        //Info box
+        bericht = PruefeBelegungsBedingungen.pruefeAlleInfoBed(this.wahlbogen);
+        newdiv = document.getElementById('Infos');
         newdiv.classList.add('div-pruef');
         newdiv.innerHTML = bericht;
     }
@@ -252,6 +259,7 @@ class Controller {
                 fach.abwaehlen();
             }
             this.redrawZeile(clickedObjectID);
+            this.drawBelegungsverpflichtungen();
             this.drawStundenzahlen();
         }
     }
@@ -333,10 +341,8 @@ class Controller {
             }
         );
 
-        this.drawTable(); //Wahlen
-        // TODO Summen...
+        this.drawTable(); //Wahlen und Summen
         this.drawBelegungsverpflichtungen(); //Belegungsverpflichtungen
-        // TODO Infos
     }
 
     /**
@@ -478,15 +484,12 @@ class Controller {
             //Es wurde in die Abifachzelle geklickt
             const gewKrz = obj.target.parentNode.id; // id des Parent Node <tr> ist das FachKürzel
             //console.log("Angeklicktes Abifach: ", gewKrz);
+            //alte Abifaecher fuer neu zeichnen speichern
+            let aktAbifaecher = this.wahlbogen.fachbelegungen.filter((f) => {return f.abifach > 2;});
             this.wahlbogen.aendereAbifach(gewKrz);
             this.redrawZeile(gewKrz);
-            //ggf. Abi3 und Abifach 4 neu zeichnen
-            [3, 4].forEach(el => {
-                let abif = this.wahlbogen.gibAbifach(el);
-                if (abif != null && abif.kuerzel != gewKrz) {
-                    this.redrawZeile(abif.kuerzel);
-                }
-            });
+            //ggf. alte Abifächer neu zeichnen
+            aktAbifaecher.forEach((f) => {return this.redrawZeile(f.kuerzel);});
             this.drawBelegungsverpflichtungen();
         } else {
             debug_info("Angeklicktes Objekt: ", obj.target)

@@ -60,6 +60,7 @@ class Wahlbogen {
         let gee = this.getFachMitKuerzel('GEE');
         gee.statKuerzel = "GE";
         gee.belegungsBed.vorgaengerFaecher.push('GE');
+        gee.istBili = true;
         // Sozialwissenschaften
         this.addFachToFachbelegungen("Sozialwissenschaften", "SW", ['', '', '', '', '', ''], "FG2");
         let sw = this.getFachMitKuerzel('SW');
@@ -71,20 +72,21 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Geographie Englisch", "EKE", ['', '', '', '', '', ''], "FG2");
         let eke= this.getFachMitKuerzel ('EKE');
         eke.statKuerzel= "EK";
+        eke.istBili = true;
         // Pädagogik
         this.addFachToFachbelegungen("Erziehungswiss.", "PA", ['', '', '', '', '', ''], "FG2");
         // Philosophie
-        this.addFachToFachbelegungen("Philosophie", "PP", ['', '', '', '', '', ''], "FG2");
-        let pp = this.getFachMitKuerzel('PP');
+        this.addFachToFachbelegungen("Philosophie", "PL", ['', '', '', '', '', ''], "FG2");
+        let pp = this.getFachMitKuerzel('PL');
         pp.belegungsBed.vorgaengerFaecher = ['KR', 'ER'];
         // Katholische Religion
         this.addFachToFachbelegungen("Kath. Religion", "KR", ['', '', '', '', '', ''], "FG2");
         let kr = this.getFachMitKuerzel('KR');
-        kr.belegungsBed.vorgaengerFaecher = ['PP', 'ER'];
+        kr.belegungsBed.vorgaengerFaecher = ['PL', 'ER'];
         // Evangelische Religion
         this.addFachToFachbelegungen("Ev. Religion", "ER", ['', '', '', '', '', ''], "FG2");
         let er = this.getFachMitKuerzel('ER');
-        er.belegungsBed.vorgaengerFaecher = ['KR', 'PP'];
+        er.belegungsBed.vorgaengerFaecher = ['KR', 'PL'];
         // Mathematik #8db4e3
         this.addFachToFachbelegungen("Mathematik", "M", ['S', '', '', '', '', ''], "FG3");
         // Biologie
@@ -93,6 +95,7 @@ class Wahlbogen {
         this.addFachToFachbelegungen("Biologie Englisch", "BIE", ['', '', '', '', '', ''], "FG3");
         let bie= this.getFachMitKuerzel ('BIE');
         bie.statKuerzel= "BI";
+        bie.istBili = true;
         // Chemie
         this.addFachToFachbelegungen("Chemie", "CH", ['', '', '', '', '', ''], "FG3");
         // Physik
@@ -191,6 +194,9 @@ class Wahlbogen {
                 diesesFach.abifach = 3;
             }
         }
+        [abi3,abi4,diesesFach].forEach(element => {
+            PruefeBelegungsBedingungen.pruefeFachbelQ2_2_SOderM(element);
+        });
     }
 
     /**
@@ -257,6 +263,7 @@ class Wahlbogen {
      */
     hochschreibenVon(halbjahr) {
         this.fachbelegungen.forEach((f) => { f.hochschreibenVon(halbjahr); });
+        PruefeBelegungsBedingungen.setzeQ2_2SMEntsprAbifach(this)
     }
 
     /**

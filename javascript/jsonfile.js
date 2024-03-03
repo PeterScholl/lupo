@@ -66,6 +66,7 @@ function openJSON() {
 
                     let wahlbogen = parseJSONObjToWahlbogen(jsonObj);
 
+                    PruefeBelegungsBedingungen.setzeQ2_2SMEntsprAbifach(wahlbogen);
                     Controller.getInstance().wahlbogen = wahlbogen;
                     Controller.getInstance().redraw();
 

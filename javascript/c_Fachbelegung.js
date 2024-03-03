@@ -11,6 +11,7 @@ class Fachbelegung {
     abifach = 0; // ist dieses Fach ein gewähltes Abifach 1-4 sonst 0
     istFFS = false; // ist fortgeführte Fremdsprache
     istFFSSekI = false; // wurde als FFS in der Sek I belegt
+    istBili = false; //Bilinguales Sachfach
 
     constructor(bezeichnung, kuerzel) {
         this.bezeichnung = bezeichnung;
@@ -45,8 +46,8 @@ class Fachbelegung {
                 validFound = false;
                 continue;
             }
-            // M oder S ohne dass hier wählbar ist
-            if (['M','S'].includes(bel_neu) && !this.istWaehlbar(halbjahr)) {
+            // M oder S ohne dass dies wählbar ist oder S in Q2.2 obwohl nicht drittes Abifach
+            if (['M', 'S'].includes(bel_neu) && (!this.istWaehlbar(halbjahr) || (halbjahr == 5 && bel_neu == 'S' && this.abifach != 3))) {
                 bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
@@ -76,6 +77,7 @@ class Fachbelegung {
                 this.belegung[folgeHalbjahr] = bel_neu;
                 folgeHalbjahr++;
             }
+            PruefeBelegungsBedingungen.pruefeFachbelQ2_2_SOderM(this);
         }
         if (this.istLK()) { // Dieses Fach ist jetzt LK
             Controller.getInstance().wahlbogen.setzeLKAbifachNr();
@@ -120,7 +122,6 @@ class Fachbelegung {
      */
     istWaehlbar(halbjahr) {
         // Es gibt keine Wahlart
-        //debug_info("wahlarten: ",this.belegungsBed.wahlarten,"halbjahr",halbjahr);
         if (this.belegungsBed.wahlarten[halbjahr].length === 0) return false;
         // Fortgeführte Fremdsprache, die nicht in SekI belegt wurde
         if (this.istFFS && !this.istFFSSekI) return false;
@@ -151,6 +152,26 @@ class Fachbelegung {
     }
 
     /**
+     * Prüft ob das Fach vom Starthalbjahr (incl) bis Endhalbjahr (excl) belegt war
+     * @param {Integer} starthj Starthalbjahr (inklusive)
+     * @param {Integer} endhj Endhalbjahr (exklusive)
+     * @returns true wenn das Fach in der Zeit belegt ist
+     */
+    istBelegt(starthj, endhj) {
+        return this.belegung.slice(starthj, endhj).every((e) => { return e != ""; });
+    }
+
+    /**
+     * Prüft ob das Fach vom Starthalbjahr (incl) bis Endhalbjahr (excl) SCHRIFTLICH belegt ist
+     * @param {Integer} starthj Starthalbjahr (inklusive)
+     * @param {Integer} endhj Endhalbjahr (exklusive)
+     * @returns true wenn das Fach in der Zeit SCHRIFTLICH (S oder LK) belegt ist
+     */
+    istSchriftlichBelegt(starthj, endhj) {
+        return this.belegung.slice(starthj, endhj).every((e) => { return e == "S" || e == "LK"; });
+    }
+
+    /**
      * Prüft ob Belegungen in Halbjahren vorliegen, die nicht belegt werden
      * dürfen und korrigiert dies
      * @returns true - wenn eine korrektur stattgefunden hat
@@ -162,6 +183,10 @@ class Fachbelegung {
                 this.belegung[h] = '';
                 found = true;
             }
+        }
+        if (this.belegung[5] == '' && this.abifach != 0)  {
+            this.abifach = 0;
+            found = true;
         }
         return found;
     }
@@ -222,6 +247,9 @@ class Fachbelegung {
      * @return neue Fachbelegung
      */
     static generateFromJSONObj(jsonObj) {
+        //TODO: wegen Änderung statKuerzel und Fachkürzel - gegebenenfalls später herausnehmen
+        Fachbelegung.aendereFachUndStatKuerzelInJSONObj(jsonObj, "PP", "PL");
+
         let neueBlg = null;
         // Bezeichnung und Kürzel übernehmen
         if (typeof (jsonObj.bezeichnung) === 'string' && typeof (jsonObj.kuerzel) === 'string') {
@@ -267,6 +295,47 @@ class Fachbelegung {
             neueBlg.istFFSSekI = jsonObj.istFFSSekI;
         }
 
+        //ist BiliSachfach
+        //TODO: gegebenenfalls später mal herausnehmen, weil nur für alte Dateien nötig
+        if (typeof (jsonObj.istBili) === 'boolean') {
+            neueBlg.istBili = jsonObj.istBili;
+        } else { //Konvertierung von alten JSON-Files, die diesen Boolean noch nicht hatten
+            if (["GEE", "EKE", "BIE"].includes(jsonObj.kuerzel)) {
+                neueBlg.istBili = true;
+            }
+        }
+
         return neueBlg;
+    }
+
+    /**
+     * änert ein Fächerkürzel in einem jsonObj, das einer Fachbelegung! entspricht
+     * Vorkommnisse sind in vorgaengerfaecher und kuerzel, statkuerzel möglich
+     * @param {*} jsonObj welches das Fach
+     * @param {*} von String des zu ersetzenden Kürzels
+     * @param {*} nach String des Ersatzkürzels
+     * @returns das geänderte JSONObj - ändert aber auch das Original
+     */
+    static aendereFachUndStatKuerzelInJSONObj(jsonObj, von, nach) {
+        if (typeof (von) != 'string' || typeof (nach) != 'string') return jsonObj;
+        //mögliche Vorkommnisse in fachbelegungen
+        console.dir(jsonObj);
+        if (jsonObj.kuerzel === von) {
+            jsonObj.kuerzel = nach;
+        }
+        if (jsonObj.statKuerzel === von) {
+            jsonObj.statKuerzel = nach;
+        }
+
+        //mögliche Vorkommnisse in vorgaengerfächer
+        if (typeof (jsonObj.belegungsBed.vorgaengerFaecher) === 'object') {
+            jsonObj.belegungsBed.vorgaengerFaecher = jsonObj.belegungsBed.vorgaengerFaecher.map((e) => {
+                if (e === von) {
+                    return nach;
+                }
+                return e;
+            })
+        }
+        return jsonObj;
     }
 }
