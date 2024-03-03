@@ -50,7 +50,7 @@ class BelegBed {
      * @param {Number} halbjahr in welchem Halbjahr (0-5) soll die folgeBelegung ermittelt werden
      * @param {char} aktBeleg  ist die aktuelle Belegung
      */
-    gibNaechsteBelegungsmöglichkeit(halbjahr, aktBeleg) {
+    gibNaechsteBelegungsmoeglichkeit(halbjahr, aktBeleg) {
         if (Number.isInteger(halbjahr) && halbjahr >= 0 && halbjahr < 6) { //gültiges Halbjahr
             let aktpos = this.wahlarten[halbjahr].indexOf(aktBeleg);
             const anzWahlarten = this.wahlarten[halbjahr].length;

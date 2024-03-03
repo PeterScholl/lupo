@@ -4,7 +4,7 @@
 // https://www.chaijs.com/api/assert/
 
 describe('Philosophie-Tests', () => {
-    it('Philosophie muss durch zwei Klicks in der EF1 abgewählt werden können', async () => {
+    it('Philosophie muss durch zwei Klicks in der EF1 abgewaehlt werden koennen', async () => {
         const wb1 = await wahlbogenFromJSONURL("./mochatestfiles/pl_test_1_start.json");
         let fach = wb1.getFachMitKuerzel('PL');
         fach.setzeBelegungWeiter(0, wb1);
@@ -14,7 +14,7 @@ describe('Philosophie-Tests', () => {
         assert.deepEqual(wb1.fachbelegungen, wb2.fachbelegungen, "Fehlerhaftes Ergebnis");
     });
 
-    it('Philosophie durchgänging wird auf KR in der Q1 und ER in der Q2 umgewählt', async () => {
+    it('Philosophie durchgänging wird auf KR in der Q1 und ER in der Q2 umgewaehlt', async () => {
         const wb3 = await wahlbogenFromJSONURL("./mochatestfiles/pl_test_1_start.json");
 
         let fach = wb3.getFachMitKuerzel('PL');
@@ -33,7 +33,7 @@ describe('Philosophie-Tests', () => {
     });
 });
 
-describe('Belegungsprüfungstests', () => {
+describe('Belegungspruefungstests', () => {
     it('Nicht-Belegung von Religion bzw. Kunst und Musik wird erkannt', async () => {
         const wb1 = await wahlbogenFromJSONURL("./mochatestfiles/bel_test_relKuMu_start.json");
         let Rel = PruefeBelegungsBedingungen.pruefeReligionOderErsatzfach(wb1);
@@ -43,7 +43,7 @@ describe('Belegungsprüfungstests', () => {
         assert.notEqual(KuMu,"");
     });
 
-    it('Prüfung ob M,D schriftlich von EF.1 bis Q2.1', async () => {
+    it('Pruefung ob M,D schriftlich von EF.1 bis Q2.1', async () => {
         const wb1 = new Wahlbogen();
         wb1.erzeugeMinimaleFachbelegung();
         let D = PruefeBelegungsBedingungen.pruefeObFachSchriftlich(wb1,"D",0,5);

@@ -26,7 +26,7 @@ class Fachbelegung {
      * @param {*} halbjahr 0-5 in dem die Belegung hochgesetzt werden soll
      */
     setzeBelegungWeiter(halbjahr, wahlbogen = Controller.getInstance().wahlbogen) {
-        let bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, this.belegung[halbjahr]);
+        let bel_neu = this.belegungsBed.gibNaechsteBelegungsmoeglichkeit(halbjahr, this.belegung[halbjahr]);
         let validFound = false;
         do {
             validFound = true;
@@ -36,19 +36,19 @@ class Fachbelegung {
             }
             // Zusatzkurs darf nicht gewählt werden, wenn im HJ davor etwas anderes
             if (bel_neu === "ZK" && !(this.belegung[halbjahr - 1] == '' || this.belegung[halbjahr - 1] == 'ZK')) { //prüfen ob ZK hier zulässig ist sonst noch einen weiter setzen
-                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmoeglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
             }
             // LK nur wenn zulässig
             if (bel_neu === "LK" && !this.istLKWahlZulaessig(halbjahr, wahlbogen)) { //prüfen ob LK hier zulässig ist sonst noch einen weiter setzen
-                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmoeglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
             }
             // M oder S ohne dass dies wählbar ist oder S in Q2.2 obwohl nicht drittes Abifach
             if (['M', 'S'].includes(bel_neu) && (!this.istWaehlbar(halbjahr, wahlbogen) || (halbjahr == 5 && bel_neu == 'S' && this.abifach != 3))) {
-                bel_neu = this.belegungsBed.gibNaechsteBelegungsmöglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
+                bel_neu = this.belegungsBed.gibNaechsteBelegungsmoeglichkeit(halbjahr, bel_neu); //noch eine Belegung weiter
                 validFound = false;
                 continue;
             }
