@@ -47,6 +47,8 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftoderReligionSchriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeKlassischeNawiInEFschriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeObAbifaecherSchriftlich(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeObFachSchriftlich(wahlbogen,"D",0, 5));
+        bericht += this.ergaenzeBericht(this.pruefeObFachSchriftlich(wahlbogen,"M",0, 5));
         return bericht;
     }
 
@@ -345,6 +347,24 @@ class PruefeBelegungsBedingungen {
             .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 0, 4) });
         if (fs.length == 0) {
             return "Mindestens eine durchgehend belegte Fremdsprache muss von EF.1 bis Q2.1 schriftlich belegt sein.";
+        }
+        return "";
+    }
+
+    /**
+     * prueft ob Fach mit Stat-Kürzel schriftlich in angegebenem Bereich
+     * @param {Wahlbogen} wahlbogen 
+     * @param {String} statKuerzel des Faches
+     * @param {Integer} von_hj Halbjahr ab dem geprüft werden soll 0 = EF.1
+     * @param {Integer} bis_hj Halbjahr exclusive bis dem geprüft werden soll
+     * @returns String mit dem Fehlertext oder Leertext
+     */
+      static pruefeObFachSchriftlich(wahlbogen,statKuerzel,von_hj, bis_hj) {
+        let faecher = wahlbogen.gibFaecherMitStatKuerzel(statKuerzel)
+        .filter((e) => { return !this.istFachDurchgehendSchriftlichBelegtVonBis(e,von_hj,bis_hj);});
+        if (faecher.length > 0) {
+            const hj_name = ["EF.1","EF.2","Q1.1","Q1.2","Q2.1","Q2.2"];
+            return faecher[0].bezeichnung+" muss von "+hj_name[von_hj]+" bis wenigstens "+hj_name[bis_hj-1]+" schriftlich belegt werden";
         }
         return "";
     }

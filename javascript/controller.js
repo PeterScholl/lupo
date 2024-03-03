@@ -100,7 +100,7 @@ class Controller {
         window.addEventListener("click", function (event) {
             if (!event.target.matches('.dropbtn')) {
                 //wenn nicht auf den dropbtn geclickt wurde - menu schliessen
-                console.log("Window onclick event - target:", event.target);
+                debug_info("Window onclick event - target:", event.target);
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
                 for (i = 0; i < dropdowns.length; i++) {
