@@ -96,6 +96,22 @@ class Controller {
             menubtn.addEventListener("click", () => menucontent.classList.toggle("show"));
         }
 
+        //Window onclick-Event um das Menu zu schliessen, wenn irgendwo hin geclickt wird
+        window.addEventListener("click", function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                //wenn nicht auf den dropbtn geclickt wurde - menu schliessen
+                console.log("Window onclick event - target:", event.target);
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+
         //Prüfen ob eine Datei mit einem get-Parmeter übergeben wurde
         //Wurde ein Dokument per get-Parameter übergeben?
         //sonst Minimalbelegung erzeugen
@@ -510,7 +526,7 @@ class Controller {
      * @param {HTMLElement} element 
      */
     toggleDisplayBlockNone(element) {
-        console.log("toggle display of element",element);
+        console.log("toggle display of element", element);
         if (element.style.display === "block") {
             element.style.display = "none";
         } else {
@@ -519,26 +535,5 @@ class Controller {
     }
 }
 
-var debug = false;
-let c = new Controller("Hauptcontroller");
-//Funktion init soll nach dem Laden des HTML-Docs alles Initialisieren
-//Mit Arrow-Notation (=>), damit in der Funktion auf das richtige this zugegriffen wird
-document.addEventListener("DOMContentLoaded", (event) => c.init(event));
-
-//Window onclick-Event um das Menu zu schliessen, wenn irgendwo hin geclickt wird
-window.onclick = function(event) {
-    if (!event.target.matches('.dropbtn')) {
-        //wenn nicht auf den dropbtn geclickt wurde - menu schliessen
-        console.log("Window onclick event - target:",event.target);
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-}
 
 

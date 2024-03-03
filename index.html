@@ -13,6 +13,13 @@
   <script src="./javascript/c_Wahlbogen.js"></script>
   <script src="./javascript/c_PruefBelBed.js"></script>
   <script src="./javascript/controller.js"></script>
+  <script>
+    var debug = false;
+    let c = new Controller("Hauptcontroller");
+    //Funktion init soll nach dem Laden des HTML-Docs alles Initialisieren
+    //Mit Arrow-Notation (=>), damit in der Funktion auf das richtige this zugegriffen wird
+    document.addEventListener("DOMContentLoaded", (event) => c.init(event));
+  </script>
 </head>
 
 <body>
@@ -24,23 +31,28 @@
     <div class="modal-content" onclick="event.stopPropagation();" style="border-radius: 15px;">
       <span class="close">&times;</span>
       <h1>&Uuml;ber unser LuPO-online</h1>
-      <p>Diese Website entstand im Rahmen eines Projekts aus dem Q2 Informatikkurs Jahrgang 2024 des  Albert-Einstein Gymnasiums.</p>
-      <p><i>Wichtige Informationen: </i>Ihre Daten werden nicht im Internet, sondern nur auf ihrem lokalen Gerät gespeichert<br>
+      <p>Diese Website entstand im Rahmen eines Projekts aus dem Q2 Informatikkurs Jahrgang 2024 des Albert-Einstein
+        Gymnasiums.</p>
+      <p><i>Wichtige Informationen: </i>Ihre Daten werden nicht im Internet, sondern nur auf ihrem lokalen Gerät
+        gespeichert<br>
         In Bezug auf die Funktionalität der Website geben wir keine Gewährleistung.</p>
-      
+
       <h4>Tipps zur Vorgehensweise:</h4>
       <ul>
-        <li> 12 Fächer in der EF durch anklicken wählen - gegebenenfalls vorher Fremdsprachen oberhalb der Tabelle auswählen, Namen eingeben</li>
+        <li> 12 Fächer in der EF durch anklicken wählen - gegebenenfalls vorher Fremdsprachen oberhalb der Tabelle
+          auswählen, Namen eingeben</li>
         <li> im Menü auf hochschreiben klicken</li>
-        <li> Die restliche Wahl anpassen - LKs durch anklicken in der Q1.1 wählen - Abifächer wählen - <b>SPEICHERN</b> und ggf. ausdrucken </li>
+        <li> Die restliche Wahl anpassen - LKs durch anklicken in der Q1.1 wählen - Abifächer wählen - <b>SPEICHERN</b>
+          und ggf. ausdrucken </li>
       </ul>
-         
+
       <h4>Folgende Elemente unserer Website sind (unseres wissens) noch nicht funktional:</h4>
       <ul style="font-size: small;">
         <li>Prüfung auf: In der Q-Phase sind mindestens sieben Fächer im Grundkurs pro Halbjahr zu wählen</li>
-        <li>Prüfung auf: In der Q-Phase müssen zwei Fächer durchgehend in LKs belegt werden</li> 
+        <li>Prüfung auf: In der Q-Phase müssen zwei Fächer durchgehend in LKs belegt werden</li>
       </ul>
-      <p>Bei Fragen, Fehlermeldungen oder anderen Anfragen erreichen Sie uns unter der email lupo (at) unterrichtsportal.org</p>
+      <p>Bei Fragen, Fehlermeldungen oder anderen Anfragen erreichen Sie uns unter der email lupo (at)
+        unterrichtsportal.org</p>
       <div style="text-align: right;"><br>
         <input type="checkbox" id="modalGelesen" name="modalGelesen" value="modalGelesen">
         <label for="modalGelesen">Infotext nicht mehr anzeigen</label>
@@ -132,8 +144,9 @@
       WICHTIG: Diese Webseite ist kein offizielles Dokument und wir übernehmen keine Garantie für die Richtigkeit
       - sie soll lediglich bei der Planung der Oberstufenlaufbahn unterstützen.<br>
       Projekt des IF-Grundkurses im Abiturjahrgang 2024 -
-      Lizenz <CC-BY-SA>CC-BY-SA</CC-BY-SA> - 
-      <b>Version 0.01a (01.03.2024)</b> <a href="https://github.com/PeterScholl/lupo/releases/tag/v0.01" target="_blank">Release Notes</a>
+      Lizenz <CC-BY-SA>CC-BY-SA</CC-BY-SA> -
+      <b>Version 0.01a (01.03.2024)</b> <a href="https://github.com/PeterScholl/lupo/releases/tag/v0.01"
+        target="_blank">Release Notes</a>
       - Kontakt/Support: lupo@unterrichtsportal.org
     </small>
   </div>
