@@ -86,6 +86,7 @@ class Controller {
         let anchors = document.querySelectorAll('.dropdown-content a');
         for (let i = 0; i < anchors.length; i++) {
             anchors[i].addEventListener("click", (obj) => this.objectClicked(obj));
+            //anchors[i].addEventListener("touchstart", (obj) => this.objectClicked(obj));
         }
 
         //Menu anzeigen bei Click
@@ -97,10 +98,11 @@ class Controller {
         }
 
         //Window onclick-Event um das Menu zu schliessen, wenn irgendwo hin geclickt wird
-        window.addEventListener("click", function (event) {
-            if (!event.target.matches('.dropbtn')) {
+        function closeMenu(event) {
+            if (!event.target.matches('.dropbtn') && !(event.type == "touchstart" && event.target.tagName === "A")) {
                 //wenn nicht auf den dropbtn geclickt wurde - menu schliessen
-                debug_info("Window onclick event - target:", event.target);
+                //document.getElementById('kopfzeile').innerHTML = event.type;
+                //console.dir(event.target);
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
                 for (i = 0; i < dropdowns.length; i++) {
@@ -110,7 +112,9 @@ class Controller {
                     }
                 }
             }
-        });
+        }
+        window.addEventListener("click", closeMenu);
+        window.addEventListener("touchstart", closeMenu);
 
         //Prüfen ob eine Datei mit einem get-Parmeter übergeben wurde
         //Wurde ein Dokument per get-Parameter übergeben?
