@@ -295,7 +295,6 @@ class Wahlbogen {
         });
         return kurszahlen;
     }
-
     /**
      *  summiert die Anzahl an Stunden der beiden Halbjahre in der E-Phase aller gewählten Kurse
      * @returns die gesamt Anzahl an Stunden der gewählten Kurse
