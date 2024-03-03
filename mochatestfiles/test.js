@@ -42,7 +42,25 @@ describe('Belegungsprüfungstests', () => {
         assert.notEqual(Rel,"");
         assert.notEqual(KuMu,"");
     });
+
+    it('Prüfung ob M,D schriftlich von EF.1 bis Q2.1', async () => {
+        const wb1 = new Wahlbogen();
+        wb1.erzeugeMinimaleFachbelegung();
+        let D = PruefeBelegungsBedingungen.pruefeObFachSchriftlich(wb1,"D",0,5);
+        let M = PruefeBelegungsBedingungen.pruefeObFachSchriftlich(wb1,"M",0,5);
+        assert.notEqual(D,"");
+        assert.notEqual(M,"");
+        let fachD = wb1.getFachMitKuerzel('D');
+        fachD.setzeBelegungWeiter(1,wb1);
+        fachD.setzeBelegungWeiter(1,wb1);
+        fachD.setzeBelegungWeiter(2,wb1);
+        fachD.setzeBelegungWeiter(2,wb1);
+        D = PruefeBelegungsBedingungen.pruefeObFachSchriftlich(wb1,"D",0,5);
+        assert.equal(D,"");
+    });
 });
+
+
 /*
 describe('Lock Class Tests 2', () => {
     it('Lock should be closed by default', () => {
