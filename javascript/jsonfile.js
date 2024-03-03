@@ -24,8 +24,13 @@ function downloadJSON(wahlbogen) {
     let url = URL.createObjectURL(blob);
     let a = document.createElement('a');
     a.href = url;
-    a.download = 'wahlbogen.json';
+    if (typeof(wahlbogen.name) === 'string' && wahlbogen.name != "") {
 
+        a.download = 'wb_'+(wahlbogen.name.substring(0,20)+"_"+wahlbogen.vorname).substring(0,20)+'.json';
+    } else {
+        a.download = 'wahlbogen.json';
+    }
+    
     // Klicken Sie auf den Link, um das Herunterladen zu initiieren
     // NOTE: Alternativ Modal anzeigen und den Benutzer auf den Link klicken lassen mit
     //       dem Vorteil, dass man den Dateinamen auswählen/ändern kann
@@ -95,18 +100,7 @@ function openJSON() {
  * @param {*} dest URL des Dokuments 
  */
 function openJSONFromURL(dest) {
-    fetch(dest, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-        },
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Netzwerkantwort war nicht OK');
-            }
-            return response.json();
-        }).then(response => parseJSONObjToWahlbogen(response))
+    wahlbogenFromJSONURL(dest)
         .then(response => { Controller.getInstance().wahlbogen=response; Controller.getInstance().redraw(); })
         .catch(error => {
             // Hier wird der Fehler behandelt
@@ -118,6 +112,20 @@ function openJSONFromURL(dest) {
         });
 
         //Hier Controller.getInstance().wahlbogen = response
+}
+
+async function wahlbogenFromJSONURL(dest) {
+    const response = await fetch(dest, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error('Netzwerkantwort war nicht OK');
+    }
+    const response_1 = await response.json();
+    return parseJSONObjToWahlbogen(response_1);
 }
 
 /**
