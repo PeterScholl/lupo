@@ -378,7 +378,7 @@ class PruefeBelegungsBedingungen {
         let fs = wahlbogen.fachbelegungen.filter((e) => { return e.abifach > 2; })
             .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 2, 5) });
         if (fs.length != 2) {
-            return "Das dritte und vierte Abifach müssen von der Q1.1 bis Q2.1 schrifltich belegt sein.";
+            return "Das dritte und vierte Abifach müssen von der Q1.1 bis Q2.1 schriftlich belegt sein.";
         }
         return "";
     }
