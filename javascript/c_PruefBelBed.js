@@ -143,7 +143,8 @@ class PruefeBelegungsBedingungen {
      */
     static pruefeZweiNaWiOderZweiFS(wahlbogen) {
         //Alle Fremdsprachen, die durchgehend belegt sind
-        let fs = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe === "FG1FS" || f.istBili; })
+        //TODO: Temproräre Bugfix hier - bili-Fächer herausgenommen - die müssen eine andere FS als die FS sein
+        let fs = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe === "FG1FS"; })
             .filter((e) => { return e.istBelegt(0, 6); });
         //Alle NaWis außer Mathe, die durchgehend belegt sind
         let nawi = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe.startsWith("FG3"); })
