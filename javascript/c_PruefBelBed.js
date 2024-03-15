@@ -47,9 +47,11 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeFSschriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeEineDurchgehendeGesellschaftswissenschaftoderReligionSchriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeKlassischeNawiInEFschriftlich(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeGeWiInEFschriftlich(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeFSInEFschriftlich(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeObAbifaecherSchriftlich(wahlbogen));
-        bericht += this.ergaenzeBericht(this.pruefeObFachSchriftlich(wahlbogen,"D",0, 5));
-        bericht += this.ergaenzeBericht(this.pruefeObFachSchriftlich(wahlbogen,"M",0, 5));
+        bericht += this.ergaenzeBericht(this.pruefeObFachSchriftlich(wahlbogen, "D", 0, 5));
+        bericht += this.ergaenzeBericht(this.pruefeObFachSchriftlich(wahlbogen, "M", 0, 5));
         return bericht;
     }
 
@@ -361,12 +363,12 @@ class PruefeBelegungsBedingungen {
      * @param {Integer} bis_hj Halbjahr exclusive bis dem geprüft werden soll
      * @returns String mit dem Fehlertext oder Leertext
      */
-      static pruefeObFachSchriftlich(wahlbogen,statKuerzel,von_hj, bis_hj) {
+    static pruefeObFachSchriftlich(wahlbogen, statKuerzel, von_hj, bis_hj) {
         let faecher = wahlbogen.gibFaecherMitStatKuerzel(statKuerzel)
-        .filter((e) => { return !this.istFachDurchgehendSchriftlichBelegtVonBis(e,von_hj,bis_hj);});
+            .filter((e) => { return !this.istFachDurchgehendSchriftlichBelegtVonBis(e, von_hj, bis_hj); });
         if (faecher.length > 0) {
-            const hj_name = ["EF.1","EF.2","Q1.1","Q1.2","Q2.1","Q2.2"];
-            return faecher[0].bezeichnung+" muss von "+hj_name[von_hj]+" bis wenigstens "+hj_name[bis_hj-1]+" schriftlich belegt werden";
+            const hj_name = ["EF.1", "EF.2", "Q1.1", "Q1.2", "Q2.1", "Q2.2"];
+            return faecher[0].bezeichnung + " muss von " + hj_name[von_hj] + " bis wenigstens " + hj_name[bis_hj - 1] + " schriftlich belegt werden";
         }
         return "";
     }
@@ -392,15 +394,49 @@ class PruefeBelegungsBedingungen {
      * @returns Leerstring oder Fehlertext
      */
     static pruefeKlassischeNawiInEFschriftlich(wahlbogen) {
-        let kNaWi = wahlbogen.fachbelegungen.filter((e) => { return e.faecherGruppe === "FG3"; })
-            .filter((e) => { return e.statKuerzel != 'M' && e.statKuerzel != 'IF'; });
+        let kNaWi = wahlbogen.fachbelegungen.filter((e) => {
+            return e.statKuerzel == 'BI' || e.statKuerzel == 'CH' || e.statKuerzel == 'PH';
+        });
         if (kNaWi.some((e) => { return e.belegung[0] === 'S'; })) { //in EF.1 eine schriftlich
             if (kNaWi.some((e) => { return e.belegung[1] === 'S'; })) { // in EF.2 auch eine S
                 return ""; //alles gut
             }
         }
         return "In EF.1 und EF.2 muss mindestens eine klassische Naturwissenschaft schriftlich belegt sein."
+    }
 
+    /**
+     * prueft ob in EF.1 und EF.2 eine Gesellschaftswissenschaft (nicht Religion)
+     * schriftlich belegt ist   
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder Fehlertext
+     */
+    static pruefeGeWiInEFschriftlich(wahlbogen) {
+        let GeWi = wahlbogen.fachbelegungen.filter((e) => {
+            return e.faecherGruppe.startsWith("FG2") && !['KR', 'ER'].includes(e.statKuerzel);
+        });
+        if (GeWi.some((e) => { return e.belegung[0] === 'S'; })) { //in EF.1 eine schriftlich
+            if (GeWi.some((e) => { return e.belegung[1] === 'S'; })) { // in EF.2 auch eine S
+                return ""; //alles gut
+            }
+        }
+        return "In EF.1 und EF.2 muss mindestens eine Gesellschaftswissenschaft schriftlich belegt sein."
+    }
+
+    /**
+     * prueft ob in EF.1 und EF.2 alle Fremdsprachen
+     * schriftlich belegt sind
+     * @param {Wahlbogen} wahlbogen 
+     * @returns Leerstring oder Fehlertext
+     */
+    static pruefeFSInEFschriftlich(wahlbogen) {
+        let FS = wahlbogen.fachbelegungen.filter((e) => {
+            return e.faecherGruppe.startsWith("FG1FS");
+        });
+        if (FS.every((e) => { return e.belegung[0] != 'M' && e.belegung[1] != 'M'; })) { //in EF.1 und 2 schriftlich
+            return ""; //alles gut
+        }
+        return "In EF.1 und EF.2 müssen Fremdsprachen schriftlich belegt sein."
     }
 
     /**
@@ -424,8 +460,8 @@ class PruefeBelegungsBedingungen {
      * @returns String mit dem Fehlertext 
      */
     static pruefeEinLKDMFsNaWi(wahlbogen) {
-        const lks = wahlbogen.gibLKFaecher().filter((e)=>{
-            return e.statKuerzel == "D" || e.istFFS || e.faecherGruppe.startsWith( "FG3");
+        const lks = wahlbogen.gibLKFaecher().filter((e) => {
+            return e.statKuerzel == "D" || e.istFFS || e.faecherGruppe.startsWith("FG3");
         });
         if (lks.length == 0) {
             return "Das erste Leistungskursfach muss eine fortgeführte Fremdsprache oder Mathematik oder eine Naturwissenschaft oder Deutsch sein. §12(4)";
@@ -537,7 +573,7 @@ class PruefeBelegungsBedingungen {
         }
         return "";
     }
-    
+
     /**
      * prüft ob die Anzahl aller Stunden mindestens 102 beträgt
      * @param {Wahlbogen} wahlbogen 
@@ -548,7 +584,7 @@ class PruefeBelegungsBedingungen {
         for (let i = 0; i < 6; i++) {
             stundenzahl += wahlbogen.getStundenFuershalbjahr(i);
         }
-        if (stundenzahl/2 < 102) {
+        if (stundenzahl / 2 < 102) {
             return "Der Pflichtunterricht darf 102 Stunden nicht unterschreiten";
         } else
             return "";
