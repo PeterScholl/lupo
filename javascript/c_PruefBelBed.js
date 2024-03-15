@@ -29,6 +29,7 @@ class PruefeBelegungsBedingungen {
         bericht += this.ergaenzeBericht(this.pruefeFachMindEinDurchgehend(wahlbogen, "PH", "BI", "CH"));
         bericht += this.ergaenzeBericht(this.pruefeZweiNaWiOderZweiFS(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeKuMu(wahlbogen));
+        bericht += this.ergaenzeBericht(this.pruefeEinLKDMFsNaWi(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeZweiMalDMFSunterAbifaechern(wahlbogen));
         bericht += this.ergaenzeBericht(this.pruefeVierAbiturfaecherIn3Aufgabenfeldern(wahlbogen));
         bericht += this.pruefeVerboteneFachKombinationen(wahlbogen);
@@ -413,6 +414,21 @@ class PruefeBelegungsBedingungen {
             .filter((e) => { return this.istFachDurchgehendSchriftlichBelegtVonBis(e, 2, 4) });
         if (fs.length == 0) {
             return "Mindestens eine durchgehend belegte Gesellschaftswissenschaft oder Religionslehre muss von Q1.1 bis Q2.1 schriftlich belegt sein.";
+        }
+        return "";
+    }
+
+    /**
+     * prüft ob ein Lk aus den Fächern D,M, FFS oder NaWi gewählt wurde §12(4)
+     * @param {Wahlbogen} wahlbogen
+     * @returns String mit dem Fehlertext 
+     */
+    static pruefeEinLKDMFsNaWi(wahlbogen) {
+        const lks = wahlbogen.gibLKFaecher().filter((e)=>{
+            return e.statKuerzel == "D" || e.istFFS || e.faecherGruppe.startsWith( "FG3");
+        });
+        if (lks.length == 0) {
+            return "Das erste Leistungskursfach muss eine fortgeführte Fremdsprache oder Mathematik oder eine Naturwissenschaft oder Deutsch sein. §12(4)";
         }
         return "";
     }
