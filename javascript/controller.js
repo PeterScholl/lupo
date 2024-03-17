@@ -170,29 +170,30 @@ class Controller {
             const x_value = Number.parseInt(cellx.innerHTML);
             const y_value = Number.parseInt(celly.innerHTML);
             if (x_value <= 9) {
-                cellx.style.backgroundColor = "red";
+                //cellx.style.backgroundColor = "red";
+                cellx.classList.add('alert');
             } else if (x_value <= 10) {
-                cellx.style.backgroundColor = "yellow";
+                cellx.classList.add('warn');
             } else {
-                cellx.style.backgroundColor = "lightgreen";
+                cellx.classList.add('ok');
             }
             if (y_value <= 31) {
-                celly.style.backgroundColor = "red";
+                celly.classList.add('alert');
             } else if (y_value <= 32) {
-                celly.style.backgroundColor = "yellow";
+                celly.classList.add('warn');
             } else if (y_value <= 36) {
-                celly.style.backgroundColor = "lightgreen";
+                celly.classList.add('ok');
             } else {
-                celly.style.backgroundColor = "green";
+                celly.classList.add('over');
             }
         }
         //Summe EF
         let cellz = document.getElementById('z1');
         let z_value = Number.parseFloat(cellz.innerHTML);
         if (z_value <= 33.5) {
-            cellz.style.backgroundColor = "red";
+            cellz.classList.add('alert');
         } else {
-            cellz.style.backgroundColor = "lightgreen";
+            cellz.classList.add('ok');
         }
         //Q1
         for (let h = 2; h < 6; h++) { // Halbjahre der Q1
@@ -201,29 +202,29 @@ class Controller {
             const x_value = Number.parseInt(cellx.innerHTML);
             const y_value = Number.parseInt(celly.innerHTML);
             if (x_value <= 8) {
-                cellx.style.backgroundColor = "red";
+                cellx.classList.add('alert');
             } else if (x_value <= 9) {
-                cellx.style.backgroundColor = "yellow";
+                cellx.classList.add('warn');
             } else {
-                cellx.style.backgroundColor = "lightgreen";
+                cellx.classList.add('ok');
             }
             if (y_value <= 30) {
-                celly.style.backgroundColor = "red";
+                celly.classList.add('alert');
             } else if (y_value <= 32) {
-                celly.style.backgroundColor = "yellow";
+                celly.classList.add('warn');
             } else if (y_value <= 36) {
-                celly.style.backgroundColor = "lightgreen";
+                celly.classList.add('ok');
             } else {
-                celly.style.backgroundColor = "green";
+                celly.classList.add('over');
             }
         }
         //Summe Q1
         cellz = document.getElementById('z2');
         z_value = Number.parseFloat(cellz.innerHTML);
         if (z_value <= 33.75) {
-            cellz.style.backgroundColor = "red";
+            cellz.classList.add('alert');
         } else {
-            cellz.style.backgroundColor = "lightgreen";
+            cellz.classList.add('ok');
         }
     }
 

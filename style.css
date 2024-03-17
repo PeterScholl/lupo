@@ -42,6 +42,25 @@
 
 /* Ende Hintergrundfarben nach Fächergruppen */
 
+/* Hintergrundfarben nach Zustand ok,warn,alert,over */
+.ok {
+    background-color: lightgreen;
+}
+
+.warn {
+    background-color: yellow;
+}
+
+.alert {
+    background-color: red;
+}
+
+.over {
+    background-color: green;
+}
+/* Ende Hintergrundfarben nach Zustand ok,warn,alert,over */
+
+
 .print_only {
     display: none;
 }
@@ -49,21 +68,30 @@
 /***** Modal mit Infotext ***********/
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 2; /* Sit on top */
-    padding-top: 50px; /* Location of the box */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 2;
+    /* Sit on top */
+    padding-top: 50px;
+    /* Location of the box */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content */
-  .modal-content {
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -71,22 +99,23 @@
     width: 80%;
     max-height: calc(100vh - 120px);
     overflow: auto;
-  }
-  
-  /* The Close Button */
-  .close {
+}
+
+/* The Close Button */
+.close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
-  }
+}
+
 /***** ENDE Modal mit Infotext ******/
 
 /***** Menü auf der rechten Seite ***/
@@ -281,12 +310,21 @@ h1 {
 
 /* Darstellungseinstellungen für die Druckausgabe */
 @media print {
+    body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
     tr.Fach {
         background-color: transparent;
     }
 
     tr:nth-child(even) {
-        background-color: #aaa;
+        background-color: #bbb;
+    }
+
+    tr:nth-child(odd) {
+        background-color: transparent;
     }
 
     div.row {
@@ -310,18 +348,22 @@ h1 {
         display: block;
     }
 
+    table {
+        margin-left: 50px;
+        margin-right: 100px;
+        width: 490px;
+    }
+
     table,
     td,
+    td.disabled,
     th {
         margin-top: 10px;
         border-width: 1.4px;
         border-style: solid;
-        font-size: medium;
+        font-size: 0.9em;
         padding: 2px;
-    }
-
-    table {
-        width: 100%;
+        background-color: transparent;
     }
 
     div.infoKopf {
@@ -333,9 +375,16 @@ h1 {
     div.infoInhalt {
         width: 640px;
         padding: 2px;
-        height: 0px;
+        height: 20px;
     }
 
+    #kopfzeile,
+    .ok,
+    .warn,
+    .alert,    
+    .over {
+        background-color: transparent;
+    }
 }
 
 img {
@@ -395,4 +444,4 @@ img {
 /* muss hier als letztes stehen, damit es vorherige display-Einstellungen überschreiben kann */
 .show {
     display: block;
-} 
+}
