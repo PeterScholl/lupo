@@ -99,6 +99,7 @@ class Fachbelegung {
      */
     istLKWahlZulaessig(halbjahr, wb = Controller.getInstance().wahlbogen) {
         let valid = true;
+        valid &= !(this.faecherGruppe.startsWith("FG1FS") && !this.istFFS) //neu einsetzende FS darf kein LK sein
         valid &= this.istLK() || wb.gibLKFaecher().length < 2; // es gibt schon zwei andere LKs
         //valid &= (halbjahr == 2) || (halbjahr > 2 && this.belegung[halbjahr - 1] == 'LK'); // Änderung auf LK nur in Q1.1
         valid &= (halbjahr == 2); // Änderung auf LK nur in Q1.1
