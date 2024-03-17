@@ -147,18 +147,22 @@ class PruefeBelegungsBedingungen {
     static pruefeZweiNaWiOderZweiFS(wahlbogen) {
         //Alle Fremdsprachen, die durchgehend belegt sind
         //TODO: Temproräre Bugfix hier - bili-Fächer herausgenommen - die müssen eine andere FS als die FS sein
-        let fs = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe === "FG1FS"; })
-            .filter((e) => { return e.istBelegt(0, 6); });
+        const fs = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe === "FG1FS" || f.istBili })
+            .filter((e) => { return e.istBelegt(0, 6); })
+            .filter((f) => { return f.istSchriftlichBelegt(2, 5); }); //bei fs müssen die zwei schriftl. belegt sein
+        //Nur die Sprachkürzel E,F,S,L,... - ohne Duplikate (daher Set)
+        const fsKuerzel = [... new Set(fs.map((e) => {
+            if (e.istBili) return e.kuerzel[2]; //stelle mit der Sprache
+            else return e.statKuerzel[0]; // Zeichen für die Sprache E,F...
+        }))]; 
+        if (fsKuerzel.length >= 2) return "";
         //Alle NaWis außer Mathe, die durchgehend belegt sind
         let nawi = wahlbogen.fachbelegungen.filter((f) => { return f.faecherGruppe.startsWith("FG3"); })
             .filter((f) => { return f.statKuerzel != "M"; })
             .filter((e) => { return e.istBelegt(0, 6); });
-        if (fs.length >= 2 || nawi.length >= 2) {
-            //Schriftlichkeit  prüfen
-            if (fs.filter((f) => { return f.istSchriftlichBelegt(0, 5); }).length >= 2 ||
-                nawi.filter((f) => { return f.istSchriftlichBelegt(2, 5); }).length >= 1) {
+        //dabei muss eine NaWi schriftlich sein
+        if (nawi.length >= 2 && nawi.filter((f) => { return f.istSchriftlichBelegt(2, 5); }).length >= 1) {
                 return "";
-            }
         }
         return "Es müssen durchgehend zwei Naturwissenschaften oder zwei "
             + "Fremdsprachen belegt werden, hierbei ist eine Naturwissenschaft "
