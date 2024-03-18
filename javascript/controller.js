@@ -166,7 +166,9 @@ class Controller {
         //EF
         for (let h = 0; h < 2; h++) { // Halbjahre der EF
             const cellx = document.getElementById('x' + (h + 1));
+            cellx.classList.remove('ok','alert','warn','over');
             const celly = document.getElementById('y' + (h + 1));
+            celly.classList.remove('ok','alert','warn','over');
             const x_value = Number.parseInt(cellx.innerHTML);
             const y_value = Number.parseInt(celly.innerHTML);
             if (x_value <= 9) {
@@ -189,6 +191,7 @@ class Controller {
         }
         //Summe EF
         let cellz = document.getElementById('z1');
+        cellz.classList.remove('ok','alert','warn','over');
         let z_value = Number.parseFloat(cellz.innerHTML);
         if (z_value <= 33.5) {
             cellz.classList.add('alert');
@@ -198,7 +201,9 @@ class Controller {
         //Q1
         for (let h = 2; h < 6; h++) { // Halbjahre der Q1
             const cellx = document.getElementById('x' + (h + 1));
+            cellx.classList.remove('ok','alert','warn','over');
             const celly = document.getElementById('y' + (h + 1));
+            celly.classList.remove('ok','alert','warn','over');
             const x_value = Number.parseInt(cellx.innerHTML);
             const y_value = Number.parseInt(celly.innerHTML);
             if (x_value <= 8) {
@@ -220,6 +225,7 @@ class Controller {
         }
         //Summe Q1
         cellz = document.getElementById('z2');
+        cellz.classList.remove('ok','alert','warn','over');
         z_value = Number.parseFloat(cellz.innerHTML);
         if (z_value <= 33.75) {
             cellz.classList.add('alert');
