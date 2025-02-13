@@ -5,7 +5,7 @@ class Wahlbogen {
     name = "";
     vorname = "";
     fachbelegungen = [];
-    abiJahrgang = 2027;
+    abiJahrgang = 2028;
     verboteneFachKombis = []; //enthält verbotene Fächerkombinationen als Array von zwei Kürzeln, z.B. ['GE','GEE']
 
     /**
@@ -44,6 +44,8 @@ class Wahlbogen {
         s6.statKuerzel = "S6";
         // Spanisch neu
         this.addFachToFachbelegungen("Spanisch ab EF", "S0", ['', '', '', '', '', ''], "FG1FS");
+        let s0 = this.getFachMitKuerzel("S0");
+        s0.belegungsBed.stundenzahlen = [4,4,4,4,4,4];
         // Kunst
         this.addFachToFachbelegungen("Kunst", "KU", ['', '', '', '', '', ''], "FG1KuMu");
         // Musik
