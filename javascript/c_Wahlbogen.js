@@ -12,7 +12,7 @@ class Wahlbogen {
      * im Konstruktor werden die Basisdaten festgelegt
      */
     constructor() {
-        this.abiJahrgang = 2027;
+        this.abiJahrgang = 2028;
     }
 
     /**
